@@ -55,16 +55,27 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->assignRole('owner');
+        $owner = '';
 
-        Auth::login($user);
+        $user->assignRole($owner);
 
-        if( $user->hasRole('owner') ){
-            return redirect()->route('admin.dashboard');
+        $roles_names = $user->getRoleNames();
+
+        if( count($roles_names) ){
+
+            dd(  'user start intering' );
+            
+            Auth::login($user);
+
+            if( $user->hasRole('owner') ){
+                return redirect()->route('admin.dashboard');
+            }else{
+                return redirect()->route('dashboard');
+            }
         }else{
-            return redirect()->route('dashboard');
+            $user->delete();
+            return redirect()->back()->withErrors(['user' => 'Un Expected Error Occur.. please try again.']);
         }
 
-        return redirect();
     }
 }

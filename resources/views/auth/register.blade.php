@@ -7,7 +7,14 @@
         </x-slot>
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        {{-- <x-auth-validation-errors class="mb-4" :errors="$errors" /> --}}
+
+        @php
+            $type = 'user';
+            $errorLog = 'massage';
+        @endphp
+
+         <x-error-card :type="$type" init='Registration fail!' :errorLog="$errorLog" />
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
