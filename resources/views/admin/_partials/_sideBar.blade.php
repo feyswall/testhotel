@@ -4,7 +4,9 @@
             <span class="sidebar-brand-text align-middle">
                 Dashboard
             </span>
-            <svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewbox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" color="#FFFFFF" style="margin-left: -3px">
+            <svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewbox="0 0 24 24" fill="none"
+                stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" color="#FFFFFF"
+                style="margin-left: -3px">
                 <path d="M12 4L20 8.00004L12 12L4 8.00004L12 4Z"></path>
                 <path d="M20 12L12 16L4 12"></path>
                 <path d="M20 16L12 20L4 16"></path>
@@ -13,7 +15,7 @@
 
         <div class="sidebar-user">
             <div class="d-flex justify-content-center">
-               {{-- <div class="flex-shrink-0">
+                {{-- <div class="flex-shrink-0">
                     <img src="{{ asset('assets/img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded me-1" alt="Charles Hall">
                 </div>
                     <div class="flex-grow-1 ps-2">
@@ -49,34 +51,25 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">Results</span>    
+                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">Results</span>
                 </a>
             </li>
-
 
             <li class="sidebar-item">
                 <a href="#users" data-bs-toggle="collapse" class="sidebar-link collapsed">
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Courses</span>
                 </a>
                 <ul id="users" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item><a class="sidebar-link" href="#">view courses</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="pages-sign-up.html">Course Assessment</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="pages-reset-password.html">Course Results</a></li>
-     
+                    <li class="sidebar-item><a class=" sidebar-link" href="#">view courses</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="pages-sign-up.html">Course Assessment</a>
+                    </li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="pages-reset-password.html">Course
+                            Results</a></li>
+
                 </ul>
             </li>
 
-        
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-invoice.html">
-                    <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Invoice</span>
-                </a>
-            </li>
-
-         
-        {{-- 
-            <li class="sidebar-item">
+            {{-- <li class="sidebar-item">
                 <a class="sidebar-link" href="calendar.html">
                     <i class="align-middle" data-feather="calendar"></i> <span class="align-middle">Calendar</span>
                     <span class="sidebar-badge badge bg-primary">Pro</span>
