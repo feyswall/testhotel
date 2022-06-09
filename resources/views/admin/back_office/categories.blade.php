@@ -18,7 +18,6 @@
     <div class="main">
         <main class="content">
             <div class="container-fluid p-0">
-
                 <a href="#" class="btn btn-primary float-end mt-n1">Add Category</a>
                 <div class="mb-3">
                     <h1 class="h3 d-inline align-middle">{{ $type_name }} Categories</h1>
@@ -70,7 +69,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
     </div>
