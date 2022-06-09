@@ -15,26 +15,6 @@
 
         <div class="sidebar-user">
             <div class="d-flex justify-content-center">
-                {{-- <div class="flex-shrink-0">
-                    <img src="{{ asset('assets/img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded me-1" alt="Charles Hall">
-                </div>
-                    <div class="flex-grow-1 ps-2">
-                    <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                        Charles Hall
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-start">
-                        <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
-                            Privacy</a>
-                        <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Log out</a>
-                    </div>
-
-                    <div class="sidebar-user-subtitle">Designer</div>
-                </div> --}}
             </div>
         </div>
 
@@ -43,11 +23,6 @@
                 Pages
             </li>
             <li class="sidebar-item">
-                {{-- <a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link collapsed" href="index.html">
-                    <i class="align-middle" data-feather="sliders">
-                    </i> 
-                    <span class="align-middle">Dashboards</span>
-                </a> --}}
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
@@ -79,7 +54,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-invoice.html">
+                <a class="sidebar-link" href="/back_office_page">
                     <i class="align-middle" data-feather="share"></i> <span class="align-middle">Back Office</span>
                 </a>
             </li>
