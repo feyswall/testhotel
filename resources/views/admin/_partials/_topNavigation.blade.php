@@ -3,6 +3,37 @@
         <i class="hamburger align-self-center"></i>
     </a>
 
+    <ul class="navbar-nav d-none d-lg-block">
+        <li class="nav-item px-2 dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Back Office 
+            </a>
+            <div class="dropdown-menu dropdown-menu-start dropdown-mega" aria-labelledby="servicesDropdown">
+                <div class="d-md-flex align-items-start justify-content-start">
+                    <div class="dropdown-mega-list">
+                        {{-- <div class="dropdown-header">UI Elements</div> --}}
+                        <a class="dropdown-item" href="#">Taxes</a>
+                        <a class="dropdown-item" href="#">Attributes</a>
+                        <a class="dropdown-item" href="#">Suppliers</a>
+                        <a class="dropdown-item" href="#">Employees</a>
+                    </div>
+                    <div class="dropdown-mega-list">
+                        {{-- <div class="dropdown-header">UI Elements</div> --}}
+                        <a class="dropdown-item" href="#">Customers</a>
+                        <a class="dropdown-item" href="#">Item categories</a>
+                        <a class="dropdown-item" href="#">Expenses categories</a>
+                        <a class="dropdown-item" href="#">Contracts categories</a>
+                    </div>
+                    <div class="dropdown-mega-list">
+                        {{-- <div class="dropdown-header">UI Elements</div> --}}
+                        <a class="dropdown-item" href="#">Discounts</a>
+                        <a class="dropdown-item" href="#">Users</a>
+                        </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
     {{-- <form class="d-none d-sm-inline-block">
         <div class="input-group input-group-navbar">
             <input type="text" class="form-control" placeholder="Search…" aria-label="Search">
