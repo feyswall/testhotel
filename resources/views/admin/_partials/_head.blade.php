@@ -9,8 +9,8 @@
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link rel="shortcut icon" href="{{ asset('assets/img/icons/icon-48x48.png') }}">
-
 <link rel="canonical" href="pages-blank.html">
+<link rel="canonical" href="tables-datatables-column-search.html">
 
 @yield('title')
 

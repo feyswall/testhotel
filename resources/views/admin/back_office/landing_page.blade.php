@@ -10,9 +10,9 @@
         @php
             $menu = [
                 ['name' => 'Employees', 'icon' => 'users', 'color' => 'alert-primary', 'route' => '/employees'],
-                ['name' => 'Item Categories', 'icon' => 'box', 'color' => 'alert-info', 'route' => '/item_categories'],
-                ['name' => 'Expenses Categories', 'icon' => 'bar-chart-2', 'color' => 'alert-danger', 'route' => '/exp_categories'],
-                ['name' => 'Contracts Categories', 'icon' => 'file-text', 'color' => 'alert-success', 'route' => '/cont_categories'],
+                ['name' => 'Item Categories', 'icon' => 'box', 'color' => 'alert-info', 'route' => '/categories/1'],
+                ['name' => 'Expenses Categories', 'icon' => 'bar-chart-2', 'color' => 'alert-danger', 'route' => '/categories/2'],
+                ['name' => 'Contracts Categories', 'icon' => 'file-text', 'color' => 'alert-success', 'route' => '/categories/3'],
                 ['name' => 'Suppliers', 'icon' => 'truck', 'color' => 'alert-primary', 'route' => '/suppliers'],
                 ['name' => 'Taxes', 'icon' => 'dollar-sign', 'color' => 'alert-warning', 'route' => '/taxes'],
                 ['name' => 'Item Attributes', 'icon' => 'list', 'color' => 'alert-info', 'route' => '/attributes'],
