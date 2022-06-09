@@ -59,7 +59,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-invoice.html">
+                <a class="sidebar-link" href="/profile">
                     <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Profile</span>
                 </a>
             </li>

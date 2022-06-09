@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BackOfficeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\Admin')->group(function(){
@@ -17,6 +18,11 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::get('/discounts', [BackOfficeController::class, 'discounts']);
     Route::get('/attributes', [BackOfficeController::class, 'attributes']);
     Route::get('/users', [BackOfficeController::class, 'users']);
+
+
+
+    //Profile Route
+    Route::get('/profile', [ProfileController::class, 'profile']);
 });
 
 
