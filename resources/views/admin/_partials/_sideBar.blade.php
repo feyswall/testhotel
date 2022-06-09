@@ -25,7 +25,7 @@
             <li class="sidebar-item">
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="#">
+                <a class="sidebar-link" href="dashboard">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>    
                 </a>
             </li>
