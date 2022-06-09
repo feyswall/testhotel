@@ -7,109 +7,37 @@
 @section('content')
 <div class="main">
     <main class="content">
-        <div class="container-fluid p-0">
-            <div class="row">
-                <div class="col-xl-6 col-xxl-5 d-flex">
-                    <div class="w-100">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col mt-0">
-                                                <h5 class="card-title">Sales</h5>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="align-middle" data-feather="truck"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h1 class="mt-1 mb-3">2.382</h1>
-                                        <div class="mb-0">
-                                            <span class="badge badge-primary-light"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-                                            <span class="text-muted">Since last week</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col mt-0">
-                                                <h5 class="card-title">Visitors</h5>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="align-middle" data-feather="users"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h1 class="mt-1 mb-3">14.212</h1>
-                                        <div class="mb-0">
-                                            <span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-                                            <span class="text-muted">Since last week</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-sm-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col mt-0">
-                                                <h5 class="card-title">Earnings</h5>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="align-middle" data-feather="dollar-sign"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h1 class="mt-1 mb-3">$21.300</h1>
-                                        <div class="mb-0">
-                                            <span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-                                            <span class="text-muted">Since last week</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col mt-0">
-                                                <h5 class="card-title">Orders</h5>
-                                            </div>
-
-                                            <div class="col-auto">
-                                                <div class="stat text-primary">
-                                                    <i class="align-middle" data-feather="shopping-cart"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <h1 class="mt-1 mb-3">64</h1>
-                                        <div class="mb-0">
-                                            <span class="badge badge-danger-light"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-                                            <span class="text-muted">Since last week</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        
+        @php
+            $menu = [
+                ['name' => 'Employees', 'icon' => 'users', 'color' => 'alert-primary', 'route' => '/employees'],
+                ['name' => 'Item Categories', 'icon' => 'box', 'color' => 'alert-info', 'route' => '/item_categories'],
+                ['name' => 'Expenses Categories', 'icon' => 'bar-chart-2', 'color' => 'alert-danger', 'route' => '/exp_categories'],
+                ['name' => 'Contracts Categories', 'icon' => 'file-text', 'color' => 'alert-success', 'route' => '/cont_categories'],
+                ['name' => 'Suppliers', 'icon' => 'truck', 'color' => 'alert-primary', 'route' => '/suppliers'],
+                ['name' => 'Taxes', 'icon' => 'dollar-sign', 'color' => 'alert-warning', 'route' => '/taxes'],
+                ['name' => 'Item Attributes', 'icon' => 'list', 'color' => 'alert-info', 'route' => '/attributes'],
+                ['name' => 'Customers', 'icon' => 'shopping-bag', 'color' => 'alert-dark', 'route' => '/customers'],
+                ['name' => 'Discounts', 'icon' => 'percent', 'color' => 'alert-success', 'route' => '/discounts'],
+                ['name' => 'System Users', 'icon' => 'shield', 'color' => 'alert-primary', 'route' => '/users'],
+            ];
+        @endphp
+      <h1 class="h3 mb-3">Backoffice</h1>
+      <div class="row">
+          @foreach ($menu as $item)
+          <a href="{{$item['route']}}" class="col col-md-4 col-sm-12">
+            <div>
+                <div class="alert {{$item['color']}} alert-outline alert-dismissible" role="alert">
+                    <div class="alert-icon">
+                        <i data-feather="{{$item['icon']}}"></i>
+                    </div>
+                    <div class="alert-message">
+                        {{$item['name']}} 
                     </div>
                 </div>
-
-                
-            </div>
-        </div>
+              </div>
+          </a>
+          @endforeach
+      </div>
     </main>
 </div>
 @endsection
