@@ -1,7 +1,7 @@
 <div class="text-center mt-4">
     <h1 class="h2">Welcome to Hotel Solutions</h1>
     <p class="lead">
-        Sign in here...
+        Sign in
     </p>
 </div>
 
@@ -43,7 +43,7 @@
                     <label class="form-check">
                         <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked="">
                         <span class="form-check-label">
-                            Remember me next time
+                            Remember me.
                         </span>
                     </label>
                 </div>

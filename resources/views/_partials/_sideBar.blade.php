@@ -49,28 +49,42 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="#">
-                    <i class="align-middle" data-feather="list"></i> <span class="align-middle">Results</span>    
+                    <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>    
                 </a>
             </li>
 
 
             <li class="sidebar-item">
-                <a href="#users" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Courses</span>
+                <a href="#inventory" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i class="align-middle" data-feather="database"></i> <span class="align-middle">Inventory</span>
                 </a>
-                <ul id="users" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item><a class="sidebar-link" href="#">view courses</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="pages-sign-up.html">Course Assessment</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="pages-reset-password.html">Course Results</a></li>
-     
+                <ul id="inventory" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Items</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Stocks</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Warehouse</a></li>
                 </ul>
             </li>
 
-        
+            <li class="sidebar-item">
+                <a href="#records" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i class="align-middle" data-feather="book"></i> <span class="align-middle">Records & Reports</span>
+                </a>
+                <ul id="records" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Sales records</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Purchase records</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="#">Expenses records</a></li>
+                </ul>
+            </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="pages-invoice.html">
-                    <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Invoice</span>
+                    <i class="align-middle" data-feather="share"></i> <span class="align-middle">Back Office</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="pages-invoice.html">
+                    <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Profile</span>
                 </a>
             </li>
 
@@ -225,7 +239,6 @@
                 </ul>
             </li> --}}
         </ul>
-
 
         {{-- <div class="sidebar-cta">
             <div class="sidebar-cta-content">
