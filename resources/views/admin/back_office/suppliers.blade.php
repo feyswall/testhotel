@@ -1,7 +1,7 @@
 @extends('pageLayouts.admin')
 
 @section('title')
-    <title>Back Office | Suppliers</title>
+    <title>Back Office | Supplier</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
             <div class="container-fluid p-0">
                 <a href="#" class="btn btn-primary float-end mt-n1">Add Supplier</a>
                 <div class="mb-3">
-                    <h1 class="h3 d-inline align-middle"> Supplier</h1>
+                    <h1 class="h3 d-inline align-middle"> Suppliers</h1>
                 </div>
 
                 <div class="row">
@@ -20,7 +20,7 @@
                                 <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Serial No</th>
+                                            <th>Supplier No</th>
                                             <th>Supplier Name</th>
                                             <th>TotalRecords</th>
                                             <th>Action</th>
