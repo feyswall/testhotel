@@ -2,6 +2,7 @@
 	<script src="{{ asset('assets/js/app.js') }}"></script>
 
 	<script src="{{ asset('assets/js/datatables.js') }}"></script>
+	<script src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
 
 	{{-- <script>
 		document.addEventListener("DOMContentLoaded", function() {
@@ -56,4 +57,14 @@
             });
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+			// Datatables with Buttons
+			var datatablesButtons = $("#datatables-buttons").DataTable({
+				responsive: true,
+				lengthChange: !1,
+				buttons: ["copy", "print"]
+			});
+			datatablesButtons.buttons().container().appendTo("#datatables-buttons_wrapper .col-md-6:eq(0)");
+		});
 </script>

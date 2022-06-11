@@ -23,7 +23,7 @@
                             <a class="dropdown-item" href="#">Add Items</a>
                             <a class="dropdown-item" href="#">Add Warehouse</a>
                             <a class="dropdown-item" href="#">New Customer</a>
-                            <a class="dropdown-item" href="#">New Supplier</a> 
+                            <a class="dropdown-item" href="/suppliers/create">New Supplier</a> 
                             <a class="dropdown-item" href="#">New Contract</a>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             </div>
                             <h1 class="mt-1 mb-3">4</h1>
                             <div class="mb-0">
-                                <a href=""><span class="text-muted">Click to view more >></span></a>
+                                <a href="/warehouses"><span class="text-muted">Click to view more >></span></a>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                             </div>
                             <h1 class="mt-1 mb-3">46</h1>
                             <div class="mb-0">
-                                <a href=""><span class="text-muted">Click to view more >></span></a>
+                                <a href="/employees"><span class="text-muted">Click to view more >></span></a>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                             </div>
                             <h1 class="mt-1 mb-3">16</h1>
                             <div class="mb-0">
-                                <a href=""><span class="text-muted">Click to view more >></span></a>
+                                <a href="/suppliers"><span class="text-muted">Click to view more >></span></a>
                             </div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                             </div>
                             <h1 class="mt-1 mb-3">126</h1>
                             <div class="mb-0">
-                                <a href=""><span class="text-muted">Click to view more >></span></a>
+                                <a href="/customers"><span class="text-muted">Click to view more >></span></a>
                             </div>
                         </div>
                     </div>

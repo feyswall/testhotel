@@ -25,7 +25,7 @@
             <li class="sidebar-item">
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="dashboard">
+                <a class="sidebar-link" href="/dashboard">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>    
                 </a>
             </li>
@@ -46,14 +46,15 @@
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Records & Reports</span>
                 </a>
                 <ul id="records" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Sales records</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Purchase records</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Expenses records</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/sales">Sales records</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/purchases">Purchase records</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/expenses">Expenses records</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/contracts">Contracts records</a></li>
                 </ul>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="/back_office_page">
+                <a class="sidebar-link" href="/backoffice">
                     <i class="align-middle" data-feather="share"></i> <span class="align-middle">Back Office</span>
                 </a>
             </li>

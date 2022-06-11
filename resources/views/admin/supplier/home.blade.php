@@ -1,14 +1,14 @@
 @extends('pageLayouts.admin')
 
 @section('title')
-    <title>Back Office | Supplier</title>
+    <title>Back Office | Suppliers</title>
 @endsection
 
 @section('content')
     <div class="main">
         <main class="content">
             <div class="container-fluid p-0">
-                <a href="#" class="btn btn-primary float-end mt-n1">Add Supplier</a>
+                <a href="/suppliers/create" class="btn btn-primary float-end mt-n1">Add Supplier</a>
                 <div class="mb-3">
                     <h1 class="h3 d-inline align-middle"> Suppliers</h1>
                 </div>

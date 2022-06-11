@@ -15,10 +15,33 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                               
+                        @php
+                            $warehouses = [
+                                ['name' => 'Wami Code Warehouse', 'location' => 'Tumbi', 'items' => 234]
+                            ];
+                        @endphp
+                        <div class="row">
+                            @foreach ($warehouses as $item)
+                            <div class="col col-md-3">
+                                <div class="card flex-fill">
+                                    <div class="card-body py-4">
+                                        <div class="float-end text-success">
+                                            <button class="btn btn-outline-secondary">Manage</button>
+                                        </div>
+                                        <h4 class="mb-2">{{ $item['name'] }}</h4>
+                                        <div class="mb-1">
+                                            <strong>
+                                                {{$item['items']}}
+                                            </strong>
+                                            Items
+                                        </div>
+                                        <div>
+                                            Location: {{$item['location']}}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

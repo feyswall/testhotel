@@ -9,64 +9,96 @@
 
     <main class="content">
         <div class="container-fluid p-0">
-            <h1 class="h3 mb-3 text-center">Profile</h1>
-            <div class="row justify-content-center">
-                <div class="col-md-5 col-xl-5">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Profile Details</h5>
-                        </div>
-                        <div class="card-body">
-                            <img style="margin-left: 230px" src="{{ asset('assets/img/avatars/avatar-4.jpg') }}" alt="Christina Mason" class="img-fluid rounded-circle mb-2 text-center" width="128" height="128">
-                            <h5 class="card-title mb-0">{{ Auth::user()->name }}</h5>
-                            <div class="text-muted mb-2">{{ Auth::user()->roles[0]->name }}</div>
-                        </div>
-                        <hr class="my-0">
-                        
-                        <hr class="my-0">
-                        <div class="card-body">
-                            <form id="update-button" action="{{ route('admin.updateProfile', $user->id) }}" method="post">
-                                
-                                @csrf
-                                @method('PUT')
-                                <div class="mb-3">
-                                    <label class="form-label">Username</label>
-                                    <input type="user_name" class="form-control" value="{{ $user->user_name }}" placeholder="User name">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">First name</label>
-                                    <input type="first_name" class="form-control" value="{{ $user->first_name }}" placeholder="First name">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Last name</label>
-                                    <input type="last_name" class="form-control" value="{{ $user->last_name }}" placeholder="Last name">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Email address</label>
-                                    <input type="email" class="form-control" value="{{ $user->email }}" placeholder="Email">
-                                    @error('email')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Password</label>
-                                    <input type="password" class="form-control" placeholder="Password">
-                                </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label">Confrim Password</label>
-                                    <input type="confirm_password" class="form-control" placeholder="password confirmation" name="password_confirmation">
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label class="form-label w-100">File input</label>
-                                    <input type="file" name="profile">
-                                </div>
-                            </form>
-                           <center><button type="submit" form="update-button" class="btn btn-success mt-3">Save</button></center> 
+            <h1 class="h3 mb-3">Settings</h1>
+            
+            <div class="row">
+                <div class="col-md-3 col-xl-2">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Profile Settings</h5>
                         </div>
-                        <hr class="my-0">
-                       
+
+                        <div class="list-group list-group-flush" role="tablist">
+                            <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#account" role="tab">
+                                Account
+                            </a>
+                            <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#password" role="tab">
+                                Password
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9 col-xl-10">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="account" role="tabpanel">
+
+                            <div class="card">
+                                <div class="card-header">
+
+                                    <h5 class="card-title mb-0">Public info</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="inputUsername">Username</label>
+                                                    <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="inputFirstName">First name</label>
+                                                <input type="text" class="form-control" id="inputFirstName" placeholder="First name">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="inputLastName">Last name</label>
+                                                <input type="text" class="form-control" id="inputLastName" placeholder="Last name">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="inputEmail4">Email</label>
+                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="password" role="tabpanel">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Password</h5>
+
+                                    <form>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="inputPasswordCurrent">Current password</label>
+                                            <input type="password" class="form-control" id="inputPasswordCurrent">
+                                            <small><a href="#">Forgot your password?</a></small>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="inputPasswordNew">New password</label>
+                                            <input type="password" class="form-control" id="inputPasswordNew">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="inputPasswordNew2">Verify password</label>
+                                            <input type="password" class="form-control" id="inputPasswordNew2">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
