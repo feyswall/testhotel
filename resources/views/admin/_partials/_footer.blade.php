@@ -3,7 +3,7 @@
         <div class="row text-muted">
             <div class="col-6 text-start">
                 <p class="mb-0">
-                    <a href="index.html" class="text-muted"><strong>Hotel Solutions</strong></a> &copy;
+                    Copyright &copy 2022. <a target="_blank" href="https://theforbins.com" class="text-muted"><strong>Forbins Tech Co.</strong></a>
                 </p>
             </div>
             <div class="col-6 text-end">

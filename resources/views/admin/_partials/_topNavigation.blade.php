@@ -12,22 +12,22 @@
                 <div class="d-md-flex align-items-start justify-content-start">
                     <div class="dropdown-mega-list">
                         {{-- <div class="dropdown-header">UI Elements</div> --}}
-                        <a class="dropdown-item" href="#">Taxes</a>
-                        <a class="dropdown-item" href="#">Attributes</a>
-                        <a class="dropdown-item" href="#">Suppliers</a>
-                        <a class="dropdown-item" href="#">Employees</a>
+                        <a class="dropdown-item" href="/taxes">Taxes</a>
+                        <a class="dropdown-item" href="/attributes">Attributes</a>
+                        <a class="dropdown-item" href="/suppliers">Suppliers</a>
+                        <a class="dropdown-item" href="/employees">Employees</a>
                     </div>
                     <div class="dropdown-mega-list">
                         {{-- <div class="dropdown-header">UI Elements</div> --}}
-                        <a class="dropdown-item" href="#">Customers</a>
-                        <a class="dropdown-item" href="#">Item categories</a>
-                        <a class="dropdown-item" href="#">Expenses categories</a>
-                        <a class="dropdown-item" href="#">Contracts categories</a>
+                        <a class="dropdown-item" href="/customers">Customers</a>
+                        <a class="dropdown-item" href="/categories/1">Item categories</a>
+                        <a class="dropdown-item" href="/categories/2">Expenses categories</a>
+                        <a class="dropdown-item" href="/categories/3">Contracts categories</a>
                     </div>
                     <div class="dropdown-mega-list">
                         {{-- <div class="dropdown-header">UI Elements</div> --}}
-                        <a class="dropdown-item" href="#">Discounts</a>
-                        <a class="dropdown-item" href="#">Users</a>
+                        <a class="dropdown-item" href="/discounts">Discounts</a>
+                        <a class="dropdown-item" href="/users">Users</a>
                         </div>
                 </div>
             </div>

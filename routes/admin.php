@@ -3,6 +3,8 @@
 use App\Http\Controllers\BackOfficeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\WarehouseController;
 
 Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\Admin')->group(function(){
     Route::put('/admin/update/profile/{id}', 'AdminsController@updateProfile')->name('admin.updateProfile');
@@ -23,6 +25,11 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     //Profile Route
     Route::get('/profile', [ProfileController::class, 'profile']);
+
+    //Item routes
+    Route::get('/items', [ItemController::class, 'index'])->name('list-items');
+
+    Route::get('/warehouses', [WarehouseController::class, 'index'])->name('list-warehouses');
 });
 
 

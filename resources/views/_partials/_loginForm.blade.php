@@ -1,8 +1,9 @@
-<div class="text-center mt-4">
-    <h1 class="h2">Welcome to Hotel Solutions</h1>
-    <p class="lead">
+<div class="text-center mt-4 mb-4">
+    <img src="{{ asset('assets/img/avatars/logo-light.png') }}" alt="logo" class="rounded-circle" width="140" height="140">
+    {{-- <h1 class="h2">Welcome to Hotel Solutions</h1> --}}
+    {{-- <p class="lead">
         Sign in
-    </p>
+    </p> --}}
 </div>
 
 <div class="card">

@@ -35,9 +35,9 @@
                     <i class="align-middle" data-feather="database"></i> <span class="align-middle">Inventory</span>
                 </a>
                 <ul id="inventory" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Items</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Stocks</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">Warehouse</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/items">Items</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/stocks">Stocks</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/warehouses">Warehouses</a></li>
                 </ul>
             </li>
 
