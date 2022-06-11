@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AttributesController;
+use App\Http\Controllers\Admin\CustomersController;
+use App\Http\Controllers\Admin\EmployeesController;
+use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
@@ -17,15 +21,42 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     //Back Office Routes 
     Route::controller(BackofficeController::class)->group(function(){
         Route::get('/backoffice', 'index');
-        // Route::get('/employees', 'employees');
-        // Route::get('/categories/{type}', 'categories');
-        // Route::get('/taxes', 'taxes');
-        // Route::get('/customers', 'customers');
-        // Route::get('/discounts', 'discounts');
-        // Route::get('/attributes', 'attributes');
-        // Route::get('/users', 'users');
     });
 
+    //Employees routes
+    Route::controller(EmployeesController::class)->group(function(){
+        Route::get('/employees', 'index');
+    });
+
+    //Attributes routes
+    Route::controller(AttributesController::class)->group(function(){
+        Route::get('/attributes', 'index');
+    });
+
+    //Customer routes
+    Route::controller(CustomersController::class)->group(function(){
+        Route::get('/customers', 'index');
+    });
+
+    //Members routes
+    Route::controller(MembersController::class)->group(function(){
+        Route::get('/users', 'index');
+    });
+
+    //Categories routes
+    Route::controller(CategoriesController::class)->group(function(){
+        Route::get('/categories/{type}', 'index');
+    });
+
+    //Discounts routes
+    Route::controller(DiscountsController::class)->group(function(){
+        Route::get('/discounts', 'index');
+    });
+
+    //Tax routes
+    Route::controller(TaxController::class)->group(function(){
+        Route::get('/taxes', 'index');
+    });
 
     //Supplier routes
     Route::controller(SupplierController::class)->group(function () {
