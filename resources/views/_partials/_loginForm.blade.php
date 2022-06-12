@@ -1,5 +1,5 @@
-<div class="text-center mt-4 mb-4">
-    <img src="{{ asset('assets/img/avatars/logo-light.png') }}" alt="logo" class="rounded-circle" width="140" height="140">
+<div class="text-center mb-4">
+    <img src="{{ asset('assets/img/avatars/logo-dark.png') }}" alt="logo" width="50%" height="50%">
     {{-- <h1 class="h2">Welcome to Hotel Solutions</h1> --}}
     {{-- <p class="lead">
         Sign in
@@ -48,8 +48,8 @@
                         </span>
                     </label>
                 </div>
-                <div class="text-center mt-3">
-                    <button type="submit" class="btn btn-lg btn-primary">Sign in</button>
+                <div class="text-end mt-3">
+                    <button type="submit" class="btn btn-lg btn-amber text-black">Sign in</button>
                     <!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
                 </div>
             </form>

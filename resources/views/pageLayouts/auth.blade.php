@@ -8,7 +8,7 @@
 	@include('_partials._head')
 </head>
 
-<body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+<body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default" class="logo-dark">
 
 
     <main class="d-flex w-100 h-100">

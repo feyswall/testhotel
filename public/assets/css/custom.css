@@ -1,7 +1,27 @@
 .logo-dark {
-    background-color: rgb(36,32,33);
+    background-color: rgb(36,32,33) !important;
 }
 
 .sidebar-link{
     background-color: rgb(36,32,33) !important;
+}
+
+.form-control {
+    border-radius: 0px !important;
+}
+
+.text-black {
+    color: rgb(36,32,33) !important;
+}
+
+.btn-amber {
+    background-color: #f1b756;
+}
+
+.text-amber {
+    color: #f1b756;
+}
+
+.btn{
+    border-radius: 0px !important;
 }
