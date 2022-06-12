@@ -5,16 +5,14 @@
 @endsection
 
 @section('content')
-    <div class="main">
-        <main class="content">
-            <div class="container-fluid p-0">
-                <a href="/sales" class="btn btn-primary float-end mt-n1">View Records</a>
-                <div class="mb-3">
-                    <h1 class="h3 d-inline align-middle"> New Sales Record</h1>
-                </div>
-
-
+    <main class="content">
+        <div class="container-fluid p-0">
+            <a href="/sales" class="btn btn-primary float-end mt-n1">View Records</a>
+            <div class="mb-3">
+                <h1 class="h3 d-inline align-middle"> New Sales Record</h1>
             </div>
-        </main>
-    </div>
+
+
+        </div>
+    </main>
 @endsection

@@ -49,7 +49,7 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="/profile">
-                    <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Profile</span>
+                    <i class="align-middle" data-feather="settings"></i> <span class="align-middle">Account Settings</span>
                 </a>
             </li>
         </ul>

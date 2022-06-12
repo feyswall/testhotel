@@ -11,9 +11,9 @@
                 <a href="/customers" class="btn btn-primary float-end mt-n1"><i class="fa fa-arrow-left"></i> View
                     Customers</a>
 
-                <div class="mb-3">
-                    <h1 class="h3 d-inline align-middle"> Edit Customer</h1>
-                </div>
+            <div class="mb-3">
+                <h1 class="h3 d-inline align-middle"> Edit Customer</h1>
+            </div>
 
                @include('admin._partials._success_and_errors')
 
@@ -87,8 +87,8 @@
                         <button type="submit" form="formOne" class="btn btn-primary">Save Customer</button>
                     </div>
                 </div>
-
             </div>
-        </main>
-    </div>
+
+        </div>
+    </main>
 @endsection

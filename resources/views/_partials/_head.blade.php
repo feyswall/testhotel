@@ -22,6 +22,7 @@
 <!-- BEGIN SETTINGS -->
 <!-- Remove this after purchasing -->
 <link  href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
+<link  href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
 {{-- <script src="{{ asset('assets/js/settings.js') }}"></script> --}}
 <style>
     body {

@@ -6,14 +6,21 @@
 @endsection
 
 @section('content')
-    <div class="main">
-        <main class="content">
-            <div class="container-fluid p-0">
-                <a href="/customers/create" class="btn btn-primary float-end mt-n1">New Customer</a>
-                <div class="mb-3">
-                    <h1 class="h3 d-inline align-middle"> Customers</h1>
-                </div>
+    <main class="content">
+        <div class="container-fluid p-0">
+            <a href="/customers/create" class="btn btn-primary float-end mt-n1">New Customer</a>
+            <div class="mb-3">
+                <h1 class="h3 d-inline align-middle"> Customers</h1>
+            </div>
 
+
+            <div class="card">
+                <div class="card-header pb-0">
+                    <div class="card-actions float-end">
+                        <div class="dropdown show">
+                            <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+                                <i class="align-middle" data-feather="more-horizontal"></i>
+                            </a>
 
                 <div class="card">
                     <div class="card-header pb-0">
@@ -30,9 +37,10 @@
                                 </div>
                             </div>
                         </div>
-                        <h5 class="card-title mb-0">Clients</h5>
                     </div>
-                    <div class="card-body">
+                    <h5 class="card-title mb-0">Clients</h5>
+                </div>
+                <div class="card-body">
 
                         <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
                             <thead>
@@ -75,7 +83,6 @@
                         </table>
 
 
-                    </div>
                 </div>
             </div>
         </main>

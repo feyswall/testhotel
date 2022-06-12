@@ -9,10 +9,7 @@
             <div class="col-6 text-end">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <a class="text-muted" href="#">Privacy</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="text-muted" href="#">Terms</a>
+                        <a class="text-muted" href="#">Version 1.0.0</a>
                     </li>
                 </ul>
             </div>

@@ -5,15 +5,13 @@
 @endsection
 
 @section('content')
-    <div class="main">
-        <main class="content">
-            <div class="container-fluid p-0">
-                <a href="/suppliers" class="btn btn-primary float-end mt-n1"><i class="fa fa-arrow-left"></i> View
-                    Suppliers</a>
+    <main class="content">
+        <div class="container-fluid p-0">
+            <a href="/suppliers" class="btn btn-primary float-end mt-n1"><i class="fa fa-arrow-left"></i> View Suppliers</a>
 
-                <div class="mb-3">
-                    <h1 class="h3 d-inline align-middle"> New Suppliers</h1>
-                </div>
+            <div class="mb-3">
+                <h1 class="h3 d-inline align-middle"> New Suppliers</h1>
+            </div>
 
 
                 <div class="card">
@@ -72,6 +70,15 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label" for="inputEmail4">VRN</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="VRN number">
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label" for="inputEmail4">Address</label>
+                                <input type="text" class="form-control" id="inputEmail4" placeholder="Location address">
+                            </div>
+                        </div>
 
                             <div class="row">
                                 <div class="col col-md-12 mb-3">
@@ -88,8 +95,8 @@
                         </form>
                     </div>
                 </div>
-
             </div>
-        </main>
-    </div>
+
+        </div>
+    </main>
 @endsection
