@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CustomersController extends Controller
+class SalesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class CustomersController extends Controller
      */
     public function index()
     {
-        return view('manager.customers.index');
+        return view('manager.sales.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class CustomersController extends Controller
      */
     public function create()
     {
-        return view('manager.customers.create');
+        return view('manager.sales.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class CustomersController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect('/customers');
+        //
     }
 
     /**
@@ -46,7 +46,7 @@ class CustomersController extends Controller
      */
     public function show($id)
     {
-        return view('manager.customers.show')->with('data', $id);
+        //
     }
 
     /**
@@ -69,7 +69,7 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect('/customers');
+        //
     }
 
     /**

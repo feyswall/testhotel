@@ -3,20 +3,27 @@
 use App\Http\Controllers\Admin\AttributesController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\EmployeesController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TaxController;
+use App\Http\Controllers\Admin\WarehousesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\StockController;
-use App\Http\Controllers\SalesController;
+use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\ExpensesController;
-
 
 Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\Admin')->group(function(){
     Route::put('/admin/update/profile/{id}', 'AdminsController@updateProfile')->name('admin.updateProfile');
     Route::get('/admin/profile/{id}', 'AdminsController@getProfile')->name('admin.getProfile');
+
+
+    //Items routes
+    Route::controller(ProductController::class)->group(function(){
+        Route::get('/items', 'index');
+        Route::get('/items/create', 'create');
+        Route::post('/items/store', 'store');
+    });
 
     //Back Office Routes 
     Route::controller(BackofficeController::class)->group(function(){
@@ -36,6 +43,10 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     //Customer routes
     Route::controller(CustomersController::class)->group(function(){
         Route::get('/customers', 'index');
+        Route::get('/customers/create', 'create');
+        Route::post('/customers/store', 'store');
+        Route::get('/customers/{id}', 'show');
+        Route::put('/customers/{id}', 'update');
     });
 
     //Members routes
@@ -68,17 +79,22 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     //Profile Route
     Route::get('/profile', [ProfileController::class, 'profile']);
 
-    //Item routes
-    Route::get('/items', [ItemController::class, 'index'])->name('list-items');
-
     //Warehouse routes
-    Route::get('/warehouses', [WarehouseController::class, 'index'])->name('list-warehouses');
+    Route::controller(WarehousesController::class)->group(function(){
+        Route::get('/warehouses', 'index');
+        Route::get('/warehouses/create', 'create');
+        Route::post('/warehouses/store', 'store');
+    });
 
     //Stock routes
     Route::get('/stocks', [StockController::class, 'index'])->name('list-stocks');
 
     //Sales routes
-    Route::get('/sales', [SalesController::class, 'index'])->name('sales-list');
+    Route::controller(SalesController::class)->group(function(){
+        Route::get('/sales', 'index');
+        Route::get('/sales/create', 'create');
+        Route::post('/sales/store', 'store');
+    });
 
     //Purchases routes
     Route::get('/purchases', [PurchasesController::class, 'index'])->name('purchases-list');
