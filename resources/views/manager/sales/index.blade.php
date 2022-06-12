@@ -8,7 +8,7 @@
     <div class="main">
         <main class="content">
             <div class="container-fluid p-0">
-                <a href="#" class="btn btn-primary float-end mt-n1">New Record</a>
+                <a href="/sales/create" class="btn btn-primary float-end mt-n1">New Record</a>
                 <div class="mb-3">
                     <h1 class="h3 d-inline align-middle"> Sales Records</h1>
                 </div>

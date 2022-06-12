@@ -8,7 +8,7 @@
     <div class="main">
         <main class="content">
             <div class="container-fluid p-0">
-                <a href="#" class="btn btn-primary float-end mt-n1">Add Warehouse</a>
+                <a href="/warehouses/create" class="btn btn-primary float-end mt-n1">Add Warehouse</a>
                 <div class="mb-3">
                     <h1 class="h3 d-inline align-middle"> Warehouses</h1>
                 </div>
