@@ -8,7 +8,8 @@
     <div class="main">
         <main class="content">
             <div class="container-fluid p-0">
-                <a href="/customers" class="btn btn-primary float-end mt-n1"><i class="fa fa-arrow-left"></i> View Customers</a>
+                <a href="/customers" class="btn btn-primary float-end mt-n1"><i class="fa fa-arrow-left"></i> View
+                    Customers</a>
 
                 <div class="mb-3">
                     <h1 class="h3 d-inline align-middle"> New Customer</h1>
@@ -22,30 +23,55 @@
                             <div class="row">
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="inputEmail4">Names</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Customer names">
+                                    <input value="{{ old('name') }}" name="name" type="text" class="form-control"
+                                        id="inputEmail4" placeholder="Customer names">
+                                    @error('name')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="inputEmail4">Phone</label>
-                                    <input type="phone" class="form-control" id="inputEmail4" placeholder="Contact phone">
+                                    <input value="{{ old('phone') }}" type="phone" name="phone" class="form-control"
+                                        id="inputEmail4" placeholder="Contact phone">
+                                    @error('phone')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="inputEmail4">Email</label>
-                                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email address">
+                                    <input value="{{ old('email') }}" type="email" name="email" class="form-control"
+                                        id="inputEmail4" placeholder="Email">
+                                    @error('email')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
+
                             </div>
                             <div class="row">
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="inputEmail4">ZRB</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="ZRB number">
+                                    <input value="{{ old('zrb') }}" type="text" name="zrb" class="form-control"
+                                        id="inputEmail4" placeholder="ZRB number">
+                                    @error('zrb')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="inputEmail4">Address</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Location address">
+                                    <input value="{{ old('address') }}" type="text" name="address" class="form-control"
+                                        id="inputEmail4" placeholder="Location address">
+                                    @error('address')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="inputEmail4">Company</label>
-                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Company or organization">
+                                    <input name="company" value="{{ old('company') }}" type="text" class="form-control"
+                                        id="inputEmail4" placeholder="Company or organization">
                                 </div>
+                                @error('company')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <button type="reset" class="btn btn-secondary">Reset Form</button>

@@ -22,7 +22,7 @@
                                 <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
                                     <i class="align-middle" data-feather="more-horizontal"></i>
                                 </a>
-    
+
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <a class="dropdown-item" href="#">Action</a>
                                     <a class="dropdown-item" href="#">Another action</a>
@@ -46,26 +46,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Changu Wanazi</td>
-                                    <td>changuwanazi@gmail.com</td>
-                                    <td>0 717 561 007</td>
-                                    <td>120-1551-9090</td>
-                                    <td>
-                                        <a href="/customers/1" class="btn btn-primary btn-block">View</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Mteja Mbili</td>
-                                    <td>omilaborta@gmail.com</td>
-                                    <td>0 717 561 007</td>
-                                    <td>120-1551-9090</td>
-                                    <td>
-                                        <a href="/customers/1" class="btn btn-primary btn-block">View</a>
-                                    </td>
-                                </tr>
+
+                                @foreach ($customers as $customer)
+                                    <tr>
+                                        <td>{{ $customer->id }}</td>
+                                        <td>{{ $customer->name }}</td>
+                                        <td>{{ $customer->email }}</td>
+                                        <td>{{ $customer->phone }}</td>
+                                        <td>{{ $customer->zrb }}</td>
+                                        <td>
+                                            <a href="/customers/{{ $customer->id }}"
+                                                class="btn btn-primary btn-block">View</a>
+                                            </td>
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                             <tfoot>
                                 <tr>

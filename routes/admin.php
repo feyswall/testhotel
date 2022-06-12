@@ -42,11 +42,13 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     //Customer routes
     Route::controller(CustomersController::class)->group(function(){
-        Route::get('/customers', 'index');
+        Route::get('/customers', 'index')->name('customers.index');
         Route::get('/customers/create', 'create');
         Route::post('/customers/store', 'store');
         Route::get('/customers/{id}', 'show');
-        Route::put('/customers/{id}', 'update');
+        Route::put('/customers/update/{id}', 'update')->name('admin.customer.update');
+        Route::delete('/customers/delete/{id}', 'destroy')->name('admin.customer.destroy');
+
     });
 
     //Members routes
@@ -71,9 +73,9 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     //Supplier routes
     Route::controller(SupplierController::class)->group(function () {
-        Route::get('/suppliers', 'index');
-        Route::get('/suppliers/create', 'create');
-        Route::post('/suppliers/store', 'store');
+        Route::get('/suppliers', 'index')->name('admin.supplier.index');
+        Route::get('/suppliers/create', 'create')->name('admin.supplier.create');
+        Route::post('/suppliers/store', 'store')->name('admin.supplier.store');
     });
 
     //Profile Route

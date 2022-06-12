@@ -22,6 +22,8 @@
 		@include('admin._partials._topNavigation')
 
 
+			
+
 			@yield('content')
 
 			{{-- content --}}
