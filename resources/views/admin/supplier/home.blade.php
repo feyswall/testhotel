@@ -39,11 +39,9 @@
                                             <td>{{ $supplier->vrn }}</td>
                                             <td>{{ $supplier->address }}</td>
                                             <td>{{ $supplier->details }}</td>
-                                            <td class="table-action">
-                                                <a style="display: inline-block"
-                                                    href="{{ route('admin.supplier.edit', $supplier->id) }}"><i
-                                                        class="align-middle" data-feather="edit-2"></i></a>
-                                                <a href="#"><i class="align-middle" data-feather="trash"></i></a>
+                                            <td>
+                                                <a href="{{ route('admin.supplier.edit', $supplier->id) }}"
+                                                class="btn btn-primary btn-block">View</a>
                                             </td>
                                         </tr>
                                     @endforeach
