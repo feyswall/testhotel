@@ -73,16 +73,14 @@
 
                         <div class="row">
                             <div class="col col-md-12 mb-3">
-                                <label class="form-label">Supper details</label>
-                                <textarea class="form-control" value="{{ $supplier->details }}" name="details" placeholder="Textarea" rows="1"></textarea>
+                                <label class="form-label">Supplier details</label>
+                                <textarea class="form-control" value="{{ $supplier->details }}" name="details" placeholder="Supplier Details"
+                                    rows="2"></textarea>
                                 @error('details')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
-
-                        <button type="reset" class="btn btn-secondary">Reset Form</button>
-                        <button type="submit" class="btn btn-success">update Supplier</button>
                     </form>
                     <form method="POST" id="formTwo" action="{{ route('admin.supplier.destroy', $supplier->id) }}">
                         @csrf
