@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Supplier;
 
 class SupplierController extends Controller
 {
@@ -14,7 +15,10 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return view('admin.supplier.home');
+        $suppliers = Supplier::all();
+        return view('admin.supplier.home', [
+            'suppliers' => $suppliers,
+        ]);
     }
 
     /**
@@ -35,6 +39,28 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'sometimes',
+            'tin' => 'sometimes',
+            'vrn' => 'sometimes',
+            'address' => 'sometimes',
+            'details' => 'sometimes',
+        ]);
+
+        $supplier = Supplier::create([
+            'name' => $request->name,
+            'email' => $request->email ? $request->email : null,
+            'tin' => $request->tin ? $request->tin : null,
+            'vrn' => $request->vrn ? $request->vrn : null,
+            'address' => $request->address ? $request->address : null,
+            'details' => $request->details ? $request->details : null,
+        ]);
+
+        if( !$supplier ){
+            return redirect()->back()->with('error', 'fail to add a supplier');
+        }
+
         return redirect('/suppliers');
     }
 
@@ -57,6 +83,7 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
+        dd('edit show');
         //
     }
 

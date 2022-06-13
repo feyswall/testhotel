@@ -25,7 +25,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::post('/items/store', 'store');
     });
 
-    //Back Office Routes 
+    //Back Office Routes
     Route::controller(BackofficeController::class)->group(function(){
         Route::get('/backoffice', 'index');
     });
@@ -76,6 +76,8 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::get('/suppliers', 'index')->name('admin.supplier.index');
         Route::get('/suppliers/create', 'create')->name('admin.supplier.create');
         Route::post('/suppliers/store', 'store')->name('admin.supplier.store');
+        Route::get('/suppliers/edit/{id}', 'edit')->name('admin.supplier.edit');
+
     });
 
     //Profile Route

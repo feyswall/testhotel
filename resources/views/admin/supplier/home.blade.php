@@ -20,30 +20,33 @@
                                 <thead>
                                     <tr>
                                         <th>Supplier No</th>
-                                        <th>Supplier Name</th>
-                                        <th>TotalRecords</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>TIN</th>
+                                        <th>VRN</th>
+                                        <th>Address</th>
+                                        <th>Details</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>System Architect</td>
-                                        <td>35</td>
-                                        <td class="table-action">
-                                            <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
-                                            <a href="#"><i class="align-middle" data-feather="trash"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>Customer Support</td>
-                                        <td>20</td>
-                                        <td class="table-action">
-                                            <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
-                                            <a href="#"><i class="align-middle" data-feather="trash"></i></a>
-                                        </td>
-                                    </tr>
+                                    @foreach ($suppliers as $supplier)
+                                        <tr>
+                                            <td>{{ $supplier->id }}</td>
+                                            <td>{{ $supplier->name }}</td>
+                                            <td>{{ $supplier->email ? $supplier->email : 'empty' }}</td>
+                                            <td>{{ $supplier->tin }}</td>
+                                            <td>{{ $supplier->vrn }}</td>
+                                            <td>{{ $supplier->address }}</td>
+                                            <td>{{ $supplier->details }}</td>
+                                            <td class="table-action">
+                                                <a style="display: inline-block"
+                                                    href="{{ route('admin.supplier.edit', $supplier->id) }}"><i
+                                                        class="align-middle" data-feather="edit-2"></i></a>
+                                                <a href="#"><i class="align-middle" data-feather="trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>

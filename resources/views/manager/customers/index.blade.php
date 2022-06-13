@@ -22,26 +22,17 @@
                                 <i class="align-middle" data-feather="more-horizontal"></i>
                             </a>
 
-                <div class="card">
-                    <div class="card-header pb-0">
-                        <div class="card-actions float-end">
-                            <div class="dropdown show">
-                                <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-                                    <i class="align-middle" data-feather="more-horizontal"></i>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </div>
                     </div>
                     <h5 class="card-title mb-0">Clients</h5>
                 </div>
                 <div class="card-body">
-
+                    
                         <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
@@ -81,10 +72,8 @@
                                 </tr>
                             </tfoot>
                         </table>
-
-
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 @endsection

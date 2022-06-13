@@ -1,4 +1,4 @@
-@extends('pageLayouts.admin')
+{{-- @extends('pageLayouts.admin')
 
 @section('title')
     <title>Back Office | Customers</title>
@@ -16,7 +16,37 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <form method="POST" action="/customers/store">
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+@endsection --}}
+
+
+
+
+
+@extends('pageLayouts.admin')
+
+@section('title')
+    <title>Back Office | Customers</title>
+@endsection
+
+@section('content')
+    <main class="content">
+        <div class="container-fluid p-0">
+            <a href="/customers" class="btn btn-primary float-end mt-n1"><i class="fa fa-arrow-left"></i> View Customers</a>
+
+            <div class="mb-3">
+                <h1 class="h3 d-inline align-middle"> New Customer</h1>
+            </div>
+
+
+            <div class="card">
+                <div class="card-body">
+                                           <form method="POST" action="/customers/store">
                             @csrf
                             <div class="row">
                                 <div class="mb-3 col-md-4">
@@ -43,8 +73,9 @@
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
-
                             </div>
+
+
                             <div class="row">
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="inputEmail4">ZRB</label>
@@ -66,20 +97,11 @@
                                     <label class="form-label" for="inputEmail4">Company</label>
                                     <input name="company" value="{{ old('company') }}" type="text" class="form-control"
                                         id="inputEmail4" placeholder="Company or organization">
-                                </div>
                                 @error('company')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
+                                    </div>
                             </div>
-                            <div class="mb-3 col-md-4">
-                                <label class="form-label" for="inputEmail4">Address</label>
-                                <input type="text" class="form-control" id="inputEmail4" placeholder="Location address">
-                            </div>
-                            <div class="mb-3 col-md-4">
-                                <label class="form-label" for="inputEmail4">Company</label>
-                                <input type="text" class="form-control" id="inputEmail4" placeholder="Company or organization">
-                            </div>
-                        </div>
 
                         <button type="reset" class="btn btn-secondary">Reset Form</button>
                         <button type="submit" class="btn btn-primary">Save Customer</button>
