@@ -32,85 +32,85 @@
         
             <div class="row">
                 <div class="col-sm-6 col-xl-3">
-                    <div class="card"> 
+                    <div class="card custo-blue"> 
                         <div class="card-body">
                             <div class="row">
                                 <div class="col mt-0">
-                                    <h5 class="card-title">Warehouses</h5>
+                                    <h5 class="card-title text-black">Warehouses</h5>
                                 </div>
 
                                 <div class="col-auto">
-                                    <div class="stat text-primary">
+                                    <div class="stat bg-light text-black">
                                         <i class="align-middle" data-feather="map-pin"></i>
                                     </div>
                                 </div>
                             </div>
                             <h1 class="mt-1 mb-3">4</h1>
                             <div class="mb-0">
-                                <a href="/warehouses"><span class="text-muted">Click to view more >></span></a>
+                                <a href="/warehouses"><span class="text-black">Click to view more >></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
-                    <div class="card">
+                    <div class="card custo-red">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col mt-0">
-                                    <h5 class="card-title">Employees</h5>
+                                    <h5 class="card-title text-black">Employees</h5>
                                 </div>
 
                                 <div class="col-auto">
-                                    <div class="stat text-primary">
+                                    <div class="stat bg-light text-black">
                                         <i class="align-middle" data-feather="users"></i>
                                     </div>
                                 </div>
                             </div>
                             <h1 class="mt-1 mb-3">46</h1>
                             <div class="mb-0">
-                                <a href="/employees"><span class="text-muted">Click to view more >></span></a>
+                                <a href="/employees"><span class="text-black">Click to view more >></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
-                    <div class="card">
+                    <div class="card btn-amber">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col mt-0">
-                                    <h5 class="card-title">Suppliers</h5>
+                                    <h5 class="card-title text-black">Suppliers</h5>
                                 </div>
 
                                 <div class="col-auto">
-                                    <div class="stat text-primary">
+                                    <div class="stat bg-light text-black">
                                         <i class="align-middle" data-feather="truck"></i>
                                     </div>
                                 </div>
                             </div>
                             <h1 class="mt-1 mb-3">16</h1>
                             <div class="mb-0">
-                                <a href="/suppliers"><span class="text-muted">Click to view more >></span></a>
+                                <a href="/suppliers" class="text-black"><span>Click to view more >></span></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
-                    <div class="card">
+                    <div class="card custo-green">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col mt-0">
-                                    <h5 class="card-title">Customers</h5>
+                                    <h5 class="card-title text-black">Customers</h5>
                                 </div>
 
                                 <div class="col-auto">
-                                    <div class="stat text-primary">
+                                    <div class="stat bg-light text-black">
                                         <i class="align-middle" data-feather="shopping-cart"></i>
                                     </div>
                                 </div>
                             </div>
                             <h1 class="mt-1 mb-3">126</h1>
                             <div class="mb-0">
-                                <a href="/customers"><span class="text-muted">Click to view more >></span></a>
+                                <a href="/customers"><span class="text-black">Click to view more >></span></a>
                             </div>
                         </div>
                     </div>

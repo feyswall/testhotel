@@ -1,15 +1,17 @@
 @extends('pageLayouts.admin')
 
 @section('title')
-    <title>Records | Sales</title>
+    <title>Records | Sales On {{ $mode == 0 ? 'Credit' : 'Cash'}}</title>
 @endsection
 
 @section('content')
     <main class="content">
         <div class="container-fluid p-0">
             <a href="/sales/create" class="btn btn-primary float-end mt-n1">New Record</a>
+            <a href="/sales/0" class="btn {{$mode == 0 ? 'btn-danger': 'btn-outline-danger'}} float-end mt-n1 mx-3">Sales On Credit</a>
+            <a href="/sales/1" class="btn {{$mode == 1 ? 'btn-success' : 'btn-outline-success'}} float-end mt-n1">Sales On Cash</a>
             <div class="mb-3">
-                <h1 class="h3 d-inline align-middle"> Sales Records</h1>
+                <h1 class="h3 d-inline align-middle">Sales On {{ $mode == 0 ? 'Credit' : 'Cash'}}</h1>
             </div>
 
             <div class="row">
@@ -19,12 +21,12 @@
                             <table id="datatables-buttons" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
+                                        <th>Customer</th>
+                                        <th>Gross</th>
+                                        <th>VAT</th>
+                                        <th>Discount</th>
+                                        <th>Net</th>
+                                        <th>Sales Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>

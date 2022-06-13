@@ -34,7 +34,7 @@
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Records & Reports</span>
                 </a>
                 <ul id="records" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="/sales">Sales records</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/sales/1">Sales records</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="/purchases">Purchase records</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="/expenses">Expenses records</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="/contracts">Contracts records</a></li>

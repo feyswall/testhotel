@@ -12,9 +12,9 @@ class SalesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($mode)
     {
-        return view('manager.sales.index');
+        return view('manager.sales.index')->with('mode', $mode);
     }
 
     /**
