@@ -39,9 +39,11 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'email' => 'sometimes',
+            'phone' => 'required',
             'tin' => 'sometimes',
             'vrn' => 'sometimes',
             'address' => 'sometimes',
@@ -50,6 +52,7 @@ class SupplierController extends Controller
 
         $supplier = Supplier::create([
             'name' => $request->name,
+            'phone' => $request->phone,
             'email' => $request->email ? $request->email : null,
             'tin' => $request->tin ? $request->tin : null,
             'vrn' => $request->vrn ? $request->vrn : null,

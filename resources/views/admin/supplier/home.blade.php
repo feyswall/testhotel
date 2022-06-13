@@ -22,6 +22,7 @@
                                         <th>Supplier No</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Phone</th>
                                         <th>TIN</th>
                                         <th>VRN</th>
                                         <th>Address</th>
@@ -35,6 +36,7 @@
                                             <td>{{ $supplier->id }}</td>
                                             <td>{{ $supplier->name }}</td>
                                             <td>{{ $supplier->email ? $supplier->email : 'empty' }}</td>
+                                            <td>{{ $supplier->phone ?? 'empty' }}</td>
                                             <td>{{ $supplier->tin }}</td>
                                             <td>{{ $supplier->vrn }}</td>
                                             <td>{{ $supplier->address }}</td>

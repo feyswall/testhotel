@@ -32,46 +32,49 @@
                     <h5 class="card-title mb-0">Clients</h5>
                 </div>
                 <div class="card-body">
-                    
-                        <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Sn</th>
-                                    <th>Customer names</th>
-                                    <th>Email address</th>
-                                    <th>Contact phone</th>
-                                    <th>ZRB Number</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
 
-                                @foreach ($customers as $customer)
-                                    <tr>
-                                        <td>{{ $customer->id }}</td>
-                                        <td>{{ $customer->name }}</td>
-                                        <td>{{ $customer->email }}</td>
-                                        <td>{{ $customer->phone }}</td>
-                                        <td>{{ $customer->zrb }}</td>
-                                        <td>
-                                            <a href="/customers/{{ $customer->id }}"
-                                                class="btn btn-primary btn-block">View</a>
-                                            </td>
-                                    </tr>
-                                @endforeach
+                    <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Sn</th>
+                                <th>Customer names</th>
+                                <th>Email address</th>
+                                <th>Contact phone</th>
+                                <th>ZRB Number</th>
+                                <th>Company</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                            </tbody>
-                            <tfoot>
+                            @foreach ($customers as $customer)
                                 <tr>
-                                    <th>Sn</th>
-                                    <th>Customer names</th>
-                                    <th>Email address</th>
-                                    <th>Contact phone</th>
-                                    <th>ZRB Number</th>
-                                    <th>Action</th>
+                                    <td>{{ $customer->id }}</td>
+                                    <td>{{ $customer->name }}</td>
+                                    <td>{{ $customer->email }}</td>
+                                    <td>{{ $customer->phone }}</td>
+                                    <td>{{ $customer->company }}</td>
+                                    <td>{{ $customer->zrb }}</td>
+                                    <td>
+                                        <a href="/customers/{{ $customer->id }}"
+                                            class="btn btn-primary btn-block">View</a>
+                                    </td>
                                 </tr>
-                            </tfoot>
-                        </table>
+                            @endforeach
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Sn</th>
+                                <th>Customer names</th>
+                                <th>Email address</th>
+                                <th>Contact phone</th>
+                                <th>ZRB Number</th>
+                                <th>Company</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
