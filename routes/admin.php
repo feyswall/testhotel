@@ -77,6 +77,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::get('/suppliers/create', 'create')->name('admin.supplier.create');
         Route::post('/suppliers/store', 'store')->name('admin.supplier.store');
         Route::get('/suppliers/edit/{id}', 'edit')->name('admin.supplier.edit');
+        Route::get('/suppliers/delete/{id}', 'delete')->name('admin.supplier.delete');
 
     });
 

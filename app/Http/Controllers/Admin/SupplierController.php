@@ -64,7 +64,8 @@ class SupplierController extends Controller
             return redirect()->back()->with('error', 'fail to add a supplier');
         }
 
-        return redirect('/suppliers');
+        session()->flash('success', 'supplier updated successfully..');
+        return redirect()->route('admin.supplier.edit', $supplier->id);
     }
 
     /**
@@ -86,8 +87,8 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        dd('edit show');
-        //
+        $supplier = Supplier::where('id', $id)->first();
+        return view('admin.supplier.edit', ['supplier' => $supplier]);
     }
 
     /**
@@ -99,7 +100,7 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd( 'start update' );
     }
 
     /**
