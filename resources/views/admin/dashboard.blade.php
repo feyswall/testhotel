@@ -20,11 +20,11 @@
                             Quick Actions
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Items</a>
-                            <a class="dropdown-item" href="#">Add Warehouse</a>
-                            <a class="dropdown-item" href="#">New Customer</a>
+                            <a class="dropdown-item" href="/items/create">Add Items</a>
+                            <a class="dropdown-item" href="/warehouses/create">Add Warehouse</a>
+                            <a class="dropdown-item" href="/customers/create">New Customer</a>
                             <a class="dropdown-item" href="/suppliers/create">New Supplier</a> 
-                            <a class="dropdown-item" href="#">New Contract</a>
+                            <a class="dropdown-item" href="/contracts/create">New Contract</a>
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="card-actions float-end">
-                                <button class="btn btn-success">Record Sales</button>
+                                <a href="/new_sales" class="btn btn-success text-light">Record Sales</a>
                             </div>
                             <h5 class="card-title mb-0">Daily Sales: 5,670,000 Tsh</h5>
                         </div>
@@ -205,7 +205,7 @@
                     <div class="card flex-fill">
                         <div class="card-header">
                             <div class="card-actions float-end">
-                                <button class="btn btn-danger">Record Expenses</button>
+                                <a href="/expenses/create" class="btn btn-danger text-light">Record Expenses</a>
                             </div>
                             <h5 class="card-title mb-0">Daily Expenses: 120,000 Tsh</h5>
                         </div>

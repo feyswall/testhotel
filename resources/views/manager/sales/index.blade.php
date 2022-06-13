@@ -7,7 +7,7 @@
 @section('content')
     <main class="content">
         <div class="container-fluid p-0">
-            <a href="/sales/create" class="btn btn-primary float-end mt-n1">New Record</a>
+            <a href="/new_sales" class="btn btn-primary float-end mt-n1">New Record</a>
             <a href="/sales/0" class="btn {{$mode == 0 ? 'btn-danger': 'btn-outline-danger'}} float-end mt-n1 mx-3">Sales On Credit</a>
             <a href="/sales/1" class="btn {{$mode == 1 ? 'btn-success' : 'btn-outline-success'}} float-end mt-n1">Sales On Cash</a>
             <div class="mb-3">
