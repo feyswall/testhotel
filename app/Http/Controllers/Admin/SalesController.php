@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Sale;
-use Illuminate\Support\facades\Validator;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Customer;
+use App\Models\Items;
 
 class SalesController extends Controller
 {
