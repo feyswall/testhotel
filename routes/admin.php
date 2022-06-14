@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\AttributesController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\EmployeesController;
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\Admin\WarehousesController;
 use App\Http\Controllers\ProfileController;
@@ -19,7 +19,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
 
     //Items routes
-    Route::controller(ProductController::class)->group(function(){
+    Route::controller(ItemController::class)->group(function(){
         Route::get('/items', 'index');
         Route::get('/items/create', 'create');
         Route::get('/items/search/{text}', 'search');

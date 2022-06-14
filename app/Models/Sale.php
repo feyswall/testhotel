@@ -28,4 +28,8 @@ class Sale extends Model
         ->withTimestamps();
     }
 
+    public function customer(){
+        return $this->belongsTo( Customer::class );
+    }
+
 }

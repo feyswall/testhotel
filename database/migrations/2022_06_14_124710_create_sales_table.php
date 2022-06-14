@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->boolean('cash_mode')->unsigned()->nullable();
-            $table->double('discount')->nullable();
+            $table->integer('cash_mode')->unsigned()->nullable();
+            $table->double('discount')->default(0);
             $table->string('invoice_number')->nullable();
 
             $table->foreignId('customer_id')->constrained('customers');

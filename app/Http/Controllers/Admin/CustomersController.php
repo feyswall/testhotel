@@ -139,11 +139,7 @@ class CustomersController extends Controller
     }
 
     function search($text){
-        return [
-            [
-                'name' => 'cocoa', 'email' => 'cocoa@cocoa.com',
-                'address' => 'mbagala masaki', 'phone' => '0 777 456 234', 'id' => 9
-            ]
-        ];
+        $customers = Customer::where('name', 'like', '%'.$text.'%')->get();
+         return response()->json($customers);
     }
 }
