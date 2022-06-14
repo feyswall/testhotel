@@ -18,150 +18,60 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="mb-3 col-md-4">
+                                <div class="mb-3 col-md-6">
                                     <label class="form-label" for="customer-search">Customer</label>
-                                    <select :disabled="proforma.length > 0" id="customer-search" class="form-control choices-single">
-                                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                                            <option value="AK">Alaska</option>
-                                            <option value="HI">Hawaii</option>
-                                        </optgroup>
-                                        <optgroup label="Pacific Time Zone">
-                                            <option value="CA">California</option>
-                                            <option value="NV">Nevada</option>
-                                            <option value="OR">Oregon</option>
-                                            <option value="WA">Washington</option>
-                                        </optgroup>
-                                        <optgroup label="Mountain Time Zone">
-                                            <option value="AZ">Arizona</option>
-                                            <option value="CO">Colorado</option>
-                                            <option value="ID">Idaho</option>
-                                            <option value="MT">Montana</option>
-                                            <option value="NE">Nebraska</option>
-                                            <option value="NM">New Mexico</option>
-                                            <option value="ND">North Dakota</option>
-                                            <option value="UT">Utah</option>
-                                            <option value="WY">Wyoming</option>
-                                        </optgroup>
-                                        <optgroup label="Central Time Zone">
-                                            <option value="AL">Alabama</option>
-                                            <option value="AR">Arkansas</option>
-                                            <option value="IL">Illinois</option>
-                                            <option value="IA">Iowa</option>
-                                            <option value="KS">Kansas</option>
-                                            <option value="KY">Kentucky</option>
-                                            <option value="LA">Louisiana</option>
-                                            <option value="MN">Minnesota</option>
-                                            <option value="MS">Mississippi</option>
-                                            <option value="MO">Missouri</option>
-                                            <option value="OK">Oklahoma</option>
-                                            <option value="SD">South Dakota</option>
-                                            <option value="TX">Texas</option>
-                                            <option value="TN">Tennessee</option>
-                                            <option value="WI">Wisconsin</option>
-                                        </optgroup>
-                                        <optgroup label="Eastern Time Zone">
-                                            <option value="CT">Connecticut</option>
-                                            <option value="DE">Delaware</option>
-                                            <option value="FL">Florida</option>
-                                            <option value="GA">Georgia</option>
-                                            <option value="IN">Indiana</option>
-                                            <option value="ME">Maine</option>
-                                            <option value="MD">Maryland</option>
-                                            <option value="MA">Massachusetts</option>
-                                            <option value="MI">Michigan</option>
-                                            <option value="NH">New Hampshire</option>
-                                            <option value="NJ">New Jersey</option>
-                                            <option value="NY">New York</option>
-                                            <option value="NC">North Carolina</option>
-                                            <option value="OH">Ohio</option>
-                                            <option value="PA">Pennsylvania</option>
-                                            <option value="RI">Rhode Island</option>
-                                            <option value="SC">South Carolina</option>
-                                            <option value="VT">Vermont</option>
-                                            <option value="VA">Virginia</option>
-                                            <option value="WV">West Virginia</option>
-                                        </optgroup>
-                                    </select>
+                                    <input id="customer-search" placeholder="Find customer" v-model="customer_search" name="name" type="text" class="form-control">
                                 </div>
-                                <div class="mb-3 col-md-4">
+                                <div class="mb-3 col-md-6">
                                     <label class="form-label" for="item-search">Pick Items</label>
-                                    <select id="item-search" class="form-control choices-single choices-single-items">
-                                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                                            <option value="AK">Alaska</option>
-                                            <option value="HI">Hawaii</option>
-                                        </optgroup>
-                                        <optgroup label="Pacific Time Zone">
-                                            <option value="CA">California</option>
-                                            <option value="NV">Nevada</option>
-                                            <option value="OR">Oregon</option>
-                                            <option value="WA">Washington</option>
-                                        </optgroup>
-                                        <optgroup label="Mountain Time Zone">
-                                            <option value="AZ">Arizona</option>
-                                            <option value="CO">Colorado</option>
-                                            <option value="ID">Idaho</option>
-                                            <option value="MT">Montana</option>
-                                            <option value="NE">Nebraska</option>
-                                            <option value="NM">New Mexico</option>
-                                            <option value="ND">North Dakota</option>
-                                            <option value="UT">Utah</option>
-                                            <option value="WY">Wyoming</option>
-                                        </optgroup>
-                                        <optgroup label="Central Time Zone">
-                                            <option value="AL">Alabama</option>
-                                            <option value="AR">Arkansas</option>
-                                            <option value="IL">Illinois</option>
-                                            <option value="IA">Iowa</option>
-                                            <option value="KS">Kansas</option>
-                                            <option value="KY">Kentucky</option>
-                                            <option value="LA">Louisiana</option>
-                                            <option value="MN">Minnesota</option>
-                                            <option value="MS">Mississippi</option>
-                                            <option value="MO">Missouri</option>
-                                            <option value="OK">Oklahoma</option>
-                                            <option value="SD">South Dakota</option>
-                                            <option value="TX">Texas</option>
-                                            <option value="TN">Tennessee</option>
-                                            <option value="WI">Wisconsin</option>
-                                        </optgroup>
-                                        <optgroup label="Eastern Time Zone">
-                                            <option value="CT">Connecticut</option>
-                                            <option value="DE">Delaware</option>
-                                            <option value="FL">Florida</option>
-                                            <option value="GA">Georgia</option>
-                                            <option value="IN">Indiana</option>
-                                            <option value="ME">Maine</option>
-                                            <option value="MD">Maryland</option>
-                                            <option value="MA">Massachusetts</option>
-                                            <option value="MI">Michigan</option>
-                                            <option value="NH">New Hampshire</option>
-                                            <option value="NJ">New Jersey</option>
-                                            <option value="NY">New York</option>
-                                            <option value="NC">North Carolina</option>
-                                            <option value="OH">Ohio</option>
-                                            <option value="PA">Pennsylvania</option>
-                                            <option value="RI">Rhode Island</option>
-                                            <option value="SC">South Carolina</option>
-                                            <option value="VT">Vermont</option>
-                                            <option value="VA">Virginia</option>
-                                            <option value="WV">West Virginia</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-                                <div class="mb-3 col-md-2">
-                                    <label class="form-label" for="add-item">Quantity</label>
-                                    <input  name="quantity" type="number" class="form-control ">
-                                </div>
-                                <div class="mb-3 col-md-2">
-                                    <label class="form-label" for="add-item">Action</label>
-                                    <div>
-                                        <button v-on:click="addItem()" class="btn btn-primary w-100" id="add-item">Add Item</button>
-                                    </div>
+                                    <input id="item-search" placeholder="Find items" v-model="item_search" name="name" type="text" class="form-control">
                                 </div>
                             </div>
                           
                         </div>
                     </div>
+                </div>
+
+                <div class="col-12" v-if="searching">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <span class="spinner-border text-warning" role="status">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             
+                <div v-if="!searching && results.length > 0">
+                    <div v-if="item_search != ''">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <table class="table">
+                                        <thead>
+                                            <th>Sn</th>
+                                            <th>Item name</th>
+                                            <th>Selling Price</th>
+                                            <th>Tax</th>
+                                            <th>Quantity</th>
+                                            <th>Add Item</th>
+                                        </thead>
+                                        <tr v-for="(item, index) in results">
+                                            <td>@{{index+1}}</td>
+                                            <td>@{{item.name}}</td>
+                                            <td>@{{item.selling_price}}</td>
+                                            <td>@{{item.tax}}</td>
+                                            <td><input type="number" v-model="item.quantity"></td>
+                                            <td><button v-on:click="addItem(index)" class="btn btn-primary"><i class="la la-plus"></i></button></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
 
                 <div class="col-12">
@@ -188,8 +98,8 @@
                                 <tbody>
                                     <tr v-for="(item, index) in proforma" :key="'item' + index">
                                         <td>@{{index+1}}</td>
-                                        <td>@{{item.item_code}}</td>
-                                        <td>@{{item.item_name}}</td>
+                                        <td>@{{item.code}}</td>
+                                        <td>@{{item.name}}</td>
                                         <td>@{{item.quantity}}</td>
                                         <td>@{{item.tax}}</td>
                                         <td>@{{item.selling_price}}</td>
@@ -230,17 +140,30 @@
 
         data(){
             return {
-                proforma: [],
+                proforma: [], customer: {},
+                item_search: '', customer_search: '', 
+                results: [], searching: false, noResults: false
             }
         }, 
 
-        methods: {
-            addItem(){
-                this.proforma.push({
-                    item_code: 1, item_name: 'sample item', quantity: 20, 
-                    tax: 10, selling_price: 20000
-                });
+        watch: {
+            item_search(c, o){
+                if(c != ''){
+                    this.search();
+                }
+            }, 
+            customer_search(c, o){
+                if(c != ''){
+                    this.search();
+                }
+            }
+        },
 
+        methods: {
+            addItem(index){
+                var item = this.results[index];
+                this.proforma.push(item);
+                this.results.splice(index, 1);
             },
 
             removeItem(index){
@@ -253,6 +176,18 @@
                 var quantity = this.proforma[index].quantity;
                 return (tax + price) * quantity;
             },
+
+            search: function() {
+			this.searching = true;
+			fetch(`/items/search/${encodeURIComponent(this.item_search)}`)
+                .then(res => res.json())
+                .then(res => {
+                    this.searching = false;
+                    this.results = res;
+                    this.noResults = this.results.length === 0;
+                });
+            }
+            
         }, 
 
         computed: {

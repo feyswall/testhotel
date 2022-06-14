@@ -37,8 +37,4 @@
 			});
 			datatablesButtons.buttons().container().appendTo("#datatables-buttons_wrapper .col-md-6:eq(0)");
 		});
-  document.addEventListener("DOMContentLoaded", function() {
-    new Choices(document.querySelector(".choices-single"));
-    new Choices(document.querySelector(".choices-single-items"));
-  });
 </script>
