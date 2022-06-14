@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Item;
+use App\Models\Sale;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Customer;
+use App\Models\Items;
 
 class SalesController extends Controller
 {
@@ -35,23 +40,63 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        $customer_id = $request->customer_id;
+        // $rules = [
+        //     'item_id' => 'required',
+        //     'item_quantity' => 'required',
+        //     'due_price' => 'required',
+        //     'due_tax' => 'required',
+        //     'customer_id' => 'required',
+        // ];
+        
+        // $validate = Validator::make( $request->all(), $rules );
+        
+        // if( $validate->fails() ){
+        //     return redirect()->back()
+        //     ->withErrors(
+        //         ['error' => 'validation', 'data' => $validate->errors()->all()]);
+        // }
 
-        $sale = new Sale();
-        $sale->customer_id = $customer_id;
-        $sale->invoice_number = '';
-        $sale->save();
 
-        $sales_id = $sale->id;
+        $customer_id = 1;
         // save customer id in sales table
         $items = $request->items;
 
-        for($i = 0; $i < sizeof($items); $i++){
-            //loop and save items in sales_items table
-            $item_id = $items[$i]['item_id'];
-            $item_quantity = $items[$i]['item_quantity'];
-            $due_price = $items[$i]['due_price'];
-            $due_tax = $items[$i]['due_tax'];
+        //loop and save items in sales_items table
+        $item_id = $items[0]['item_id'];
+        $item_quantity = $items[0]['item_quantity'];
+        $due_price = $items[0]['due_price'];
+        $due_tax = $items[0]['due_tax'];
+        
+
+        $customer = Customer::find($customer_id);
+        if( !$customer ){
+            return response()->json(['error' => 'customer not found... ']);
+        }
+        
+
+        $sale = Sale::create([
+            'customer_id' => $customer_id,
+        ]);
+        
+
+        if( !$sale ){
+            return response()->json(['error' => 'sale not found...']);
+        }
+
+        foreach( $items as $item ){
+
+            $item = Item::find( $item['item_id']);
+
+            if( $item ){
+                $sale->items()->attach(1, [
+                    'quantity' => $item['item_quantity'], 
+                    'due_price' => $item['due_price'],
+                    'due_tax' => $item['due_tax'], 
+                ]);
+            }
+
+        }
+        
 
             $sale_item = new SaleItem();
             $sale_item->sales_id = $sales_id;

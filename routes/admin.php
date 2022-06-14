@@ -79,7 +79,8 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::get('/suppliers/create', 'create')->name('admin.supplier.create');
         Route::post('/suppliers/store', 'store')->name('admin.supplier.store');
         Route::get('/suppliers/edit/{id}', 'edit')->name('admin.supplier.edit');
-        Route::get('/suppliers/delete/{id}', 'delete')->name('admin.supplier.destroy');
+        Route::put('/suppliers/update/{id}', 'update')->name('admin.supplier.update');
+        Route::delete('/suppliers/delete/{id}', 'destroy')->name('admin.supplier.destroy');
 
     });
 
@@ -100,7 +101,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::controller(SalesController::class)->group(function(){
         Route::get('/sales/{mode}', 'index');
         Route::get('/new_sales', 'create');
-        Route::post('/save_sales', 'store');
+        Route::post('/save_sales', 'store')->name('sales.store');
     });
 
     //Purchases routes
@@ -110,6 +111,3 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::get('/expenses', [ExpensesController::class, 'index'])->name('expenses-list');
 
 });
-
-
-

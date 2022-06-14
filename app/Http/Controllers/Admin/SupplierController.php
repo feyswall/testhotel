@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use Illuminate\Support\Str;
 
 class SupplierController extends Controller
 {
@@ -41,7 +42,7 @@ class SupplierController extends Controller
     {
 
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:suppliers,name',
             'email' => 'sometimes',
             'phone' => 'required',
             'tin' => 'sometimes',
@@ -100,7 +101,36 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd( 'start update' );
+        $supplier = Supplier::select('*')->first();
+
+        if( !$supplier ){
+            return redirect()->back()->withErrors(['error' => 'supplier wasn\'t found']);
+        }
+        
+        $request->validate([
+            'name' => 'exclude_if:name,'.$supplier->name.'|unique:suppliers,name',
+            'email' => 'sometimes',
+            'phone' => 'required',
+            'tin' => 'sometimes',
+            'vrn' => 'sometimes',
+            'address' => 'sometimes',
+            'details' => 'sometimes',
+        ], $messages = [
+            'name.unique' => 'The name "'.$request->name .'" is taken...',
+        ]);
+
+        $supplier->update([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email ? $request->email : null,
+            'tin' => $request->tin ? $request->tin : null,
+            'vrn' => $request->vrn ? $request->vrn : null,
+            'address' => $request->address ? $request->address : null,
+            'details' => $request->details ? $request->details : null,
+        ]);
+   
+        return redirect()->route('admin.supplier.edit', $supplier->id )
+        ->with('success', 'data updated successfully');
     }
 
     /**
@@ -111,6 +141,12 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $supplier = Supplier::find($id);
+        if( !$supplier ){
+            return redirect()->back()->withErrors(['error' => 'supplier wasn\'t found']);
+        }
+        $name = $supplier->name;
+        $supplier->delete();
+        return redirect()->route('admin.supplier.index')->with('success', $name.' was deleted  successfully...');
     }
 }

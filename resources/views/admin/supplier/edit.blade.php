@@ -7,17 +7,20 @@
 @section('content')
     <main class="content">
         <div class="container-fluid p-0">
-
+            <a href="{{ route('admin.supplier.index') }}" class="btn btn-primary float-end mt-n1">All Supplier</a>
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle"> New Suppliers</h1>
             </div>
+
+
 
             @include('admin._partials._success_and_errors')
 
             <div class="card">
                 <div class="card-body">
-                    <form id="formOne" method="POST" action="{{ route('admin.supplier.store') }}">
+                    <form id="formOne" method="POST" action="{{ route('admin.supplier.update', $supplier->id) }}">
                         @csrf
+                        @method('put')
                         <div class="row">
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="name">Names</label>
@@ -55,8 +58,8 @@
                             </div>
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="vrn">VRN</label>
-                                <input type="text" value="{{ $supplier->vrn }}" name="vrn" class="form-control" id="vrn"
-                                    placeholder="VRN number">
+                                <input type="text" value="{{ $supplier->vrn }}" name="vrn" class="form-control"
+                                    id="vrn" placeholder="VRN number">
                                 @error('vrn')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -75,7 +78,7 @@
                             <div class="col col-md-12 mb-3">
                                 <label class="form-label">Supplier details</label>
                                 <textarea class="form-control" value="{{ $supplier->details }}" name="details" placeholder="Supplier Details"
-                                    rows="2"></textarea>
+                                    rows="2">{{ $supplier->details }}</textarea>
                                 @error('details')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -89,7 +92,7 @@
                     <button type="button" class="btn btn-danger"
                         onclick=" confirm('are you sure you want to delete?!') ? document.querySelector('#formTwo').submit() : '' ">delete</button>
                     <button type="reset" form="formOne" class="btn btn-secondary">Reset Form</button>
-                    <button type="submit" form="formOne" class="btn btn-success">update Supplier</button>
+                    <button type="submit" form="formOne" class="btn btn-success">save changes</button>
                 </div>
             </div>
 
