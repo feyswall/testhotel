@@ -79,6 +79,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::get('/suppliers/create', 'create')->name('admin.supplier.create');
         Route::post('/suppliers/store', 'store')->name('admin.supplier.store');
         Route::get('/suppliers/edit/{id}', 'edit')->name('admin.supplier.edit');
+        Route::put('/suppliers/update/{id}', 'update')->name('admin.supplier.update');
         Route::delete('/suppliers/delete/{id}', 'destroy')->name('admin.supplier.destroy');
 
     });
@@ -110,6 +111,3 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::get('/expenses', [ExpensesController::class, 'index'])->name('expenses-list');
 
 });
-
-
-

@@ -18,8 +18,9 @@
 
             <div class="card">
                 <div class="card-body">
-                    <form id="formOne" method="POST" action="{{ route('admin.supplier.store') }}">
+                    <form id="formOne" method="POST" action="{{ route('admin.supplier.update', $supplier->id) }}">
                         @csrf
+                        @method('put')
                         <div class="row">
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="name">Names</label>
@@ -77,7 +78,7 @@
                             <div class="col col-md-12 mb-3">
                                 <label class="form-label">Supplier details</label>
                                 <textarea class="form-control" value="{{ $supplier->details }}" name="details" placeholder="Supplier Details"
-                                    rows="2"></textarea>
+                                    rows="2">{{ $supplier->details }}</textarea>
                                 @error('details')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
