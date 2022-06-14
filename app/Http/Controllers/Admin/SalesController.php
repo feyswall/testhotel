@@ -36,15 +36,29 @@ class SalesController extends Controller
     public function store(Request $request)
     {
         $customer_id = $request->customer_id;
+
+        $sale = new Sale();
+        $sale->customer_id = $customer_id;
+        $sale->invoice_number = '';
+        $sale->save();
+
+        $sales_id = $sale->id;
         // save customer id in sales table
         $items = $request->items;
 
-        //loop and save items in sales_items table
-        $item_id = $items[0]['item_id'];
-        $item_quantity = $items[0]['item_quantity'];
-        $due_price = $items[0]['due_price'];
-        $due_tax = $items[0]['due_tax'];
+        for($i = 0; $i < sizeof($items); $i++){
+            //loop and save items in sales_items table
+            $item_id = $items[$i]['item_id'];
+            $item_quantity = $items[$i]['item_quantity'];
+            $due_price = $items[$i]['due_price'];
+            $due_tax = $items[$i]['due_tax'];
 
+            $sale_item = new SaleItem();
+            $sale_item->sales_id = $sales_id;
+            $sale_item->item_id = $item_id; 
+            ////all
+            $sale_item->save();
+        }
         return 1;
     }
 
