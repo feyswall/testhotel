@@ -19,7 +19,11 @@ class SalesController extends Controller
      */
     public function index($mode)
     {
-        return view('manager.sales.index')->with('mode', $mode);
+        $condition = ($mode != 0 && $mode != 1) ? null : $mode;
+        $sales = Sale::where('cash_mode', $condition)->get();
+        return view('manager.sales.index')
+        ->with('sales', $sales)
+        ->with('mode', $mode);
     }
 
     /**
@@ -40,67 +44,40 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        // $rules = [
-        //     'item_id' => 'required',
-        //     'item_quantity' => 'required',
-        //     'due_price' => 'required',
-        //     'due_tax' => 'required',
-        //     'customer_id' => 'required',
-        // ];
-        
-        // $validate = Validator::make( $request->all(), $rules );
-        
-        // if( $validate->fails() ){
-        //     return redirect()->back()
-        //     ->withErrors(
-        //         ['error' => 'validation', 'data' => $validate->errors()->all()]);
-        // }
 
-
-        $customer_id = 1;
+        $customer_id = $request->customer_id;
         // save customer id in sales table
         $items = $request->items;
-
-        //loop and save items in sales_items table
-        $item_id = $items[0]['item_id'];
-        $item_quantity = $items[0]['item_quantity'];
-        $due_price = $items[0]['due_price'];
-        $due_tax = $items[0]['due_tax'];
         
-
+        // making sure that the selected customer is plesent
         $customer = Customer::find($customer_id);
         if( !$customer ){
             return response()->json(['error' => 'customer not found... ']);
         }
         
-
+        // create sale object for current  session
         $sale = Sale::create([
             'customer_id' => $customer_id,
         ]);
         
-
+        // checking if the sale object is created and return error if not
         if( !$sale ){
             return response()->json(['error' => 'sale not found...']);
         }
 
+        // finally loop throgh every item and attach to the current sale
         foreach( $items as $item ){
 
-            $item = Item::find( $item['item_id']);
-
-            if( $item ){
-                $sale->items()->attach(1, [
+                $sale->items()->attach($item['item_id'], [
                     'quantity' => $item['item_quantity'], 
                     'due_price' => $item['due_price'],
                     'due_tax' => $item['due_tax'], 
                 ]);
-            }
 
         }
         
-
-
-        }
-    
+        return 1;
+    }
 
     /**
      * Display the specified resource.

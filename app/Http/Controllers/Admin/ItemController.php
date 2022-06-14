@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\manager;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Item;
 
 class ItemController extends Controller
 {
@@ -82,5 +83,11 @@ class ItemController extends Controller
     {
         //
     }
+
+
+    function search($text){
+        $items = Item::where('code', 'like', '%'.$text.'%' )->get();
+    return response()->json($items);
+}
 
 }
