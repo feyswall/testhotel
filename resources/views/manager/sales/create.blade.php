@@ -211,7 +211,7 @@
 
                 var response = await fetch(`/save_sales`, requestOptions);
                 var data = await response.json();
-                window.history.back();
+                window.location.href = '/sales/1';
             },
 
             selectCustomer(index){
