@@ -142,7 +142,7 @@ class CustomersController extends Controller
         return [
             [
                 'name' => 'cocoa', 'email' => 'cocoa@cocoa.com',
-                'address' => 'mbagala masaki'
+                'address' => 'mbagala masaki', 'phone' => '0 777 456 234', 'id' => 9
             ]
         ];
     }

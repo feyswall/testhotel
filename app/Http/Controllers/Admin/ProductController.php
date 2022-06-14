@@ -87,7 +87,7 @@ class ProductController extends Controller
         return [
             [
                 'name' => 'cocoa', 'selling_price' => 24000,
-                'code' => '220099', 'tax' => 1000
+                'code' => '220099', 'tax' => 1000, 'id' => 20
             ]
         ];
     }
