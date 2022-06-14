@@ -53,7 +53,8 @@ class SalesController extends Controller
             ->withErrors(
                 ['error' => 'validation', 'data' => $validate->errors()->all()]);
         }
-        
+
+
         $customer_id = $request->customer_id;
         // save customer id in sales table
         $items = $request->items;
@@ -64,12 +65,25 @@ class SalesController extends Controller
         $due_price = $items[0]['due_price'];
         $due_tax = $items[0]['due_tax'];
 
+        
+
+        $customer = Customer::find($customer_id);
+        if( !$customer ){
+            return response()->json(['error' => 'customer not found... ']);
+        } 
+
+        $item = Item::find($item_id);
+        if( !$customer ){
+            return response()->json(['error' => 'customer not found... ']);
+        } 
+        
+
         $sale = Sale::create([
             'customer_id' => $customer_id,
         ]);
         
         if( !$sale ){
-            return redirect()->back()->withErrors(['error' => 'sale not found...']);
+            return response()->json(['error' => 'sale not found...']);
         }
 
         $sale->items()->attach(1, 
