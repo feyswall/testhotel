@@ -98,9 +98,8 @@ class SalesController extends Controller
         }
         
 
-
-        }
-    
+        return 1;
+    }
 
     /**
      * Display the specified resource.
