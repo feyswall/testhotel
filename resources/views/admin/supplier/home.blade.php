@@ -12,6 +12,8 @@
                 <h1 class="h3 d-inline align-middle"> Suppliers</h1>
             </div>
 
+            @include('admin._partials._success_and_errors')
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -43,16 +45,21 @@
                                             <td>{{ $supplier->details }}</td>
                                             <td>
                                                 <a href="{{ route('admin.supplier.edit', $supplier->id) }}"
-                                                class="btn btn-primary btn-block">View</a>
+                                                    class="btn btn-primary btn-block">View</a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Serial No</th>
-                                        <th>Category Name</th>
-                                        <th>TotalRecords</th>
+                                        <th>supplier id</th>
+                                        <th>Supplier Name</th>
+                                        <th>Emain</th>
+                                        <th>phone</th>
+                                        <th>TIN</th>
+                                        <th>VRN</th>
+                                        <th>Address</th>
+                                        <th>Details</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>

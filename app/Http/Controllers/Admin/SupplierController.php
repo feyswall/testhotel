@@ -111,6 +111,12 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $supplier = Supplier::find($id);
+        if( !$supplier ){
+            return redirect()->back()->withErrors(['error' => 'supplier wasn\'t found']);
+        }
+        $name = $supplier->name;
+        $supplier->delete();
+        return redirect()->route('admin.supplier.index')->with('success', $name.' was deleted  successfully...');
     }
 }
