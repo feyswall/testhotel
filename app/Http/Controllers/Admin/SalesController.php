@@ -40,24 +40,24 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = [
-            'item_id' => 'required',
-            'item_quantity' => 'required',
-            'due_price' => 'required',
-            'due_tax' => 'required',
-            'customer_id' => 'required',
-        ];
+        // $rules = [
+        //     'item_id' => 'required',
+        //     'item_quantity' => 'required',
+        //     'due_price' => 'required',
+        //     'due_tax' => 'required',
+        //     'customer_id' => 'required',
+        // ];
         
-        $validate = Validator::make( $request->all(), $rules );
+        // $validate = Validator::make( $request->all(), $rules );
         
-        if( $validate->fails() ){
-            return redirect()->back()
-            ->withErrors(
-                ['error' => 'validation', 'data' => $validate->errors()->all()]);
-        }
+        // if( $validate->fails() ){
+        //     return redirect()->back()
+        //     ->withErrors(
+        //         ['error' => 'validation', 'data' => $validate->errors()->all()]);
+        // }
 
 
-        $customer_id = $request->customer_id;
+        $customer_id = 1;
         // save customer id in sales table
         $items = $request->items;
 
@@ -66,31 +66,36 @@ class SalesController extends Controller
         $item_quantity = $items[0]['item_quantity'];
         $due_price = $items[0]['due_price'];
         $due_tax = $items[0]['due_tax'];
-
         
 
         $customer = Customer::find($customer_id);
         if( !$customer ){
             return response()->json(['error' => 'customer not found... ']);
-        } 
-
-        $item = Item::find($item_id);
-        if( !$customer ){
-            return response()->json(['error' => 'customer not found... ']);
-        } 
+        }
         
 
         $sale = Sale::create([
             'customer_id' => $customer_id,
         ]);
         
+
         if( !$sale ){
             return response()->json(['error' => 'sale not found...']);
         }
 
-        $sale->items()->attach(1, 
-        ['quantity' => $item_quantity, 'due_price' => $due_price, 'due_tax' => $due_tax]);
+        foreach( $items as $item ){
 
+            $item = Item::find( $item['item_id']);
+
+            if( $item ){
+                $sale->items()->attach(1, [
+                    'quantity' => $item['item_quantity'], 
+                    'due_price' => $item['due_price'],
+                    'due_tax' => $item['due_tax'], 
+                ]);
+            }
+
+        }
         
 
         return 1;
