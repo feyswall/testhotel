@@ -137,4 +137,13 @@ class CustomersController extends Controller
         $customer->delete();
         return redirect()->route('customers.index');
     }
+
+    function search($text){
+        return [
+            [
+                'name' => 'cocoa', 'email' => 'cocoa@cocoa.com',
+                'address' => 'mbagala masaki'
+            ]
+        ];
+    }
 }

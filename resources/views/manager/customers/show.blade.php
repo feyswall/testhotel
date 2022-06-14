@@ -8,9 +8,7 @@
     <div class="main">
         <main class="content">
             <div class="container-fluid p-0">
-                <a href="/customers" class="btn btn-primary float-end mt-n1"><i class="fa fa-arrow-left"></i> View
-                    Customers</a>
-
+                <a href="/customers" class="btn btn-primary float-end mt-n1">View Customers</a>
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle"> Edit Customer</h1>
             </div>

@@ -22,6 +22,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::controller(ProductController::class)->group(function(){
         Route::get('/items', 'index');
         Route::get('/items/create', 'create');
+        Route::get('/items/search/{text}', 'search');
         Route::post('/items/store', 'store');
     });
 
@@ -44,6 +45,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::controller(CustomersController::class)->group(function(){
         Route::get('/customers', 'index')->name('customers.index');
         Route::get('/customers/create', 'create');
+        Route::get('/customers/search/{text}', 'search');
         Route::post('/customers/store', 'store');
         Route::get('/customers/{id}', 'show');
         Route::put('/customers/update/{id}', 'update')->name('admin.customer.update');

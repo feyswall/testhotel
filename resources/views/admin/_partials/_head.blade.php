@@ -40,3 +40,4 @@ gtag('js', new Date());
 
 gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
 </script> --}}
+<script src="{{ asset('assets/js/vue.js') }}"></script>

@@ -46,7 +46,7 @@
 
             <div class="card">
                 <div class="card-body">
-                                           <form method="POST" action="/customers/store">
+                            <form method="POST" action="/customers/store">
                             @csrf
                             <div class="row">
                                 <div class="mb-3 col-md-4">
