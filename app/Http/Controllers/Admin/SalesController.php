@@ -98,14 +98,9 @@ class SalesController extends Controller
         }
         
 
-            $sale_item = new SaleItem();
-            $sale_item->sales_id = $sales_id;
-            $sale_item->item_id = $item_id; 
-            ////all
-            $sale_item->save();
+
         }
-        return 1;
-    }
+    
 
     /**
      * Display the specified resource.
