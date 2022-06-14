@@ -116,7 +116,7 @@ class SupplierController extends Controller
             'address' => 'sometimes',
             'details' => 'sometimes',
         ], $messages = [
-            'name.unique' => 'The name '\"$request->name\". ' before is taken...',
+            'name.unique' => 'The name "'.$request->name .'" is taken...',
         ]);
 
         $supplier->update([

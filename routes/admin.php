@@ -101,7 +101,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::controller(SalesController::class)->group(function(){
         Route::get('/sales/{mode}', 'index');
         Route::get('/new_sales', 'create');
-        Route::post('/save_sales', 'store');
+        Route::post('/save_sales', 'store')->name('sales.store');
     });
 
     //Purchases routes
