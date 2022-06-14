@@ -186,7 +186,7 @@
         },
 
         methods: {
-            saveProforma(){
+            async saveProforma(){
                 var items = [];
                 for(var i = 0; i < this.proforma.length; i++){
                     items.push({
@@ -209,13 +209,9 @@
                     body: JSON.stringify(dataSet)
                 };
 
-                fetch(`/save_sales`, requestOptions)
-                    .then(res => res.json())
-                    .then(res => {
-                        if(res == 1){
-                            history.back()
-                        }
-                    });
+                var response = await fetch(`/save_sales`, requestOptions);
+                var data = await response.json();
+                window.history.back();
             },
 
             selectCustomer(index){
