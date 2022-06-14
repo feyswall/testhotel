@@ -40,12 +40,14 @@
                                     <h5 class="card-title mb-0">Public info</h5>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="POST" action="{{route('profile_update', $user->id)}}">
+                                        @csrf
+                                        @method('put')
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="inputUsername">Username</label>
-                                                    <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                                                    <input type="text" name="user_name" class="form-control" value="{{$user->user_name}}" id="inputUsername" placeholder="Username">
                                                 </div>
                                                
                                             </div>
@@ -54,16 +56,16 @@
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label class="form-label" for="inputFirstName">First name</label>
-                                                <input type="text" class="form-control" id="inputFirstName" placeholder="First name">
+                                                <input type="text" name="first_name" value="{{$user->first_name}}" class="form-control" id="inputFirstName" placeholder="First name">
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label class="form-label" for="inputLastName">Last name</label>
-                                                <input type="text" class="form-control" id="inputLastName" placeholder="Last name">
+                                                <input type="text" class="form-control" name="last_name" value="{{$user->last_name}}" id="inputLastName" placeholder="Last name">
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="inputEmail4">Email</label>
-                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                            <input type="email" class="form-control" id="inputEmail4" name="email" value="{{$user->email}}" placeholder="Email">
                                         </div>
 
                                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -78,19 +80,21 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Password</h5>
 
-                                    <form>
+                                    <form method="POST" action="{{route('password_udpate', $user->id)}}">
+                                        @csrf
+                                        @method('put')
                                         <div class="mb-3">
                                             <label class="form-label" for="inputPasswordCurrent">Current password</label>
-                                            <input type="password" class="form-control" id="inputPasswordCurrent">
+                                            <input type="password" name="oldpassword" class="form-control" id="inputPasswordCurrent" required>
                                             <small><a href="#">Forgot your password?</a></small>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="inputPasswordNew">New password</label>
-                                            <input type="password" class="form-control" id="inputPasswordNew">
+                                            <input type="password" name="password" class="form-control" id="inputPasswordNew" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label" for="inputPasswordNew2">Verify password</label>
-                                            <input type="password" class="form-control" id="inputPasswordNew2">
+                                            <input type="password" name="password_confirmation" class="form-control" id="inputPasswordNew2" required>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                     </form>

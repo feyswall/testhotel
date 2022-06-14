@@ -86,7 +86,9 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     //Profile Route
     Route::get('/profile', [ProfileController::class, 'profile']);
-
+    Route::put('/profile_update/{id}', [ProfileController::class, 'update_details'])->name('profile_update');
+    Route::put('/password_udpate/{id}', [ProfileController::class, 'password_udpate'])->name('password_udpate');
+    
     //Warehouse routes
     Route::controller(WarehousesController::class)->group(function(){
         Route::get('/warehouses', 'index');
