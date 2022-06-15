@@ -140,8 +140,9 @@ class SalesController extends Controller
 
     public function make_invoice(Request $request, $id){
 
+        // select the sale for modification
         $sale = Sale::find($id);
-
+        // the items that user select for confirmation
         $checked = $request->item_id;
 
         if($checked){
