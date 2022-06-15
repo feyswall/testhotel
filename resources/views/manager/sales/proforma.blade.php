@@ -50,12 +50,17 @@
                     <form action="/sales/make_invoice/{{$sale->id}}" method="post">
                         @csrf 
                         @method('PUT')
-                        <div class="card-header border-bottom">
+                        <div class="card-header">
                             <div class="card-actions float-end">
                                 <button class="btn btn-success" type="submit"><i class="la la-sync"></i> Convert to Invoice</button>
                             </div>
+                            <div class="card-actions float-end mb-3">
+                                <button class="btn btn-info mx-2" type="submit"><i class="la la-undo"></i> Undo</button>
+                            </div>
                             <h5 class="card-title mb-0">Proforma</h5>
                         </div>
+                        <hr>
+              
                         <table class="table table-borderless my-0">
                             <thead>
                                 <tr>
@@ -98,7 +103,30 @@
                             </div>
                             <h5 class="card-title mb-0">Invoice</h5>
                         </div>
-                       
+                        <table class="table table-borderless my-0">
+                            <thead>
+                                <tr>
+                                    <th>Sn</th>
+                                    <th>Item code</th>
+                                    <th>Item name</th>
+                                    <th>Price</th>
+                                    <th>Tax</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($confirmed as $item)
+                                    <tr>
+                                        <td>#</td>
+                                        <td>{{$item->code}}</td>
+                                        <td>{{$item->name}}</td>
+                                        <td>{{$item->pivot->due_price}}</td>
+                                        <td>{{$item->pivot->due_tax}}</td>
+                                        <td class="text-center">{{$item->pivot->quantity}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

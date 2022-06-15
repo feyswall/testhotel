@@ -130,10 +130,12 @@ class SalesController extends Controller
         if(!$sale){
             return redirect('/sales/2');
         }
-        $items = $sale->items;
+        $items = $sale->items()->where('invoice_mode', 0)->get();
+        $confirmed = $sale->items()->where('invoice_mode', 1)->get();
         $customer = $sale->customer;
         return view('manager.sales.proforma')->with([
             'items' => $items,
+            'confirmed' => $confirmed,
             'sale' => $sale,
             'customer' => $customer
         ]);
