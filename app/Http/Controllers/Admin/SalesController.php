@@ -47,19 +47,19 @@ class SalesController extends Controller
         $customer_id = $request->customer_id;
         // save customer id in sales table
         $items = $request->items;
-        
+
         // making sure that the selected customer is plesent
         $customer = Customer::find($customer_id);
         if( !$customer ){
             return response()->json(['error' => 'customer not found... ']);
         }
-        
+
         // create sale object for current  session
         $sale = Sale::create([
             'customer_id' => $customer_id,
             'cash_mode' => 2
         ]);
-        
+
         // checking if the sale object is created and return error if not
         if( !$sale ){
             return response()->json(['error' => 'sale not found...']);
@@ -69,13 +69,13 @@ class SalesController extends Controller
         foreach( $items as $item ){
 
                 $sale->items()->attach($item['item_id'], [
-                    'quantity' => $item['item_quantity'], 
+                    'quantity' => $item['item_quantity'],
                     'due_price' => $item['due_price'],
-                    'due_tax' => $item['due_tax'], 
+                    'due_tax' => $item['due_tax'],
                 ]);
 
         }
-        
+
         return $sale->id;
     }
 
@@ -132,8 +132,8 @@ class SalesController extends Controller
         $items = $sale->items;
         $customer = $sale->customer;
         return view('manager.sales.proforma')->with([
-            'items' => $items, 
-            'sale' => $sale, 
+            'items' => $items,
+            'sale' => $sale,
             'customer' => $customer
         ]);
     }
@@ -142,12 +142,15 @@ class SalesController extends Controller
 
         $sale = Sale::find($id);
 
-        dd( $sale->items->where('item_id', 1)->first()  );
         $checked = $request->item_id;
 
         if($checked){
             foreach($checked as $item){
-                // $sale->items[0]->pivot;
+                $item = $sale->items()->where('item_id', $item)->first();
+                if( $item ){
+                    $item->pivot->invoice_mode = 1;
+                    $item->pivot->save();
+                }
             }
         }
         return redirect()->back();
