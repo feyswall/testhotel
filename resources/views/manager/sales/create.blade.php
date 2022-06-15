@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label" for="item-search">Pick Items</label>
-                                    <input id="item-search" placeholder="Find items" v-model="item_search" name="name" type="text" class="form-control">
+                                    <input id="item-search" placeholder="Enter item code" v-model="item_search" name="name" type="text" class="form-control">
                                 </div>
                             </div>
                           

@@ -193,8 +193,24 @@ class SalesController extends Controller
             return redirect()->back();
         }
         $sale->invoice_number = time();
-        $sale->items()->where('invoice_mode', 0)->delete();
         $sale->save();
+        $removable = $sale->items()->where('invoice_mode', 0)->get();
+        if($removable->count() == 0){
+            return redirect('/sales/2');
+        }
+        foreach($removable as $item){
+            $sale->items()->detach($item->id);
+        }
         return redirect('/sales/2');
+    }
+
+    public function set_cash(Request $request, $id){
+        $sale = Sale::find($id);
+        if(!$sale){
+            return redirect()->back()->with('error', 'Record not found!');
+        }
+        $sale->cash_mode = $request->cash_mode;
+        $sale->save();
+        return redirect('/sales'.'/'.$request->cash_mode);
     }
 }

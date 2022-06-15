@@ -108,6 +108,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::put('/sales/confirm_invoice/{id}', 'confirm_invoice');
         Route::put('/sales/undo/{id}', 'undo');
         Route::put('/sales/set_discount/{id}', 'set_discount');
+        Route::put('/sales/set_cash/{id}', 'set_cash');
         Route::post('/save_sales', 'store')->name('sales.store');
     });
 
