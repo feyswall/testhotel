@@ -34,13 +34,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach( $sales as $sale )                                    
+                                    @foreach( $sales as $sale )
                                     <tr>
-                                        @php  
-                                        $gross = 0;  
+                                        @php
+                                        $gross = 0;
                                         $total_due_tax = 0;
                                         foreach( $sale->items as $item ){
-                                            $total_due_tax += $item->pivot->due_tax * $item->pivot->quantity; 
+                                            $total_due_tax += $item->pivot->due_tax * $item->pivot->quantity;
                                             $gross += ($item->pivot->due_price + $item->pivot->due_tax) * $item->pivot->quantity;
                                         }
 
@@ -68,7 +68,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 @if($sale->invoice_number != null && $sale->cash_mode == 2)
-                                                    <a class="dropdown-item" href="#">Print Invoice</a>
+                                                    <a class="dropdown-item" href="{{ route('print.sales.invoice', $sale->id) }}">Print Invoice</a>
                                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment" href="#">Receive Payment</a>
                                                 @elseif($sale->invoice_number == null && $sale->cash_mode == 2)
                                                     <a class="dropdown-item" href="#">Print Proforma</a>
@@ -79,7 +79,7 @@
                                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment" href="#">Receive Payment</a>
                                                 @else
                                                     <a class="dropdown-item" href="#">View Record</a>
-                                                @endif   
+                                                @endif
 
                                             </div>
                                         </td>
@@ -92,7 +92,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body m-3">
-                                                    
+
                                                   <form method="POST" action="/sales/set_cash/{{$sale->id}}" id="cash-mode-form">
                                                     @csrf
                                                     @method('PUT')
@@ -110,7 +110,7 @@
                                                         </span>
                                                     </label>
                                                   </form>
-                                                    
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -12,6 +12,7 @@ use App\Models\Items;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use PDF;
 
 class SalesController extends Controller
 {
@@ -165,7 +166,7 @@ class SalesController extends Controller
     public function undo($id){
         $sale = Sale::find($id);
         if(!$sale){
-            return redirect()->back()->with('error', 'No record found!'); 
+            return redirect()->back()->with('error', 'No record found!');
         }
         $sale->items()->update([
             'invoice_mode' => 0
@@ -187,7 +188,7 @@ class SalesController extends Controller
         $sale = Sale::find($id);
         if(!$sale){
             return redirect()->back()->with('error', 'Record not found!');
-        } 
+        }
         $checked = $sale->items()->where('invoice_mode', 1)->count();
         if($checked == 0){
             return redirect()->back();
@@ -213,4 +214,36 @@ class SalesController extends Controller
         $sale->save();
         return redirect('/sales'.'/'.$request->cash_mode);
     }
+
+
+
+
+    public function printInvoice(Request $request, $id){
+
+        // $upTo = Carbon::createFromFormat('Y-m-d', $request->upTo)->format('Y-m-d');
+        // $from = $request->from;
+        // $visits = visit::whereDate('created_at', '>=', $request->from, 'and')
+        // ->where('visit_type', 'normal')
+        // ->where('paid', true)
+        // ->whereDate('created_at', '<=', $upTo)
+        // ->orderBy('created_at', 'desc')->get();
+
+        $sale = Sale::where('id', $id)->first();
+
+        $pdf = PDF::loadView('admin.pdfs.sales_invoice', ['sale' => $sale ]);
+
+        // ->setPaper(array(0, 0, 296, 412), 'landscape')
+
+        $pdf->output();
+        $dom_pdf = $pdf->getDomPDF();
+
+        $canvas = $dom_pdf ->get_canvas();
+        $canvas->page_text(500, 800, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+
+        return  $pdf->stream('sales_invoice.pdf');
+
+    }
+
+
+
 }
