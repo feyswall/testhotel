@@ -28,6 +28,7 @@
                                         <th>Tax</th>
                                         <th>Discount</th>
                                         <th>Net</th>
+                                        <th>Status</th>
                                         <th>Sales Date</th>
                                         <th>Options</th>
                                     </tr>
@@ -49,24 +50,75 @@
                                         <td>{{ number_format($total_due_tax, 2) }}</td>
                                         <td>{{ $sale->discount }}</td>
                                         <td>{{ number_format($gross - $total_due_tax - $sale->discount, 2) }}</td>
+                                        <td>
+                                            <a class="badge @if($sale->invoice_number != null) bg-success @else bg-warning @endif ms-2" href="#">
+                                                @if ($sale->invoice_number != null)
+                                                    has invoice
+                                                @else
+                                                    no invoice
+                                                @endif
+                                            </a>
+                                        </td>
                                         <td>{{ date_format(date_create($sale->created_at), 'M d, Y. H:i') }}</td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button type="button" class="btn
+                                            @if($sale->invoice_number != null && $sale->cash_mode == 2) btn-outline-success @else btn-outline-secondary @endif
+                                             btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Options
                                             </button>
                                             <div class="dropdown-menu">
-                                                @if ($sale->cash_mode == 0 || ($sale->invoice_number != null && $sale->cash_mode == 0))
-                                                <a class="dropdown-item" href="#">Print Invoice</a>
-                                                <a class="dropdown-item" href="#">Receive Payment</a>
-                                                @elseif($sale->cash_mode == 2)
-                                                <a class="dropdown-item" href="#">Print Proforma</a>
-                                                <a class="dropdown-item" href="#">Generate Invoice</a>
-                                                @else 
-                                                <a class="dropdown-item" href="#">View Record</a>
-                                                @endif
+                                                @if($sale->invoice_number != null && $sale->cash_mode == 2)
+                                                    <a class="dropdown-item" href="#">Print Invoice</a>
+                                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment" href="#">Receive Payment</a>
+                                                @elseif($sale->invoice_number == null && $sale->cash_mode == 2)
+                                                    <a class="dropdown-item" href="#">Print Proforma</a>
+                                                    <a class="dropdown-item" href="/proforma/{{$sale->id}}">Generate Invoice</a>
+                                                    <a class="dropdown-item" href="#">Remove Order</a>
+                                                @elseif($sale->invoice_number != null && $sale->cash_mode == 0 )
+                                                    <a class="dropdown-item" href="#">View Record</a>
+                                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment" href="#">Receive Payment</a>
+                                                @else
+                                                    <a class="dropdown-item" href="#">View Record</a>
+                                                @endif   
+
                                             </div>
                                         </td>
                                     </tr>
+                                    <div class="modal fade" id="receive-payment" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Receive payment from <span class="font-weight-bold">{{$sale->customer->name}}</span></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body m-3">
+                                                    
+                                                  <form method="POST" action="/sales/set_cash/{{$sale->id}}" id="cash-mode-form">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <label class="form-check">
+                                                        <input class="form-check-input" type="radio" value="0" name="cash_mode">
+                                                        <span class="form-check-label">
+                                                            Record as sales on credit
+                                                        </span>
+                                                    </label>
+                                                    <hr>
+                                                    <label class="form-check">
+                                                        <input class="form-check-input" type="radio" value="1" name="cash_mode">
+                                                        <span class="form-check-label">
+                                                            Record as sales on cash
+                                                        </span>
+                                                    </label>
+                                                  </form>
+                                                    
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button form="cash-mode-form" type="submit" class="btn btn-success">Confirm Payment</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                   @endforeach
                                 </tbody>
                             </table>

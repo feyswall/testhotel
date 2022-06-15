@@ -40,8 +40,8 @@
                                 <th>Customer names</th>
                                 <th>Email address</th>
                                 <th>Contact phone</th>
-                                <th>ZRB Number</th>
                                 <th>Company</th>
+                                <th>ZRB Number</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -69,8 +69,8 @@
                                 <th>Customer names</th>
                                 <th>Email address</th>
                                 <th>Contact phone</th>
-                                <th>ZRB Number</th>
                                 <th>Company</th>
+                                <th>ZRB Number</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>

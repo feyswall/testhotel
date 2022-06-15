@@ -12,6 +12,7 @@
                 @if (sizeof($items) > 0)
                 <a href="#" class="btn btn-dark float-end mt-n1"><i class="la la-print"></i> Print Proforma</a>
                 @endif
+                <a href="/sales/2" class="btn btn-outline-primary float-end mt-n1 mx-2"><i class="la la-arrow-left"></i> Back To List</a>
                 <h1 class="h3 d-inline align-middle">Prepare Invoice</h1>
             </div>
 
