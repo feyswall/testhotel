@@ -18,14 +18,14 @@ class ItemSeeder extends Seeder
         Item::create([
             'name' => 'spoon',
             'selling_price' => '2000',
-            'code' => '229hy',
+            'code' => '2r4hy',
             'tax' => '200',
         ]);
 
                 Item::create([
             'name' => 'glass',
             'selling_price' => '20000',
-            'code' => '229hy',
+            'code' => '267hy8',
             'tax' => '2000',
         ]);
 
@@ -39,14 +39,14 @@ class ItemSeeder extends Seeder
                         Item::create([
             'name' => 'knifes',
             'selling_price' => '8000',
-            'code' => '229hy',
+            'code' => '6654',
             'tax' => '2000',
         ]);
 
                                 Item::create([
             'name' => 'tables',
             'selling_price' => '80000',
-            'code' => '229hy',
+            'code' => '13342',
             'tax' => '2000',
         ]);
     }
