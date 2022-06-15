@@ -18,10 +18,30 @@
     background-color: #f1b756;
 }
 
+.custo-amber {
+    background-color: #f1b756;
+}
+
+.custo-green {
+    background-color: #9af8a7;
+}
+
+.custo-blue {
+    background-color: #91dcfc;
+}
+
+.custo-red {
+    background-color: #faae7c;
+}
+
 .text-amber {
     color: #f1b756;
 }
 
 .btn{
     border-radius: 0px !important;
+}
+
+.font-weight-bold{
+    font-weight: bold !important;
 }

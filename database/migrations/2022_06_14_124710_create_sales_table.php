@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('suppliers', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->nullable();
-            $table->string('phone');
-            $table->string('tin')->nullable();
-            $table->string('vrn')->nullable();
-            $table->string('address')->nullable();
-            $table->string('details')->nullable();
+            $table->integer('cash_mode')->unsigned()->default(2);
+            $table->double('discount')->default(0);
+            $table->string('invoice_number')->nullable();
+
+            $table->foreignId('customer_id')->constrained('customers');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('sales');
     }
 };

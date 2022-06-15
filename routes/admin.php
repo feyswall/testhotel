@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\AttributesController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\EmployeesController;
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\Admin\WarehousesController;
 use App\Http\Controllers\ProfileController;
@@ -19,9 +19,10 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
 
     //Items routes
-    Route::controller(ProductController::class)->group(function(){
+    Route::controller(ItemController::class)->group(function(){
         Route::get('/items', 'index');
         Route::get('/items/create', 'create');
+        Route::get('/items/search/{text}', 'search');
         Route::post('/items/store', 'store');
     });
 
@@ -44,6 +45,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::controller(CustomersController::class)->group(function(){
         Route::get('/customers', 'index')->name('customers.index');
         Route::get('/customers/create', 'create');
+        Route::get('/customers/search/{text}', 'search');
         Route::post('/customers/store', 'store');
         Route::get('/customers/{id}', 'show');
         Route::put('/customers/update/{id}', 'update')->name('admin.customer.update');
@@ -77,11 +79,15 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::get('/suppliers/create', 'create')->name('admin.supplier.create');
         Route::post('/suppliers/store', 'store')->name('admin.supplier.store');
         Route::get('/suppliers/edit/{id}', 'edit')->name('admin.supplier.edit');
+        Route::put('/suppliers/update/{id}', 'update')->name('admin.supplier.update');
+        Route::delete('/suppliers/delete/{id}', 'destroy')->name('admin.supplier.destroy');
 
     });
 
     //Profile Route
     Route::get('/profile', [ProfileController::class, 'profile']);
+    Route::put('/profile_update/{id}', [ProfileController::class, 'update_details'])->name('profile_update');
+    Route::put('/password_udpate/{id}', [ProfileController::class, 'password_udpate'])->name('password_udpate');
 
     //Warehouse routes
     Route::controller(WarehousesController::class)->group(function(){
@@ -95,9 +101,17 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     //Sales routes
     Route::controller(SalesController::class)->group(function(){
-        Route::get('/sales', 'index');
-        Route::get('/sales/create', 'create');
-        Route::post('/sales/store', 'store');
+        Route::get('/sales/{mode}', 'index');
+        Route::get('/new_sales', 'create');
+        Route::get('/proforma/{id}', 'proforma');
+        Route::put('/sales/make_invoice/{id}', 'make_invoice');
+        Route::put('/sales/confirm_invoice/{id}', 'confirm_invoice');
+        Route::put('/sales/undo/{id}', 'undo');
+        Route::put('/sales/set_discount/{id}', 'set_discount');
+        Route::put('/sales/set_cash/{id}', 'set_cash');
+        Route::post('/save_sales', 'store')->name('sales.store');
+
+        Route::get('/print/sales/invoice/{sale}', 'printInvoice')->name('print.sales.invoice');
     });
 
     //Purchases routes
@@ -107,6 +121,3 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::get('/expenses', [ExpensesController::class, 'index'])->name('expenses-list');
 
 });
-
-
-

@@ -82,4 +82,13 @@ class ProductController extends Controller
     {
         //
     }
+
+    function search($text){
+        return [
+            [
+                'name' => 'cocoa', 'selling_price' => 24000,
+                'code' => '220099', 'tax' => 1000, 'id' => 20
+            ]
+        ];
+    }
 }

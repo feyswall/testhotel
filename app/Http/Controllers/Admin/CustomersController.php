@@ -137,4 +137,9 @@ class CustomersController extends Controller
         $customer->delete();
         return redirect()->route('customers.index');
     }
+
+    function search($text){
+        $customers = Customer::where('name', 'like', '%'.$text.'%')->get();
+         return response()->json($customers);
+    }
 }
