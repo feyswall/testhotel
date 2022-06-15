@@ -9,6 +9,7 @@ use App\Models\Sale;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Customer;
 use App\Models\Items;
+use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
 {
@@ -139,17 +140,6 @@ class SalesController extends Controller
     }
 
     public function make_invoice(Request $request, $id){
-
-        $sale = Sale::find($id);
-
-        dd( $sale->items->where('item_id', 1)->first()  );
-        $checked = $request->item_id;
-
-        if($checked){
-            foreach($checked as $item){
-                // $sale->items[0]->pivot;
-            }
-        }
-        return redirect()->back();
+        
     }
 }
