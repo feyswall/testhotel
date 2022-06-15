@@ -9,7 +9,9 @@ use App\Models\Sale;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Customer;
 use App\Models\Items;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class SalesController extends Controller
 {
@@ -157,5 +159,41 @@ class SalesController extends Controller
             }
         }
         return redirect()->back();
+    }
+
+    public function undo($id){
+        $sale = Sale::find($id);
+        if(!$sale){
+            return redirect()->back()->with('error', 'No record found!'); 
+        }
+        $sale->items()->update([
+            'invoice_mode' => 0
+        ]);
+        return redirect()->back();
+    }
+
+    function set_discount(Request $request, $id){
+        $sale = Sale::find ($id);
+        if(!$sale){
+            return redirect()->back()->with('error', 'Record not found!');
+        }
+        $sale->discount = $request->discount;
+        $sale->save();
+        return redirect()->back();
+    }
+
+    function confirm_invoice(Request $request, $id){
+        $sale = Sale::find($id);
+        if(!$sale){
+            return redirect()->back()->with('error', 'Record not found!');
+        } 
+        $checked = $sale->items()->where('invoice_mode', 1)->count();
+        if($checked == 0){
+            return redirect()->back();
+        }
+        $sale->invoice_number = time();
+        $sale->items()->where('invoice_mode', 0)->delete();
+        $sale->save();
+        return redirect('/sales/2');
     }
 }

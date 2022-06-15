@@ -1,19 +1,19 @@
 @extends('pageLayouts.admin')
 
 @section('title')
-    <title>Records | {{($mode != 0 && $mode != 1) ? 'Sales Orders' : ($mode == 0 ? 'Sales On Credit' : 'Sales On Cash') }}</title>
+    <title>Records | {{($mode == 2) ? 'Sales Orders' : ($mode == 0 ? 'Sales On Credit' : 'Sales On Cash') }}</title>
 @endsection
 
 @section('content')
     <main class="content">
         <div class="container-fluid p-0">
             <a href="/new_sales" class="btn btn-primary float-end mt-n1">New Record</a>
-            <a href="/sales/0" class="btn {{$mode == 0 ? 'btn-danger': 'btn-outline-danger'}} float-end mt-n1 mx-3">Sales On Credit</a>
-            <a href="/sales/1" class="btn {{$mode == 1 ? 'btn-success' : 'btn-outline-success'}} float-end mt-n1">Sales On Cash</a>
-            <a href="/sales/2" class="btn {{$mode != 1 && $mode != 0 ? 'btn-warning' : 'btn-outline-warning'}} mx-3 float-end mt-n1">Sales Orders</a>
+            <a href="/sales/1" class="btn {{$mode == 1 ? 'btn-success' : 'btn-outline-success'}} float-end mt-n1 mx-3">Sales On Cash</a>
+            <a href="/sales/0" class="btn {{$mode == 0 ? 'btn-danger': 'btn-outline-danger'}} float-end mt-n1">Sales On Credit</a>
+            <a href="/sales/2" class="btn {{$mode == 2 ? 'btn-dark' : 'btn-outline-dark'}} mx-3 float-end mt-n1">Sales Orders</a>
 
             <div class="mb-3">
-                <h1 class="h3 d-inline align-middle">Sales On {{ $mode == 0 ? 'Credit' : 'Cash'}}</h1>
+                <h1 class="h3 d-inline align-middle">{{ ($mode == 2) ? 'Sales Orders' : ($mode == 1 ? 'Sales On Cash' : "Sales On Credit") }}</h1>
             </div>
 
             <div class="row">
@@ -29,6 +29,7 @@
                                         <th>Discount</th>
                                         <th>Net</th>
                                         <th>Sales Date</th>
+                                        <th>Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,6 +50,22 @@
                                         <td>{{ $sale->discount }}</td>
                                         <td>{{ number_format($gross - $total_due_tax - $sale->discount, 2) }}</td>
                                         <td>{{ date_format(date_create($sale->created_at), 'M d, Y. H:i') }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Options
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                @if ($sale->cash_mode == 0 || ($sale->invoice_number != null && $sale->cash_mode == 0))
+                                                <a class="dropdown-item" href="#">Print Invoice</a>
+                                                <a class="dropdown-item" href="#">Receive Payment</a>
+                                                @elseif($sale->cash_mode == 2)
+                                                <a class="dropdown-item" href="#">Print Proforma</a>
+                                                <a class="dropdown-item" href="#">Generate Invoice</a>
+                                                @else 
+                                                <a class="dropdown-item" href="#">View Record</a>
+                                                @endif
+                                            </div>
+                                        </td>
                                     </tr>
                                   @endforeach
                                 </tbody>
