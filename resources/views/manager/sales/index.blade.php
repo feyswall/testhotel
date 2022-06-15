@@ -1,7 +1,7 @@
 @extends('pageLayouts.admin')
 
 @section('title')
-    <title>Records | Sales On {{ $mode == 0 ? 'Credit' : 'Cash'}}</title>
+    <title>Records | {{($mode != 0 && $mode != 1) ? 'Sales Orders' : ($mode == 0 ? 'Sales On Credit' : 'Sales On Cash') }}</title>
 @endsection
 
 @section('content')
@@ -38,17 +38,17 @@
                                         $gross = 0;  
                                         $total_due_tax = 0;
                                         foreach( $sale->items as $item ){
-                                            $total_due_tax += $item->pivot->due_tax; 
-                                            $gross = ($item->pivot->due_price + $item->pivot->due_tax) * $item->pivot->quantity;
+                                            $total_due_tax += $item->pivot->due_tax * $item->pivot->quantity; 
+                                            $gross += ($item->pivot->due_price + $item->pivot->due_tax) * $item->pivot->quantity;
                                         }
 
                                         @endphp
                                         <td>{{ $sale->customer->name }}</td>
-                                        <td> {{ number_format($gross) }}/=</td>
-                                        <td>{{ number_format($total_due_tax) }}</td>
+                                        <td> {{ number_format($gross, 2) }}</td>
+                                        <td>{{ number_format($total_due_tax, 2) }}</td>
                                         <td>{{ $sale->discount }}</td>
-                                        <td>{{ number_format($gross - $total_due_tax - $sale->discount) }}</td>
-                                        <td>{{ $sale->created_at}}</td>
+                                        <td>{{ number_format($gross - $total_due_tax - $sale->discount, 2) }}</td>
+                                        <td>{{ date_format(date_create($sale->created_at), 'M d, Y. H:i') }}</td>
                                     </tr>
                                   @endforeach
                                 </tbody>

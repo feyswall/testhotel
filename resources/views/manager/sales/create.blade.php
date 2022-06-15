@@ -52,6 +52,7 @@
                                     <table class="table">
                                         <thead>
                                             <th>Sn</th>
+                                            <th>Item code</th>
                                             <th>Item name</th>
                                             <th>Selling Price</th>
                                             <th>Tax</th>
@@ -60,6 +61,7 @@
                                         </thead>
                                         <tr v-for="(item, index) in results">
                                             <td>@{{index+1}}</td>
+                                            <td>@{{item.code}}</td>
                                             <td>@{{item.name}}</td>
                                             <td>@{{item.selling_price}}</td>
                                             <td>@{{item.tax}}</td>
@@ -211,7 +213,7 @@
 
                 var response = await fetch(`/save_sales`, requestOptions);
                 var data = await response.json();
-                window.location.href = '/sales/1';
+                window.location.href = '/proforma/' + data;
             },
 
             selectCustomer(index){
@@ -237,6 +239,7 @@
                     }else{
                         this.proforma.push(item);
                         this.results.splice(index, 1);
+                        this.item_search = "";
                     }
                 }
             },

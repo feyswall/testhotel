@@ -103,6 +103,8 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::controller(SalesController::class)->group(function(){
         Route::get('/sales/{mode}', 'index');
         Route::get('/new_sales', 'create');
+        Route::get('/proforma/{id}', 'proforma');
+        Route::put('/sales/make_invoice/{id}', 'make_invoice');
         Route::post('/save_sales', 'store')->name('sales.store');
     });
 

@@ -19,8 +19,7 @@ class SalesController extends Controller
      */
     public function index($mode)
     {
-        $condition = ($mode != 0 && $mode != 1) ? null : $mode;
-        $sales = Sale::where('cash_mode', $condition)->get();
+        $sales = Sale::where('cash_mode', $mode)->get();
         return view('manager.sales.index')
         ->with('sales', $sales)
         ->with('mode', $mode);
@@ -58,6 +57,7 @@ class SalesController extends Controller
         // create sale object for current  session
         $sale = Sale::create([
             'customer_id' => $customer_id,
+            'cash_mode' => 2
         ]);
         
         // checking if the sale object is created and return error if not
@@ -76,7 +76,7 @@ class SalesController extends Controller
 
         }
         
-        return 1;
+        return $sale->id;
     }
 
     /**
@@ -122,5 +122,34 @@ class SalesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function proforma($id){
+        $sale = Sale::where('cash_mode', 2)->where('id', $id)->first();
+        if(!$sale){
+            return redirect('/sales/2');
+        }
+        $items = $sale->items;
+        $customer = $sale->customer;
+        return view('manager.sales.proforma')->with([
+            'items' => $items, 
+            'sale' => $sale, 
+            'customer' => $customer
+        ]);
+    }
+
+    public function make_invoice(Request $request, $id){
+
+        $sale = Sale::find($id);
+
+        dd( $sale->items->where('item_id', 1)->first()  );
+        $checked = $request->item_id;
+
+        if($checked){
+            foreach($checked as $item){
+                // $sale->items[0]->pivot;
+            }
+        }
+        return redirect()->back();
     }
 }

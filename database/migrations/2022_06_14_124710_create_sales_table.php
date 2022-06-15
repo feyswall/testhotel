@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->integer('cash_mode')->unsigned()->nullable();
+            $table->integer('cash_mode')->unsigned()->default(2);
             $table->double('discount')->default(0);
             $table->string('invoice_number')->nullable();
 
