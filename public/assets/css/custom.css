@@ -1,3 +1,21 @@
+@font-face {
+    font-family: broadway;
+    src: url(../fonts/Broadway.ttf);
+}
+
+@font-face {
+    font-family: nunito;
+    src: url(../fonts/Nunito-Regular.ttf);
+}
+
+.broadway {
+    font-family: broadway;
+}
+
+.nunito {
+    font-family: nunito;
+}
+
 .logo-dark {
     background-color: rgb(36,32,33) !important;
 }
