@@ -43,56 +43,69 @@
                     </div>
                 </div>
              
-                <div v-if="!searching && results.length > 0">
-                    <div v-if="`${item_search != '' || customer_search != ''}`">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div v-if="mode == 1" class="row">
-                                    <table class="table">
-                                        <thead>
-                                            <th>Sn</th>
-                                            <th>Item code</th>
-                                            <th>Item name</th>
-                                            <th>Selling Price</th>
-                                            <th>Tax</th>
-                                            <th>Quantity</th>
-                                            <th>Add Item</th>
-                                        </thead>
-                                        <tr v-for="(item, index) in results">
-                                            <td>@{{index+1}}</td>
-                                            <td>@{{item.code}}</td>
-                                            <td>@{{item.name}}</td>
-                                            <td>@{{item.selling_price}}</td>
-                                            <td>@{{item.tax}}</td>
-                                            <td><input type="number" v-model="item.quantity"></td>
-                                            <td><button v-on:click="addItem(index)" class="btn btn-primary"><i class="la la-plus"></i></button></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div v-else class="row">
-                                    <table class="table">
-                                        <thead>
-                                            <th>Sn</th>
-                                            <th>Customer name</th>
-                                            <th>Customer email</th>
-                                            <th>Contact phone</th>
-                                            <th>Address</th>
-                                            <th>Select Customer</th>
-                                        </thead>
-                                        <tr v-for="(item, index) in results">
-                                            <td>@{{index+1}}</td>
-                                            <td>@{{item.name}}</td>
-                                            <td>@{{item.email}}</td>
-                                            <td>@{{item.phone}}</td>
-                                            <td>@{{item.address}}</td>
-                                            <td><button v-on:click="selectCustomer(index)" class="btn btn-primary"><i class="la la-check"></i></button></td>
-                                        </tr>
-                                    </table>
+                {{-- Search List --}}
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="card-title my-2">
+                                <a href="#" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Hide
+                                </a>
+                            </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div v-if="!searching && results.length > 0">
+                                <div v-if="`${item_search != '' || customer_search != ''}`">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div v-if="mode == 1" class="row">
+                                                <table class="table">
+                                                    <thead>
+                                                        <th>Sn</th>
+                                                        <th>Item</th>
+                                                        <th>Description</th>
+                                                        <th>Selling Price</th>
+                                                        <th>Quantity</th>
+                                                        <th>Add Item</th>
+                                                    </thead>
+                                                    <tr v-for="(item, index) in results">
+                                                        <td>@{{index+1}}</td>
+                                                        <td>@{{item.code}}</td>
+                                                        <td>@{{item.desc}}</td>
+                                                        <td>@{{item.selling_price}}</td>
+                                                        <td><input type="number" v-model="item.quantity"></td>
+                                                        <td><button v-on:click="addItem(index)" class="btn btn-primary"><i class="la la-plus"></i></button></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div v-else class="row">
+                                                <table class="table">
+                                                    <thead>
+                                                        <th>Sn</th>
+                                                        <th>Customer name</th>
+                                                        <th>Customer email</th>
+                                                        <th>Contact phone</th>
+                                                        <th>Address</th>
+                                                        <th>Select Customer</th>
+                                                    </thead>
+                                                    <tr v-for="(item, index) in results">
+                                                        <td>@{{index+1}}</td>
+                                                        <td>@{{item.name}}</td>
+                                                        <td>@{{item.email}}</td>
+                                                        <td>@{{item.phone}}</td>
+                                                        <td>@{{item.address}}</td>
+                                                        <td><button v-on:click="selectCustomer(index)" class="btn btn-primary"><i class="la la-check"></i></button></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+             
                 </div>
                 </div>
 
@@ -112,10 +125,9 @@
                                 <thead>
                                     <tr>
                                         <th>Sn</th>
-                                        <th>Item code</th>
-                                        <th>Item name</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
                                         <th>Item quantity</th>
-                                        <th>Tax</th>
                                         <th>Selling Price</th>
                                         <th>Total</th>
                                         <th>Action</th>
@@ -125,9 +137,8 @@
                                     <tr v-for="(item, index) in proforma" :key="'item' + index">
                                         <td>@{{index+1}}</td>
                                         <td>@{{item.code}}</td>
-                                        <td>@{{item.name}}</td>
+                                        <td>@{{item.desc}}</td>
                                         <td>@{{item.quantity}}</td>
-                                        <td>@{{item.tax}}</td>
                                         <td>@{{item.selling_price}}</td>
                                         <td>@{{totalRow(index)}}</td>
                                         <td>
@@ -195,8 +206,8 @@
                         'item_id': this.proforma[i].id, 
                         'item_quantity': this.proforma[i].quantity, 
                         'due_price': this.proforma[i].selling_price,
-                        'due_tax': this.proforma[i].tax
-                    });
+                        'due_tax': 0 
+                    });  //this.proforma[i].tax
                 }
                 var dataSet = {
                     'customer_id': this.customer.id, 
@@ -249,7 +260,7 @@
             }, 
 
             totalRow(index){
-                var tax = this.proforma[index].tax;
+                var tax = 0 //this.proforma[index].tax;
                 var price = this.proforma[index].selling_price;
                 var quantity = this.proforma[index].quantity;
                 return (tax + price) * quantity;

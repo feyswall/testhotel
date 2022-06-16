@@ -73,10 +73,9 @@
                             <thead>
                                 <tr>
                                     <th>Sn</th>
-                                    <th>Item code</th>
-                                    <th>Item name</th>
+                                    <th>Item</th>
+                                    <th>Description</th>
                                     <th>Price</th>
-                                    <th>Tax</th>
                                     <th>Quantity</th>
                                 </tr>
                             </thead>
@@ -85,9 +84,8 @@
                                     <tr>
                                         <td>#</td>
                                         <td>{{$item->code}}</td>
-                                        <td>{{$item->name}}</td>
+                                        <td>{{$item->desc}}</td>
                                         <td>{{$item->pivot->due_price}}</td>
-                                        <td>{{$item->pivot->due_tax}}</td>
                                         <td class="text-center">{{$item->pivot->quantity}}</td>
                                         <td><input type="checkbox" name="item_id[]" value="{{$item->id}}" checked="yes"></td>
                                     </tr>
@@ -127,10 +125,9 @@
                             <thead>
                                 <tr>
                                     <th>Sn</th>
-                                    <th>Item code</th>
-                                    <th>Item name</th>
+                                    <th>Item</th>
+                                    <th>Description</th>
                                     <th>Price</th>
-                                    <th>Tax</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
                                 </tr>
@@ -146,9 +143,8 @@
                                     <tr>
                                         <td>#</td>
                                         <td>{{$item->code}}</td>
-                                        <td>{{$item->name}}</td>
+                                        <td>{{$item->desc}}</td>
                                         <td>{{$item->pivot->due_price}}</td>
-                                        <td>{{$item->pivot->due_tax}}</td>
                                         <td class="text-center">{{$item->pivot->quantity}}</td>
                                         <td>{{ ($item->pivot->due_price + $item->pivot->due_tax) * $item->pivot->quantity}}</td>
                                     </tr>

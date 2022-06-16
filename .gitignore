@@ -13,3 +13,6 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+/public/~$items.xlsx
+/storage/framework/cache/laravel-excel/laravel-excel-3mXL4RdimRNZmelWytWyP7mv455ZVjVO.xlsx
+/storage/framework/cache/laravel-excel/laravel-excel-FtWzJeUU3HiWDArTJkXA1MD25NCNIQie.xlsx
