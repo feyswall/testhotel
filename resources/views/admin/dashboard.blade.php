@@ -9,6 +9,12 @@
     <main class="content">
         <div class="container-fluid p-0">
 
+            @if ( $errors->any() )
+                <div class="alert alert-danger">
+                        <p>{{ $errors->first() }}</p>
+                </div>
+            @endif
+
             <div class="row mb-2 mb-xl-3">
                 <div class="col-auto d-none d-sm-block">
                     <h3>Dashboard</h3>

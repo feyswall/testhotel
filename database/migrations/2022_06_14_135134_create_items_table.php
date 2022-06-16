@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->double('selling_price');
             $table->string('code');
-            $table->double('tax');
+
+            $table->longText('desc')->nullable();
+            $table->string('pref_supplier')->nullable();
+            $table->double('gross_price');
     
             $table->timestamps();
         });

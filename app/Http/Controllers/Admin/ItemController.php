@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Item;
 
+use App\Imports\ItemsImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ItemController extends Controller
 {
     /**
@@ -85,9 +88,22 @@ class ItemController extends Controller
     }
 
 
-    function search($text){
+   public function search($text)
+   {
         $items = Item::where('code', 'like', '%'.$text.'%' )->get();
     return response()->json($items);
-}
+    }
+
+
+
+    public function importItems()
+    {
+
+        Excel::import(new ItemsImport, 'items.xlsx');
+        
+        return redirect('/')->with('success', 'All good!');
+    }
+
+
 
 }
