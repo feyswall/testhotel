@@ -99,8 +99,8 @@ class ItemController extends Controller
     public function importItems()
     {
 
-        Excel::import(new ItemsImport, 'items.xlsx');
-        
+        Excel::import(new ItemsImport, 'items.ods');
+
         return redirect('/')->with('success', 'All good!');
     }
 
