@@ -11,9 +11,15 @@ class ItemsImport implements ToCollection
 {
     public function collection(Collection $rows)
     {
-         Validator::make($rows->toArray(), [
-             '*.2' => 'required',
-         ])->validate();
+         $v = Validator::make($rows->toArray(), [
+             '*.2' => 'required|string',
+         ], $messages = [
+             '*.2.required' => 'column :attribute doest have a ',
+         ]);
+
+         if( $v->errors() ){
+              return redirect()->back()->withErrors($v->errors());
+         }
 
         foreach ($rows as $row) {
             Item::create([
