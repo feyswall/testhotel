@@ -73,6 +73,12 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::get('/taxes', 'index');
     });
 
+    //Setting routes
+    Route::controller(SettingController::class)->group(function(){
+        Route::get('/settings', 'index');
+        Route::put('/update_setting', 'update');
+    });
+
     //Supplier routes
     Route::controller(SupplierController::class)->group(function () {
         Route::get('/suppliers', 'index')->name('admin.supplier.index');

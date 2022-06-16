@@ -16,7 +16,8 @@
                 ['name' => 'Taxes', 'icon' => 'dollar-sign', 'color' => 'alert-warning', 'route' => '/taxes'],
                 ['name' => 'Item Attributes', 'icon' => 'list', 'color' => 'alert-info', 'route' => '/attributes'],
                 ['name' => 'Customers', 'icon' => 'shopping-bag', 'color' => 'alert-dark', 'route' => '/customers'],
-                ['name' => 'Discounts', 'icon' => 'percent', 'color' => 'alert-success', 'route' => '/discounts'],
+                ['name' => 'Settings', 'icon' => 'settings', 'color' => 'alert-success', 'route' => '/settings'],
+                ['name' => 'Payment Methods', 'icon' => 'credit-card', 'color' => 'alert-warning', 'route' => '/methods'],
                 ['name' => 'System Users', 'icon' => 'shield', 'color' => 'alert-primary', 'route' => '/users'],
             ];
         @endphp
