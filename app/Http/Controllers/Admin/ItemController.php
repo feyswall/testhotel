@@ -90,7 +90,7 @@ class ItemController extends Controller
 
    public function search($text)
    {
-        $items = Item::where('code', 'like', '%'.$text.'%' )->get();
+        Item::where('code', 'like', '%'.$text.'%' )->get();
     return response()->json($items);
     }
 
