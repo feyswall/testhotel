@@ -59,8 +59,8 @@
                                         <input type="text" class="form-control" id="vrn" placeholder="VRN number">
                                     </div>
                                     <div class="mb-3 col-md-4">
-                                        <label class="form-label" for="phone">Phone</label>
-                                        <input type="text" class="form-control" id="phone" placeholder="Contact phone">
+                                        <label class="form-label" for="zrb">ZRB</label>
+                                        <input type="text" class="form-control" id="zrb" placeholder="ZRB number">
                                     </div>
                                 </div>
                                 <div class="text-end">
