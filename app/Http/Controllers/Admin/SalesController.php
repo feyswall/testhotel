@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use PDF;
 use App\Models\Setting;
+use App\Models\Tax;
 
 class SalesController extends Controller
 {
@@ -148,6 +149,7 @@ class SalesController extends Controller
         $items = $sale->items()->where('invoice_mode', 0)->get();
         $confirmed = $sale->items()->where('invoice_mode', 1)->get();
         $customer = $sale->customer;
+        $vat = Tax::where('type', 1)->first();
 
         $settings = Setting::all();
         $data = [];
@@ -160,7 +162,8 @@ class SalesController extends Controller
             'confirmed' => $confirmed,
             'sale' => $sale,
             'customer' => $customer, 
-            'setting' => $data
+            'setting' => $data, 
+            'vat' => $vat
         ]);
     }
 
@@ -215,6 +218,7 @@ class SalesController extends Controller
             return redirect()->back();
         }
         $sale->invoice_number = time();
+        $sale->vat = $request->vat;
         $sale->save();
         $removable = $sale->items()->where('invoice_mode', 0)->get();
         if($removable->count() == 0){

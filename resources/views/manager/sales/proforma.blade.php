@@ -105,7 +105,9 @@
                                 <form action="/sales/confirm_invoice/{{$sale->id}}" method="POST" id="invoice-confirmation">
                                     @csrf
                                     @method('PUT')
-                                    <div class="col col-md-12"><button :disabled="discount == 1" class="btn btn-success w-100" type="submit">Confirm & Save</button></div>
+                                    <input type="hidden" name="vat" value="{{$vat->rate}}">
+                                    <div class="col col-md-12">
+                                        <button :disabled="discount == 1" class="btn btn-success w-100" type="submit">Confirm & Save</button></div>
                                 </form>
                             </div>
                             <div class="card-actions float-end row mx-1">
@@ -114,7 +116,7 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="input-group">
-                                            <input type="number" name="discount" v-on:keyup="setDiscount" v-on:change="setDiscount" required value="{{$sale->discount}}" class="form-control" placeholder="Total discount">
+                                            <input type="number" name="discount" v-on:keyup="setDiscount" min="0" v-on:change="setDiscount" required value="{{$sale->discount}}" class="form-control" placeholder="Total discount">
                                             <button form="discount" class="btn btn-primary" type="submit">Calculate</button>
                                         </div>
                                     </form>
@@ -137,6 +139,7 @@
                             <tbody>
                                 @php
                                     $subtotal = 0;
+                                    $vat_rate = $vat->rate ?? 0;
                                 @endphp
                                 @foreach ($confirmed as $item)
                                     @php
@@ -157,12 +160,16 @@
                                     <td colspan="2" class="text-end">{{number_format($subtotal, 2)}}</td>
                                 </tr>
                                 <tr>
+                                    <td colspan="5" class="font-weight-bold text-secondary">VAT Total ({{$vat_rate}}%)</td>
+                                    <td colspan="2" class="text-end">{{number_format(($vat_rate/100) * $subtotal, 2)}}</td>
+                                </tr>
+                                <tr>
                                     <td colspan="5" class="font-weight-bold text-secondary" >Discount</td>
                                     <td colspan="2" class="text-end">{{number_format($sale->discount, 2)}}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="5" class="font-weight-bold text-dark h4">Total Amount</td>
-                                    <td colspan="2" class="text-end border-top border-bottom">{{number_format($subtotal - $sale->discount, 2)}}</td>
+                                    <td colspan="2" class="text-end border-top border-bottom">{{number_format(($subtotal + (($vat_rate/100) * $subtotal)) - $sale->discount, 2)}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -249,7 +256,14 @@
                                         <td class="text-center">PRICE</td>
                                         <td class="text-center">TOTAL</td>
                                     </tr>
+                                    @php
+                                        $tax_total = 0; 
+                                    @endphp
                                     @foreach ($items as $item)
+                                    @php
+                                        $tax_total += 0;
+                                        // $tax_category = Tax::where('type', )
+                                    @endphp
                                         <tr>
                                             <td class="text-center">#</td>
                                             <td class="text-center">{{$item->code}}</td>
@@ -265,7 +279,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="3" class="bg-light"></td>
-                                        <td colspan="3" class="text-start">VAT TOTAL: </td>
+                                        <td colspan="3" class="text-start">VAT TOTAL: {{$tax_total}}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" class="bg-light"></td>

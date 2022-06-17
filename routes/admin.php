@@ -73,6 +73,8 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     //Tax routes
     Route::controller(TaxController::class)->group(function(){
         Route::get('/taxes', 'index');
+        Route::post('/save_tax', 'store');
+        Route::put('/tax/edit/{id}', 'update');
     });
 
     //Setting routes
