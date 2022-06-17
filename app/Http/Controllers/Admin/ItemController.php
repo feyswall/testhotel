@@ -21,7 +21,9 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return view('manager.items.index');
+        $items = Item::paginate(1000);
+        return view('manager.items.index')
+        ->with('items', $items );
     }
 
     /**
