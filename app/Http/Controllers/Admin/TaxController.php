@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tax;
 use Illuminate\Http\Request;
 
 class TaxController extends Controller
@@ -14,7 +15,8 @@ class TaxController extends Controller
      */
     public function index()
     {
-        return view('admin.taxes.index');
+        $taxes = Tax::all();
+        return view('admin.taxes.index', compact('taxes'));
     }
 
     /**
@@ -35,7 +37,15 @@ class TaxController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $available = Tax::where('type', $request->type)->first();
+        if(!$available){
+            Tax::create([
+                'name' => $request->name, 
+                'type' => $request->type, 
+                'rate' => $request->rate
+            ]);
+        }
+        return redirect()->back();
     }
 
     /**
@@ -69,7 +79,14 @@ class TaxController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tax = Tax::find($id);
+        if(!$tax){
+            return redirect()->back()->with('error', 'Tax entry not found!');
+        }
+        $tax->name = $request->name;
+        $tax->rate = $request->rate;
+        $tax->save();
+        return redirect()->back();
     }
 
     /**
