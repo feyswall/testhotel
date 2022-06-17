@@ -105,7 +105,7 @@
                                 <form action="/sales/confirm_invoice/{{$sale->id}}" method="POST" id="invoice-confirmation">
                                     @csrf
                                     @method('PUT')
-                                    <input type="hidden" name="vat" value="{{$vat->rate}}">
+                                    <input type="hidden" name="vat" value="{{$vat->rate ?? 0}}">
                                     <div class="col col-md-12">
                                         <button :disabled="discount == 1" class="btn btn-success w-100" type="submit">Confirm & Save</button></div>
                                 </form>

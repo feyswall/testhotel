@@ -95,9 +95,9 @@
                                                 </div>
                                                 <div class="modal-body m-3">
 
-                                                  <form method="POST" action="/sales/set_cash/{{$sale->id}}" id="cash-mode-form">
+                                                  <form method="POST" id="cash-mode-form" action="sales/set_cash/{{$sale->id}}">
                                                     @csrf
-                                                    @method('PUT')
+                                                    @method('post')
                                                     <label class="form-check">
                                                         <input class="form-check-input" type="radio" value="0" name="cash_mode">
                                                         <span class="form-check-label">
@@ -111,13 +111,15 @@
                                                             Record as sales on cash
                                                         </span>
                                                     </label>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button form="cash-mode-form" type="submit" class="btn btn-success">Confirm Payment</button>
+                                                    </div>
                                                   </form>
 
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button form="cash-mode-form" type="submit" class="btn btn-success">Confirm Payment</button>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
