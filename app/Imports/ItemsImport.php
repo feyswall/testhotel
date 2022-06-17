@@ -3,57 +3,34 @@
 namespace App\Imports;
 
 use App\Models\Item;
-use Exception;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Concerns\ToCollection;
 
-
-use Illuminate\Validation\Rule;
-use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\WithValidation;
-
-
-class ItemsImport implements ToModel, WithValidation
+class ItemsImport implements ToCollection
 {
-    use Importable;
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-
-
-    public function model(array $row)
-    {        
-        foreach($row as $item){
-            if($item != null){
-                if($row[2] == null){
-                    continue;
-                }
-                try{
-                    return new Item([
-                        'name' => $row[2],
-                        'code' => $row[2],
-                        'desc' => $row[4] ?? null,
-                        'pref_supplier' => $row[6] ?? null,
-                        'selling_price' => $row[8] ?? 0,
-                        'gross_price' => $row[10] ?? 0,
-                    ]);
-                }catch(Exception $e){
-                    error_log("Got an exception..".$e->getMessage());
-                }
-            }
-        }
-
-    }
-
-
-     public function rules(): array
+    public function collection(Collection $rows)
     {
-        return [
-            // '*.2' => 'exclude_if:*.8,null:*.10,null|required',
-        ];
+         $v = Validator::make($rows->toArray(), [
+             '*.2' => 'required|string|unique:items,name',
+             '*.4' => 'sometimes|string',
+             '*.8' => 'sometimes|numeric',
+             '*.10' => 'sometimes|numeric',
+         ], $messages = [
+             '*.2.required' => 'column :attribute doest Exist...',
+            'unique' => 'Name at row :attribute aready exist...'
+             ])->validate();
+
+        foreach ($rows as $row) {
+            Item::create([
+                'name' => $row[2],
+                'code' => $row[2],
+                'desc' => $row[4] ?? null,
+                'pref_supplier' => $row[6] ?? null,
+                'selling_price' => $row[8] ?? 0,
+                'gross_price' => $row[10] ?? 0,
+            ]);
+        }
     }
-
-
-
 }
+

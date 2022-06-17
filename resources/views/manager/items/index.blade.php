@@ -7,59 +7,86 @@
 @section('content')
     <main class="content">
         <div class="container-fluid p-0">
+
+             @if ( $errors->any() )
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="alert-message">
+                        <strong>Hello there!  </strong>  {{ $errors->first() }}
+                    </div>
+                </div>
+            @endif
+
+            <form action="/items/import" method="post" enctype="multipart/form-data">
+                @csrf
+                <div>
+                    <label class="form-label" for="itemExcel">Enter your file</label>
+                    <input type="file" name="excel" id="itemExcel">
+                </div>
+                <button class="btn btn-primary" type="submit">submit</button>
+            </form>
+
+
             <a href="/items/create" class="btn btn-primary float-end mt-n1">Add Item</a>
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle"> Items</h1>
             </div>
 
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Thumbnail</th>
-                                        <th>Item Code</th>
-                                        <th>Item Name</th>
+                                        <th>#</th>
+                                        <th>selling price</th>
+                                        <th>Code</th>
+                                        <th>description</th>
+                                        <th>supplier</th>
+                                        <th>Gross Price</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
+                                    @foreach ($items as $item)                                        
                                     <tr>
-                                        <td>
+                                        {{-- <td>
                                             <img src="{{ asset('assets/img/avatars/avatar-5.jpg') }}" width="35" height="35" class="rounded m-0" alt="image">
-                                        </td>
-                                        <td>System Architect</td>
-                                        <td>35</td>
+                                        </td> --}}
+                                        <td>{{ $item->id }}</td>
+                                        <td>Tzs {{  $item->selling_price}}</td>
+                                        <td>{{ $item->code }}</td>
+                                        <td>{{ $item->desc }}</td>
+                                        <td>{{ $item->pref_supplier ?? 'empty' }}</td>
+                                        <td>{{ $item->gross_price }}</td>
                                         <td class="table-action">
                                             <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
                                             <a href="#"><i class="align-middle" data-feather="trash"></i></a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="{{ asset('assets/img/avatars/avatar-5.jpg') }}" width="35" height="35" class="rounded m-0" alt="image">
-                                        </td>
-                                        <td>Customer Support</td>
-                                        <td>20</td>
-                                        <td class="table-action">
-                                            <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
-                                            <a href="#"><i class="align-middle" data-feather="trash"></i></a>
-                                        </td>
-                                    </tr>
+                                    @endforeach
+
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Thumbnail</th>
-                                        <th>Item Code</th>
-                                        <th>Item Name</th>
+                                         <th>#</th>
+                                        <th>selling price</th>
+                                        <th>Code</th>
+                                        <th>description</th>
+                                        <th>supplier</th>
+                                        <th>Gross Price</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
                         </div>
                     </div>
+                </div>
+
+                <div class="col-md-5">
+                    {{ $items->links() }}
                 </div>
             </div>
 
