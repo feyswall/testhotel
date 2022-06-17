@@ -14,11 +14,15 @@ class ItemsImport implements ToCollection
          $v = Validator::make($rows->toArray(), [
              '*.2' => 'required|string|unique:items,name',
              '*.4' => 'sometimes|string',
-             '*.8' => 'sometimes|numeric',
-             '*.10' => 'sometimes|numeric',
+             '*.8' => 'required|numeric',
+             '*.10' => 'required|numeric',
          ], $messages = [
              '*.2.required' => 'column :attribute doest Exist...',
-            'unique' => 'Name at row :attribute aready exist...'
+            'unique' => 'Name at row :attribute aready exist...',
+            '*.4.string' => 'Description in Row :attribute must be text',
+            '*.8.numeric' => 'selling price at Row  :attribute must be Number',
+            '*.10.numeric' => 'Gross price at Row :attribute must be Number',
+
              ])->validate();
 
         foreach ($rows as $row) {

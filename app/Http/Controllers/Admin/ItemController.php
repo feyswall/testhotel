@@ -21,7 +21,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::paginate(1000);
+        $items = Item::orderBy('id', 'desc')->paginate(1000);
         return view('manager.items.index')
         ->with('items', $items );
     }
@@ -89,14 +89,24 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Item::where('id', $id)->first();
+        if( !$item ){
+            return redirect()->back()->withErrors('error' , 'item not found...');
+        }
+        if( $item->sales()->exists() ){
+            $item->sales()->detach();
+        }else{}
+        $item->delete();
+        return redirect()->back()->with('success', 'Item deleted successfully...');
     }
 
 
    public function search($text)
    {
         $items = Item::where('code', 'like', '%'.$text.'%' )->get();
+
         return response()->json($items);
+
     }
 
 
@@ -127,7 +137,7 @@ class ItemController extends Controller
 
         Storage::disk('local')->delete('public/itemExcel/'.$path);
 
-        return redirect()->back()->with('error', 'DATA SENT SUCCESSFULLY');
+        return redirect()->back()->with('excelSuccess', 'DATA SAVED SUCCESSFULLY');
 
     }
 

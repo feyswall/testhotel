@@ -202,6 +202,7 @@ class SalesController extends Controller
         if(!$sale){
             return redirect()->back()->with('error', 'Record not found!');
         }
+        
         $sale->discount = $request->discount;
         $sale->save();
         return redirect()->back();
