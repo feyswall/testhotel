@@ -157,6 +157,8 @@ class SalesController extends Controller
         $customer = $sale->customer;
         $vat = Tax::where('type', 1)->first();
 
+        $vat_rate = $vat->rate ?? 0;
+
         $settings = Setting::all();
         $data = [];
         foreach($settings as $item){
@@ -168,7 +170,8 @@ class SalesController extends Controller
         // Assign data to my object
         $purchase->subtotal = $this->calculateSubTotal($sale->items);
         $purchase->current = $this;
-        $purchase->discounted = $this->discounted($sale, $vat);
+        $purchase->discounted = $this->discounted($sale, $vat_rate);
+        $purchase->vat_total = $this->vatTotal($sale->items, $vat_rate);
 
         return view('manager.sales.proforma', [
             'items' => $items,

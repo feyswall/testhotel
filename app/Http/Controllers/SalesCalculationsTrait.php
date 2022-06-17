@@ -28,10 +28,14 @@ trait SalesCalculationsTrait
     }
 
 
-    public function discounted($sale, $vat){
-        $vat_rate = $vat->rate ?? 0;
+    public function discounted($sale, $vat_rate){
         $discounted_income = $this->calculateSubTotal($sale->items) + (($vat_rate/100) * $this->calculateSubTotal($sale->items)) - $sale->discount;
         return $discounted_income;
+    }
+
+    public function vatTotal($items, $vat_rate){
+        $vat_total = ($vat_rate/100) * $this->calculateSubTotal($items);
+        return $vat_total;
     }
 
 }
