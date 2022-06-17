@@ -135,26 +135,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $subtotal = 0;
-                                @endphp
                                 @foreach ($confirmed as $item)
-                                    @php
-                                        $subtotal += ($item->pivot->due_price + $item->pivot->due_tax) * $item->pivot->quantity;
-                                    @endphp
                                     <tr>
                                         <td>#</td>
                                         <td>{{$item->code}}</td>
                                         <td>{{$item->desc}}</td>
                                         <td>{{$item->pivot->due_price}}</td>
                                         <td class="text-center">{{$item->pivot->quantity}}</td>
-                                        <td>{{ ($item->pivot->due_price + $item->pivot->due_tax) * $item->pivot->quantity}}</td>
+                                        <td>{{ $purchase->current->total_item_income($item) }}</td>
                                     </tr>
                                 @endforeach
                                 <tr><td colspan="7" class="border-top"></td></tr>
                                 <tr>
                                     <td colspan="5" class="font-weight-bold text-secondary">Subtotal</td>
-                                    <td colspan="2" class="text-end">{{number_format($subtotal, 2)}}</td>
+                                    <td colspan="2" class="text-end">{{number_format($purchase->subtotal, 2)}}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="5" class="font-weight-bold text-secondary" >Discount</td>
@@ -162,7 +156,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="5" class="font-weight-bold text-dark h4">Total Amount</td>
-                                    <td colspan="2" class="text-end border-top border-bottom">{{number_format($subtotal - $sale->discount, 2)}}</td>
+                                    <td colspan="2" class="text-end border-top border-bottom">{{number_format($purchase->discounted, 2)}}</td>
                                 </tr>
                             </tbody>
                         </table>

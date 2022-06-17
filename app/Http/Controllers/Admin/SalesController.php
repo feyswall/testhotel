@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use PDF;
 use App\Models\Setting;
+use App\Http\Controllers\SalesCalculationsTrait;
+use \stdClass;
 
 class SalesController extends Controller
 {
+    use SalesCalculationsTrait;
     /**
      * Display a listing of the resource.
      *
@@ -141,10 +144,13 @@ class SalesController extends Controller
     }
 
     function proforma($id){
+
         $sale = Sale::where('cash_mode', 2)->where('id', $id)->first();
+        
         if(!$sale){
             return redirect('/sales/2');
         }
+
         $items = $sale->items()->where('invoice_mode', 0)->get();
         $confirmed = $sale->items()->where('invoice_mode', 1)->get();
         $customer = $sale->customer;
@@ -155,12 +161,20 @@ class SalesController extends Controller
             $data[$item->key] = $item->value;
         }
 
-        return view('manager.sales.proforma')->with([
+        // define Object to carry my datas;
+        $purchase = new stdClass();
+        // Assign data to my object
+        $purchase->subtotal = $this->calculateSubTotal($sale->items);
+        $purchase->current = $this;
+        $purchase->discounted = $this->discounted($sale);
+
+        return view('manager.sales.proforma', [
             'items' => $items,
             'confirmed' => $confirmed,
             'sale' => $sale,
             'customer' => $customer, 
-            'setting' => $data
+            'setting' => $data,
+            'purchase' => $purchase,
         ]);
     }
 
