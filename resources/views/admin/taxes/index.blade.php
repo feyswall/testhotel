@@ -5,228 +5,139 @@
 @endsection
 
 @section('content')
-    <div class="p-4">
-        <button onclick="printInvoice('invoice')" type="button" class="btn btn-success">Print Invoice</button>
-        <button onclick="printInvoice('taxinvoice')" type="button" class="btn btn-primary">Print Tax Invoice</button>
+<main class="content">
+    <div class="container-fluid p-0">
+        <div class="mb-3">
+            <h1 class="h3 d-inline align-middle">Taxes</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-8 col-xxl-9 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Available Taxes</h5>
+                    </div>
+                    <table class="table table-borderless my-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tax Name</th>
+                                <th>Description</th>
+                                <th>Tax Rate</th>
+                                <th class="d-none d-xl-table-cell">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($taxes as $item)
+                            <tr>
+                                <td>
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <div class="bg-light rounded-2">
+                                                <i class="la la-hand-holding-usd h2"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="d-none d-xxl-table-cell">
+                                    <strong>
+                                        @if ($item->type == 1)
+                                        VAT
+                                        @endif
+                                    </strong>
+                                </td>
+                                <td class="d-none d-xl-table-cell">
+                                    {{$item->name}}
+                                </td>
+                                <td>{{$item->rate}}%</td>
+                                <td class="d-none d-xl-table-cell">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#edit-tax-{{$item->id}}" class="btn btn-light">Edit</a>
+                                </td>
+                            </tr>
+                            <div class="modal fade" id="edit-tax-{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Edit Tax</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body m-3">
+
+                                          <form method="POST" action="/tax/edit/{{$item->id}}" id="edit-tax-form">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="row mt-3">
+                                                <div class="col col-md-12">
+                                                    <select name="type" id="tax-type" class="form-control">
+                                                        <option value="1" selected>VAT</option>
+                                                        <option value="2" disabled>PAYEE</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col col-md-12">
+                                                    <input name="name" required value="{{$item->name}}" type="text" placeholder="Description" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col col-md-12">
+                                                    <input required value="{{$item->rate}}" name="rate" min="0" type="number" placeholder="Tax rate (%)" class="form-control">
+                                                </div>
+                                            </div>
+                                          </form>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button form="edit-tax-form" type="submit" class="btn btn-success">Save Changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4 col-xxl-3 d-flex">
+                <div class="card flex-fill w-100">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Add Tax</h5>
+                    </div>
+                    <div class="card-body d-flex w-100">
+                        <div class="align-self-center chart chart-lg">
+                           <form action="/save_tax" method="POST">
+                                @csrf
+                                <div class="row mt-3">
+                                    <div class="col col-md-12">
+                                        <select name="type" id="tax-type" class="form-control">
+                                            <option value="1" selected>VAT</option>
+                                            <option value="2" disabled>PAYEE</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col col-md-12">
+                                        <input name="name" required type="text" placeholder="Description" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col col-md-12">
+                                        <input name="rate" required min="0" type="number" placeholder="Tax rate (%)" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col col-md-12">
+                                        <button type="submit" class="btn w-100 btn-success">Save Tax</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-       
-    <main class="content nunito">
-        <div class="container-fluid p-0 d-none">
-            <div class="row" id="invoice">
-                <div class="col-12">
-                    <div class="card shadow-none">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col col-md-5">
-                                    <img src="{{ asset('assets/img/avatars/logo-dark.png') }}" alt="" width="80%" height="100%">
-                                </div>
-                                <div class="col col-md-7 text-md-end">
-                                    <h1 class="text-dark broadway">Proforma Invoice</h1>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col col-md-5">
-                                    <address class="mini-text">
-                                        P.O.BOX 960,<br>
-                                        BWAWANI - MABLUU ROAD<br>
-                                        ZANZIBAR - TANZANIA<br>
-                                        Phone: +255 777 411 887<br>
-                                        Email: chau@hotel-solutions.co.tz<br>
-                                        Website: <a href="#">hotel-solutions.co.tz</a><br>
-                                    </address>
-                                </div>
-                                <div class="col col-md-7 text-md-end">
-                                    <table class="table table-sm table-bordered table-responsive mini-text">
-                                        <tr>
-                                            <td class="text-start">DATE: </td>
-                                            <td class="text-start">P.I NUMBER: </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">TIN: </td>
-                                            <td class="text-start">VRN: </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">VALIDITY: </td>
-                                            <td class="text-start">Due Date: </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div> 
-
-                            <div class="row">
-                                <div class="col col-md-7">
-                                    <table class="table table-sm table-bordered mini-text">
-                                        <tr>
-                                            <td class="text-start">To: </td>
-                                        </tr>
-                                        <tr>
-                                            <td rowspan="3">
-                                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat rem enim exercitationem aliquid totam consectetur. Dolorum nemo impedit dicta soluta corporis itaque. Ipsa excepturi dolorum fugiat quae a necessitatibus qui!
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="row mt-n3">
-                                <div class="col col-md-12">
-                                    <table class="table table-sm table-bordered mini-text">
-                                        <tr>
-                                            <td class="text-center">NO.</td>
-                                            <td class="text-center">ITEM</td>
-                                            <td class="text-center">DESCRIPTION</td>
-                                            <td class="text-center">QTY</td>
-                                            <td class="text-center">RATE</td>
-                                            <td class="text-center">TOTAL</td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="bg-light"></td>
-                                            <td colspan="3" class="text-start">SUBTOTAL: </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="bg-light"></td>
-                                            <td colspan="3" class="text-start">VAT TOTAL: </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="bg-grey"></td>
-                                            <td colspan="3" class="text-start">TOTAL: </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                    
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="container-fluid p-0">
-            <div class="row" id="taxinvoice">
-                <div class="col-12">
-                    <div class="card shadow-none">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col col-md-5">
-                                    <img src="{{ asset('assets/img/avatars/logo-dark.png') }}" alt="" width="80%" height="100%">
-                                </div>
-                                <div class="col col-md-7 text-md-end">
-                                    <h1 class="text-dark broadway">Tax Invoice</h1>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col col-md-5">
-                                    <address class="mini-text">
-                                        P.O.BOX 960,<br>
-                                        BWAWANI - MABLUU ROAD<br>
-                                        ZANZIBAR - TANZANIA<br>
-                                        Phone: +255 777 411 887<br>
-                                        Email: chau@hotel-solutions.co.tz<br>
-                                        Website: <a href="#">hotel-solutions.co.tz</a><br>
-                                    </address>
-                                </div>
-                                <div class="col col-md-7 text-md-end">
-                                    <table class="table table-sm table-bordered table-responsive mini-text">
-                                        <tr>
-                                            <td class="text-start">DATE: </td>
-                                            <td class="text-start">INVOICE NUMBER: </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-start">TIN: </td>
-                                            <td class="text-start">VRN: </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div> 
-
-                            <div class="row">
-                                <div class="col col-md-7">
-                                    <table class="table table-sm table-bordered mini-text">
-                                        <tr>
-                                            <td class="text-start">Sold To: </td>
-                                        </tr>
-                                        <tr>
-                                            <td rowspan="3">
-                                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat rem enim exercitationem aliquid totam consectetur. Dolorum nemo impedit dicta soluta corporis itaque. Ipsa excepturi dolorum fugiat quae a necessitatibus qui!
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col col-md-5 text-md-end">
-                                    <table class="table table-bordered mini-text table-sm">
-                                        <tr>
-                                            <td class="text-center">Cheque No</td>
-                                            <td class="text-center">Payment Method</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">Lorem ipsum</td>
-                                            <td class="text-center">Lorem ipsum</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="row mt-n3">
-                                <div class="col col-md-12">
-                                    <table class="table table-sm table-borderless mini-text">
-                                        <tr>
-                                            <td class="text-start">NO.</td>
-                                            <td class="text-start">ITEM</td>
-                                            <td class="text-start">DESCRIPTION</td>
-                                            <td class="text-center">QTY</td>
-                                            <td class="text-center">RATE</td>
-                                            <td class="text-center">TOTAL</td>
-                                        </tr>
-                                        @for ($i = 0; $i < 7; $i++)
-                                            <tr>
-                                                <td>#</td>
-                                                <td>Item {{$i + 1}}</td>
-                                                <td>Description</td>
-                                                <td class="text-center">{{$i + 3}}</td>
-                                                <td class="text-center">200,000</td>
-                                                <td class="text-center">200,000</td>
-                                            </tr>
-                                        @endfor
-                                        <tr>
-                                            <td colspan="3" class="bg-light"></td>
-                                            <td colspan="3" class="text-start">SUBTOTAL: </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="bg-light"></td>
-                                            <td colspan="3" class="text-start">VAT TOTAL: </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="bg-light"></td>
-                                            <td colspan="3" class="text-start">DISCOUNT TOTAL: </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" class="bg-light"></td>
-                                            <td colspan="3" class="text-start">TOTAL: </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                    
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <script>
-        function printInvoice(id) {
-            var element = document.getElementById(id);
-            var opt = {
-            margin:       [0.3, 0.3, 0.3, 0.8],
-            filename:     'myfile.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 1 },
-            jsPDF:        { unit: 'cm', format: 'letter', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
-        }
-    </script>
+</main>
 @endsection
