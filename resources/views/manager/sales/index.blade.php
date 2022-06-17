@@ -72,13 +72,13 @@
                                             <div class="dropdown-menu">
                                                 @if($sale->invoice_number != null && $sale->cash_mode == 2)
                                                     <a class="dropdown-item" href="{{ route('print.sales.invoice', $sale->id) }}">Print Invoice</a>
-                                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment" href="#">Receive Payment</a>
+                                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment-{{$sale->id}}" href="#">Receive Payment</a>
                                                 @elseif($sale->invoice_number == null && $sale->cash_mode == 2)
                                                     <a class="dropdown-item" href="#">Print Proforma</a>
                                                     <a class="dropdown-item" href="/proforma/{{$sale->id}}">Generate Invoice</a>
                                                 @elseif($sale->invoice_number != null && $sale->cash_mode == 0 )
                                                     <a class="dropdown-item" href="#">View Record</a>
-                                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment" href="#">Receive Payment</a>
+                                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment-{{$sale->id}}" href="#">Receive Payment</a>
                                                 @else
                                                     <a class="dropdown-item" href="#">View Record</a>
                                                 @endif
@@ -86,7 +86,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <div class="modal fade" id="receive-payment" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal fade" id="receive-payment-{{$sale->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">

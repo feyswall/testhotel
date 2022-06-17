@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Setting;
+use App\Models\PaymentMethod;
 
 class SettingController extends Controller
 {
@@ -99,5 +100,27 @@ class SettingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    function payment_methods(){
+        $methods = PaymentMethod::all();
+        return view('admin.setting.methods', compact('methods'));
+    }
+
+    function save_method(Request $request){
+        PaymentMethod::create([
+            'name' => $request->name
+        ]);
+        return redirect()->back();
+    }
+
+    function update_method(Request $request, $id){
+        $method = PaymentMethod::find($id);
+        if(!$method){
+            return redirect()->back();
+        } 
+        $method->name = $request->name;
+        $method->save();
+        return redirect()->back();
     }
 }

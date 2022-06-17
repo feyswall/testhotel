@@ -77,7 +77,10 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     //Setting routes
     Route::controller(SettingController::class)->group(function(){
         Route::get('/settings', 'index');
+        Route::get('/methods', 'payment_methods');
+        Route::post('/save_method', 'save_method');
         Route::put('/update_setting', 'update');
+        Route::put('/methods/edit/{id}', 'update_method');
     });
 
     //Supplier routes
