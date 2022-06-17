@@ -13,6 +13,9 @@ class ItemsImport implements ToCollection
     {
          $v = Validator::make($rows->toArray(), [
              '*.2' => 'required|string|unique:items,name',
+             '*.4' => 'sometimes|string',
+             '*.8' => 'sometimes|numeric',
+             '*.10' => 'sometimes|numeric',
          ], $messages = [
              '*.2.required' => 'column :attribute doest Exist...',
             'unique' => 'Name at row :attribute aready exist...'

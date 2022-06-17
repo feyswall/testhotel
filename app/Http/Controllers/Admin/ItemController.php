@@ -103,11 +103,12 @@ class ItemController extends Controller
     {
 
         $rules = [
-            'excel' => 'mimes:ods,xlsx|required',
+            'excel' => 'mimes:ods,xlsx|required|max:500',
         ];
 
         $validate = Validator::make( $request->all(), $rules, $messages = [
-            'excel.required' => 'Select Excel sheet First....'
+            'excel.required' => 'Select Excel sheet First....',
+            'excel.max' => 'ExcelSheet must not be greater than 500kb',
         ] )->validate();
 
         $path = $request->file('excel')->store('public/itemExcel');
