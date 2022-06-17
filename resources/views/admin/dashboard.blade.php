@@ -10,14 +10,25 @@
         <div class="container-fluid p-0">
 
             @if ( $errors->any() )
-                <div class="alert alert-danger">
-                        <p>{{ $errors->first() }}</p>
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="alert-message">
+                        <strong>Hello there!  </strong>  {{ $errors->first() }}
+                    </div>
                 </div>
             @endif
 
             <div class="row mb-2 mb-xl-3">
                 <div class="col-auto d-none d-sm-block">
                     <h3>Dashboard</h3>
+                    <form action="/items/import" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <label for="itemExcel">
+                            enter your file
+                            <input type="file" name="excel" id="itemExcel">
+                        </label>
+                        <button class="btn btn-primary" type="submit">submit</button>
+                    </form>
                 </div>
 
                 <div class="col-auto ms-auto text-end mt-n1">

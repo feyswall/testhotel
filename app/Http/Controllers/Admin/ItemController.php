@@ -8,6 +8,9 @@ use App\Models\Item;
 
 use App\Imports\ItemsImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ItemController extends Controller
 {
@@ -90,18 +93,40 @@ class ItemController extends Controller
 
    public function search($text)
    {
-        $items = Item::where('code', 'like', '%'.$text.'%' )->get();
+        Item::where('code', 'like', '%'.$text.'%' )->get();
     return response()->json($items);
     }
 
 
 
-    public function importItems()
+    public function importItems(Request $request)
     {
 
-        Excel::import(new ItemsImport, 'items.xlsx');
-        
-        return redirect('/')->with('success', 'All good!');
+        $rules = [
+            'excel' => 'mimes:ods,xlsx|required|max:500',
+        ];
+
+        $validate = Validator::make( $request->all(), $rules, $messages = [
+            'excel.required' => 'Select Excel sheet First....',
+            'excel.max' => 'ExcelSheet must not be greater than 500kb',
+        ] )->validate();
+
+        $path = $request->file('excel')->store('public/itemExcel');
+
+        $path = str_replace('public/itemExcel/', '', $path );
+
+        $excel_path = 'storage/itemExcel/'.$path;
+
+        if( !(Storage::disk('local')->exists('public/itemExcel/'.$path)) ){
+            return redirect()->back()->with('error', 'file upload fails');
+        }
+
+        Excel::import(new ItemsImport, $excel_path );
+
+        Storage::disk('local')->delete('public/itemExcel/'.$path);
+
+        return redirect()->back()->with('error', 'DATA SENT SUCCESSFULLY');
+
     }
 
 
