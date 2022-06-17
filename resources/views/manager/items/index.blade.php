@@ -17,6 +17,18 @@
                 </div>
             @endif
 
+            @include('admin._partials._success_and_errors')
+
+
+             @if ( session()->has('excelSuccess') )
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <div class="alert-message">
+                        <strong>Hi!  </strong>  {{ session()->get('excelSuccess') }}
+                    </div>
+                </div>
+            @endif
+
             <form action="/items/import" method="post" enctype="multipart/form-data">
                 @csrf
                 <div>
@@ -55,6 +67,7 @@
                                         {{-- <td>
                                             <img src="{{ asset('assets/img/avatars/avatar-5.jpg') }}" width="35" height="35" class="rounded m-0" alt="image">
                                         </td> --}}
+                                        
                                         <td>{{ $item->id }}</td>
                                         <td>Tzs {{  $item->selling_price}}</td>
                                         <td>{{ $item->code }}</td>
@@ -62,8 +75,12 @@
                                         <td>{{ $item->pref_supplier ?? 'empty' }}</td>
                                         <td>{{ $item->gross_price }}</td>
                                         <td class="table-action">
-                                            <a href="#"><i class="align-middle" data-feather="edit-2"></i></a>
-                                            <a href="#"><i class="align-middle" data-feather="trash"></i></a>
+                                            <form id="delete-item" method="POST" action="{{ route('admin.items.delete', $item->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                            <a href="#" form="delete-item"><i class="align-middle" data-feather="edit-2"></i></a>
+                                            <button form="delete-item" type="submit"><i class="align-middle" data-feather="trash"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach

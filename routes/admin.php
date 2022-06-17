@@ -20,11 +20,12 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     //Items routes
     Route::controller(ItemController::class)->group(function(){
-        Route::get('/items', 'index')->name('items.index');
-        Route::get('/items/create', 'create')->name('items.create');
-        Route::get('/items/search/{text}', 'search')->name('items.search');
-        Route::post('/items/store', 'store')->name('items.store');
-        Route::post('/items/import', 'importItems')->name('items.import');
+        Route::get('/items', 'index')->name('admin.items.index');
+        Route::get('/items/create', 'create')->name('admin.items.create');
+        Route::get('/items/search/{text}', 'search')->name('admin.items.search');
+        Route::post('/items/store', 'store')->name('admin.items.store');
+        Route::post('/items/import', 'importItems')->name('admin.items.import');
+        Route::delete('/items/delete/{id}', 'destroy')->name('admin.items.delete');
     });
 
     //Back Office Routes
