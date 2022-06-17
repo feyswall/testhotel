@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Setting;
 
 class SettingController extends Controller
 {
@@ -14,7 +15,12 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return view('admin.setting.index');
+        $settings = Setting::all();
+        $data = [];
+        foreach($settings as $item){
+            $data[$item->key] = $item->value;
+        }
+        return view('admin.setting.index', compact('data'));
     }
 
     /**
@@ -35,7 +41,7 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -67,9 +73,20 @@ class SettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $data = $request->except(['_token','_method']);
+        foreach($data as $key => $value){
+            $entry = Setting::where('key', $key)->first();
+            if(!$entry){
+                Setting::create([
+                    'key' => $key, 
+                    'value' => $value
+                ]);
+            }else{
+                Setting::where('key', $key)->update(['value' => $value]);
+            }
+        }
         return redirect()->back()->with('message', 'Company details updated!');
     }
 

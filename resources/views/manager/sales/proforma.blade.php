@@ -55,9 +55,11 @@
                             <div class="card-actions float-end">
                                 <button form="invoice" class="btn btn-success" type="submit"><i class="la la-sync"></i> Convert to Invoice</button>
                             </div>
+                            @if(sizeof($items) == 0)
                             <div class="card-actions float-end">
                                 <button class="btn btn-info mx-2" form="undo" type="submit"><i class="la la-undo"></i> Undo</button>
                             </div>
+                            @endif  
                             <h5 class="card-title mb-0">Proforma</h5>
                         </div>
                         <form action="/sales/undo/{{$sale->id}}" method="POST" id="undo">
@@ -189,23 +191,27 @@
                         <div class="row mt-3">
                             <div class="col col-md-5">
                                 <address class="mini-text">
-                                    P.O.BOX 960,<br>
-                                    BWAWANI - MABLUU ROAD<br>
-                                    ZANZIBAR - TANZANIA<br>
-                                    Phone: +255 777 411 887<br>
-                                    Email: chau@hotel-solutions.co.tz<br>
-                                    Website: <a href="#">hotel-solutions.co.tz</a><br>
+                                    {{$setting['box'] ?? ""}},<br>
+                                    {{$setting['street'] ?? ""}}<br>
+                                    {{$setting['state'] ?? ""}}<br>
+                                    Phone: {{$setting['phone'] ?? ""}}<br>
+                                    Email: {{$setting['email'] ?? ""}}<br>
+                                    Website: <a href="#">{{$setting['website'] ?? ""}}</a><br>
                                 </address>
                             </div>
                             <div class="col col-md-7 text-md-end">
                                 <table class="table table-sm table-bordered table-responsive mini-text">
                                     <tr>
                                         <td class="text-start">DATE: {{date('M d, Y')}}</td>
-                                        <td class="text-start">P.I NUMBER: {{$sale->id}}</td>
+                                        <td class="text-start">P.I NUMBER: {{$sale->pi_number}}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-start">TIN: {{$customer->tin}}</td>
                                         <td class="text-start">VRN: {{$customer->vrn}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start">ZRB:</td>
+                                        <td class="text-start">{{$customer->zrb}}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-start">VALIDITY: {{$sale->validity}}</td>
@@ -224,7 +230,7 @@
                                     <tr>
                                         <td rowspan="3">
                                             {{$customer->name}} <br>
-                                            {{$customer->zrb}} <br>
+                                            {{$customer->phone}} <br>
                                             {{$customer->address}}
                                         </td>
                                     </tr>
@@ -262,7 +268,7 @@
                                         <td colspan="3" class="text-start">VAT TOTAL: </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="bg-grey"></td>
+                                        <td colspan="3" class="bg-light"></td>
                                         <td colspan="3" class="text-start">TOTAL: </td>
                                     </tr>
                                 </table>
@@ -284,15 +290,9 @@
                     discount: 0
                 }
             }, 
-            watch: {
-                discount(c, o){
-                    console.log(c);
-                }
-            },
             methods: {
                 setDiscount(){
                     this.discount = 1;
-                    console.log(this.discount)
                 }
             }
         });

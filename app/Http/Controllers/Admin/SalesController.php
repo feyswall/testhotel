@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use PDF;
+use App\Models\Setting;
 
 class SalesController extends Controller
 {
@@ -65,7 +66,8 @@ class SalesController extends Controller
             'customer_id' => $customer_id,
             'validity' => $validity,
             'due_date' => $due_date,
-            'cash_mode' => 2
+            'cash_mode' => 2,
+            'pi_number' => time(),
         ]);
 
         // checking if the sale object is created and return error if not
@@ -128,8 +130,14 @@ class SalesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   
+        $sale = Sale::find($id);
+        foreach( $sale->items as $item ){
+            $sale->items()->detach($item->id);
+        }
+        $sale->delete();
+
+        return 1;
     }
 
     function proforma($id){
@@ -140,11 +148,19 @@ class SalesController extends Controller
         $items = $sale->items()->where('invoice_mode', 0)->get();
         $confirmed = $sale->items()->where('invoice_mode', 1)->get();
         $customer = $sale->customer;
+
+        $settings = Setting::all();
+        $data = [];
+        foreach($settings as $item){
+            $data[$item->key] = $item->value;
+        }
+
         return view('manager.sales.proforma')->with([
             'items' => $items,
             'confirmed' => $confirmed,
             'sale' => $sale,
-            'customer' => $customer
+            'customer' => $customer, 
+            'setting' => $data
         ]);
     }
 
@@ -234,17 +250,17 @@ class SalesController extends Controller
 
         $sale = Sale::where('id', $id)->first();
 
-        $pdf = PDF::loadView('admin.pdfs.sales_invoice', ['sale' => $sale ]);
+        // $pdf = PDF::loadView('admin.pdfs.sales_invoice', ['sale' => $sale ]);
 
-        // ->setPaper(array(0, 0, 296, 412), 'landscape')
+        // // ->setPaper(array(0, 0, 296, 412), 'landscape')
 
-        $pdf->output();
-        $dom_pdf = $pdf->getDomPDF();
+        // $pdf->output();
+        // $dom_pdf = $pdf->getDomPDF();
 
-        $canvas = $dom_pdf ->get_canvas();
-        $canvas->page_text(500, 800, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+        // $canvas = $dom_pdf ->get_canvas();
+        // $canvas->page_text(500, 800, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
 
-        return  $pdf->stream('sales_invoice.pdf');
+        // return  $pdf->stream('sales_invoice.pdf');
 
     }
 

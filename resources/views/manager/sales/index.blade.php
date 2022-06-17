@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="content">
+    <main class="content" id="app">
         <div class="container-fluid p-0">
             <a href="/new_sales" class="btn btn-primary float-end mt-n1">New Record</a>
             <a href="/sales/1" class="btn {{$mode == 1 ? 'btn-success' : 'btn-outline-success'}} float-end mt-n1 mx-3">Sales On Cash</a>
@@ -66,7 +66,7 @@
                                              btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Options
                                             </button>
-                                            <button v-on:click="removeOrder(index)" class="btn btn-danger btn-sm">
+                                            <button v-on:click="removeOrder({{$sale->id}})" class="btn btn-danger btn-sm">
                                                 <i class="la la-trash"></i>
                                             </button>
                                             <div class="dropdown-menu">
@@ -76,7 +76,6 @@
                                                 @elseif($sale->invoice_number == null && $sale->cash_mode == 2)
                                                     <a class="dropdown-item" href="#">Print Proforma</a>
                                                     <a class="dropdown-item" href="/proforma/{{$sale->id}}">Generate Invoice</a>
-                                                    <a class="dropdown-item" href="#">Remove Order</a>
                                                 @elseif($sale->invoice_number != null && $sale->cash_mode == 0 )
                                                     <a class="dropdown-item" href="#">View Record</a>
                                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment" href="#">Receive Payment</a>
@@ -129,7 +128,33 @@
                     </div>
                 </div>
             </div>
-
+            <meta name="csrf-token" content="{{ csrf_token() }}">
         </div>
     </main>
+
+    <script>
+        var app = new Vue({
+            el: '#app', 
+            data(){
+                return {
+
+                }
+            },
+            methods: {
+               async removeOrder(id){
+                    var requestOptions = {
+                    method: "DELETE",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                     },
+                    };
+
+                    var response = await fetch(`/remove_order/${id}`, requestOptions);
+                    var data = await response.json();
+                    window.location.reload();
+                }
+            },
+        });
+    </script>
 @endsection

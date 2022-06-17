@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('cash_mode')->unsigned()->default(2);
             $table->double('discount')->default(0);
             $table->string('invoice_number')->nullable();
+            $table->string('pi_number')->nullable();
             $table->string('validity')->nullable();
             $table->string('due_date')->nullable();
 

@@ -22,45 +22,45 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-4">
                                         <label class="form-label" for="email">Email</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Email">
+                                        <input name="email" value="{{$data['email'] ?? null}}" type="email" class="form-control" id="email" placeholder="Email">
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <label class="form-label" for="website">Website</label>
-                                        <input type="text" class="form-control" id="website" placeholder="Company Website">
+                                        <input name="website" value="{{$data['website'] ?? null}}" type="text" class="form-control" id="website" placeholder="Company Website">
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <label class="form-label" for="phone">Phone</label>
-                                        <input type="text" class="form-control" id="phone" placeholder="Contact phone">
+                                        <input name="phone" value="{{$data['phone']  ?? null}}" type="text" class="form-control" id="phone" placeholder="Contact phone">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="mb-3 col-md-4">
                                         <label class="form-label" for="box">Post Office Box</label>
-                                        <input type="text" class="form-control" id="box" placeholder="P.O.Box Number">
+                                        <input name="box" value="{{$data['box']  ?? null}}" type="text" class="form-control" id="box" placeholder="P.O.Box Number">
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <label class="form-label" for="street">Street Address</label>
-                                        <input type="text" class="form-control" id="street" placeholder="Street Adress">
+                                        <input name="street" value="{{$data['street']  ?? null}}" type="text" class="form-control" id="street" placeholder="Street Adress">
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <label class="form-label" for="state">State</label>
-                                        <input type="text" class="form-control" id="state" placeholder="State Address">
+                                        <input name="state" value="{{$data['state']  ?? null}}" type="text" class="form-control" id="state" placeholder="State Address">
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="mb-3 col-md-4">
                                         <label class="form-label" for="tin">TIN Number</label>
-                                        <input type="text" class="form-control" id="tin" placeholder="TIN number">
+                                        <input name="tin" value="{{$data['tin']  ?? null}}" type="text" class="form-control" id="tin" placeholder="TIN number">
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <label class="form-label" for="vrn">VRN Number</label>
-                                        <input type="text" class="form-control" id="vrn" placeholder="VRN number">
+                                        <input name="vrn" value="{{$data['vrn'] ?? null}}" type="text" class="form-control" id="vrn" placeholder="VRN number">
                                     </div>
                                     <div class="mb-3 col-md-4">
                                         <label class="form-label" for="zrb">ZRB</label>
-                                        <input type="text" class="form-control" id="zrb" placeholder="ZRB number">
+                                        <input name="zrb" value="{{$data['zrb'] ?? null}}" type="text" class="form-control" id="zrb" placeholder="ZRB number">
                                     </div>
                                 </div>
                                 <div class="text-end">
