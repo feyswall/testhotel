@@ -24,7 +24,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::get('/items/create', 'create');
         Route::get('/items/search/{text}', 'search');
         Route::post('/items/store', 'store');
-        Route::get('/items/import', 'importItems');
+        Route::post('/items/import', 'importItems');
     });
 
     //Back Office Routes

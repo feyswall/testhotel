@@ -12,14 +12,11 @@ class ItemsImport implements ToCollection
     public function collection(Collection $rows)
     {
          $v = Validator::make($rows->toArray(), [
-             '*.2' => 'required|string',
+             '*.2' => 'required|string|unique:items,name',
          ], $messages = [
-             '*.2.required' => 'column :attribute doest have a ',
-         ]);
-
-         if( $v->errors() ){
-              return redirect()->back()->withErrors($v->errors());
-         }
+             '*.2.required' => 'column :attribute doest Exist...',
+            'unique' => 'Name at row :attribute aready exist...'
+             ])->validate();
 
         foreach ($rows as $row) {
             Item::create([
