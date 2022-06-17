@@ -168,7 +168,7 @@ class SalesController extends Controller
         // Assign data to my object
         $purchase->subtotal = $this->calculateSubTotal($sale->items);
         $purchase->current = $this;
-        $purchase->discounted = $this->discounted($sale);
+        $purchase->discounted = $this->discounted($sale, $vat);
 
         return view('manager.sales.proforma', [
             'items' => $items,

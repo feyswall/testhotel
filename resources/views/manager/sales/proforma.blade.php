@@ -137,6 +137,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $vat_rate = $vat->rate ?? 0; @endphp
                                 @foreach ($confirmed as $item)
                                     <tr>
                                         <td>#</td>
@@ -154,7 +155,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="5" class="font-weight-bold text-secondary">VAT Total ({{$vat_rate}}%)</td>
-                                    <td colspan="2" class="text-end">{{number_format(($vat_rate/100) * $subtotal, 2)}}</td>
+                                    <td colspan="2" class="text-end">{{number_format(($vat_rate/100) * $purchase->subtotal, 2)}}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="5" class="font-weight-bold text-secondary" >Discount</td>
