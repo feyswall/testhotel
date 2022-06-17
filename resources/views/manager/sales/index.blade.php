@@ -30,7 +30,7 @@
                                         <th>Net</th>
                                         <th>Status</th>
                                         <th>Sales Date</th>
-                                        <th>Options</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,6 +65,9 @@
                                             @if($sale->invoice_number != null && $sale->cash_mode == 2) btn-outline-success @else btn-outline-secondary @endif
                                              btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Options
+                                            </button>
+                                            <button v-on:click="removeOrder(index)" class="btn btn-danger btn-sm">
+                                                <i class="la la-trash"></i>
                                             </button>
                                             <div class="dropdown-menu">
                                                 @if($sale->invoice_number != null && $sale->cash_mode == 2)

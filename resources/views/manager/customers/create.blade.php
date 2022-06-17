@@ -50,25 +50,25 @@
                             @csrf
                             <div class="row">
                                 <div class="mb-3 col-md-4">
-                                    <label class="form-label" for="inputEmail4">Names</label>
+                                    <label class="form-label" for="name">Names</label>
                                     <input value="{{ old('name') }}" name="name" type="text" class="form-control"
-                                        id="inputEmail4" placeholder="Customer names" required>
+                                        id="name" placeholder="Customer names" required>
                                     @error('name')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label class="form-label" for="inputEmail4">Phone</label>
+                                    <label class="form-label" for="phone">Phone</label>
                                     <input value="{{ old('phone') }}" type="phone" name="phone" class="form-control"
-                                        required id="inputEmail4" placeholder="Contact phone">
+                                        required id="phone" placeholder="Contact phone">
                                     @error('phone')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label class="form-label" for="inputEmail4">Email</label>
+                                    <label class="form-label" for="email">Email</label>
                                     <input value="{{ old('email') }}" type="email" name="email" class="form-control"
-                                        id="inputEmail4" placeholder="Email" required>
+                                        id="email" placeholder="Email" required>
                                     @error('email')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
@@ -78,29 +78,48 @@
 
                             <div class="row">
                                 <div class="mb-3 col-md-4">
-                                    <label class="form-label" for="inputEmail4">ZRB</label>
+                                    <label class="form-label" for="zrb">ZRB</label>
                                     <input value="{{ old('zrb') }}" type="text" name="zrb" class="form-control"
-                                        id="inputEmail4" placeholder="ZRB number" required>
+                                        id="zrb" placeholder="ZRB number" required>
                                     @error('zrb')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label class="form-label" for="inputEmail4">Address</label>
+                                    <label class="form-label" for="address">Address</label>
                                     <input value="{{ old('address') }}" type="text" name="address" class="form-control"
-                                        id="inputEmail4" placeholder="Location address" required>
+                                        id="address" placeholder="Location address" required>
                                     @error('address')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-4">
-                                    <label class="form-label" for="inputEmail4">Company</label>
+                                    <label class="form-label" for="company">Company</label>
                                     <input name="company" value="{{ old('company') }}" type="text" class="form-control"
-                                        id="inputEmail4" placeholder="Company or organization" required>
+                                        id="company" placeholder="Company or organization" required>
                                 @error('company')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                                     </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label" for="tin">TIN </label>
+                                    <input value="{{ old('tin') }}" type="text" name="tin" class="form-control"
+                                        id="tin" placeholder="TIN number" required>
+                                    @error('tin')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label" for="vrn">VRN</label>
+                                    <input value="{{ old('vrn') }}" type="text" name="vrn" class="form-control"
+                                        id="vrn" placeholder="VRN number" required>
+                                    @error('vrn')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
 
                         <button type="reset" class="btn btn-secondary">Reset Form</button>

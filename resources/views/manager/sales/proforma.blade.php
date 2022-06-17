@@ -10,7 +10,7 @@
 
             <div class="mb-3">
                 @if (sizeof($items) > 0)
-                <a href="#" class="btn btn-dark float-end mt-n1"><i class="la la-print"></i> Print Proforma</a>
+                <a href="#" onclick="printInvoice('printable-proforma')" class="btn btn-dark float-end mt-n1"><i class="la la-print"></i> Print Proforma</a>
                 @endif
                 <a href="/sales/2" class="btn btn-outline-primary float-end mt-n1 mx-2"><i class="la la-arrow-left"></i> Back To List</a>
                 <h1 class="h3 d-inline align-middle">Prepare Invoice</h1>
@@ -171,6 +171,111 @@
 
         </div>
     </main>
+
+
+    <div class="d-none">
+        <div class="row" id="printable-proforma">
+            <div class="col-12">
+                <div class="card shadow-none">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col col-md-5">
+                                <img src="{{ asset('assets/img/avatars/logo-dark.png') }}" alt="" width="80%" height="100%">
+                            </div>
+                            <div class="col col-md-7 text-md-end">
+                                <h1 class="text-dark broadway">Proforma Invoice</h1>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col col-md-5">
+                                <address class="mini-text">
+                                    P.O.BOX 960,<br>
+                                    BWAWANI - MABLUU ROAD<br>
+                                    ZANZIBAR - TANZANIA<br>
+                                    Phone: +255 777 411 887<br>
+                                    Email: chau@hotel-solutions.co.tz<br>
+                                    Website: <a href="#">hotel-solutions.co.tz</a><br>
+                                </address>
+                            </div>
+                            <div class="col col-md-7 text-md-end">
+                                <table class="table table-sm table-bordered table-responsive mini-text">
+                                    <tr>
+                                        <td class="text-start">DATE: {{date('M d, Y')}}</td>
+                                        <td class="text-start">P.I NUMBER: {{$sale->id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start">TIN: {{$customer->tin}}</td>
+                                        <td class="text-start">VRN: {{$customer->vrn}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-start">VALIDITY: {{$sale->validity}}</td>
+                                        <td class="text-start">Due Date: {{$sale->due_date}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div> 
+
+                        <div class="row">
+                            <div class="col col-md-7">
+                                <table class="table table-sm table-bordered mini-text">
+                                    <tr>
+                                        <td class="text-start">To: </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="3">
+                                            {{$customer->name}} <br>
+                                            {{$customer->zrb}} <br>
+                                            {{$customer->address}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row mt-n3">
+                            <div class="col col-md-12">
+                                <table class="table table-sm table-bordered mini-text">
+                                    <tr>
+                                        <td class="text-center">NO.</td>
+                                        <td class="text-center">ITEM</td>
+                                        <td class="text-start">DESCRIPTION</td>
+                                        <td class="text-center">QTY</td>
+                                        <td class="text-center">PRICE</td>
+                                        <td class="text-center">TOTAL</td>
+                                    </tr>
+                                    @foreach ($items as $item)
+                                        <tr>
+                                            <td class="text-center">#</td>
+                                            <td class="text-center">{{$item->code}}</td>
+                                            <td>{{$item->desc}}</td>
+                                            <td class="text-center">{{$item->pivot->quantity}}</td>
+                                            <td class="text-center">{{number_format($item->pivot->due_price, 2)}}</td>
+                                            <td class="text-center">{{number_format($item->pivot->quantity * $item->pivot->due_price, 2)}}</td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td colspan="3" class="bg-light"></td>
+                                        <td colspan="3" class="text-start">SUBTOTAL: </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="bg-light"></td>
+                                        <td colspan="3" class="text-start">VAT TOTAL: </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="bg-grey"></td>
+                                        <td colspan="3" class="text-start">TOTAL: </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         var app = new Vue({
             el: '#app', 
@@ -191,5 +296,18 @@
                 }
             }
         });
+    </script>
+    <script>
+        function printInvoice(id) {
+            var element = document.getElementById(id);
+            var opt = {
+            margin:       [0.3, 0.3, 0.3, 0.8],
+            filename:     'myfile.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 1 },
+            jsPDF:        { unit: 'cm', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
     </script>
 @endsection

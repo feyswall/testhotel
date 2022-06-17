@@ -47,11 +47,15 @@ class CustomersController extends Controller
             'address' => 'sometimes',
             'email' => 'sometimes|email|unique:customers,email',
             'company' => 'sometimes',
+            'tin' => 'sometimes',
+            'vrn' => 'sometimes',
         ]);
 
         $customer = Customer::create([
             'name' => $request->name,
             'zrb' => $request->zrb ? $request->zrb : null,
+            'tin' => $request->tin ? $request->tin : null,
+            'vrn' => $request->vrn ? $request->vrn : null,
             'phone' => $request->phone ? $request->phone : null,
             'address' => $request->address ? $request->address : null,
             'email' => $request->email ? $request->email : null,
@@ -107,6 +111,8 @@ class CustomersController extends Controller
             'name' => 'exclude_if:name,'.$customer->name.'|unique:customers,name|required',
             'zrb' => 'sometimes',
             'phone' => 'required',
+            'tin' => 'sometimes',
+            'vrn' => 'sometimes',
             'address' => 'sometimes',
             'email' => 'exclude_if:email,'.$customer->email.'|sometimes|email|unique:customers,email',
             'company' => 'sometimes',

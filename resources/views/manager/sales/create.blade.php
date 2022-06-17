@@ -113,13 +113,27 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header pt-4">
-                            <a href="#" v-on:click="saveProforma()" class="btn btn-success float-end mt-n1">Save Proforma</a>
+                            <div class="card-actions float-end">
+                                <button :disabled="proforma.length==0 || validity=='' || due_date==''" v-on:click="saveProforma()" class="btn btn-success float-end mx-2 text-white">Save Proforma</button>
+                            </div>
+                            <div class="card-actions float-end">
+                                <div class="row ">
+                                    <div class="col col-md-6">
+                                        <input v-model="validity" type="text" class="form-control" placeholder="Validity e.g 12 Days">
+                                    </div>
+                                    <div class="col col-md-6">
+                                        <input v-model="due_date" type="text" class="form-control" placeholder="Due date">
+                                    </div>
+                                </div>
+                            </div>
+
+                           
                             <h5 class="card-title">Proforma Invoice</h5>
                             <h6 class="card-subtitle text-muted" v-if="customer != null">To: @{{customer.name}}<br>
                             @{{customer.phone}} - @{{customer.address}}
                             </h6>
                         </div>
-                        <div class="card-body border-top">
+                            <div class="card-body border-top">
                             <meta name="csrf-token" content="{{ csrf_token() }}">
                             <table v-if="proforma.length > 0" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
@@ -179,7 +193,9 @@
             return {
                 proforma: [], customer: null, mode: '',
                 item_search: '', customer_search: '', 
-                results: [], searching: false, noResults: false
+                results: [], searching: false, noResults: false,
+                validity: "",
+                due_date: ""
             }
         }, 
 
@@ -210,7 +226,7 @@
                     });  //this.proforma[i].tax
                 }
                 var dataSet = {
-                    'customer_id': this.customer.id, 
+                    'customer_id': this.customer.id, 'validity': this.validity, 'due_date': this.due_date,
                     'items': items
                 }
                 var requestOptions = {

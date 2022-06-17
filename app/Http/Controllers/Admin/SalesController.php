@@ -49,6 +49,8 @@ class SalesController extends Controller
     {
 
         $customer_id = $request->customer_id;
+        $validity = $request->validity;
+        $due_date = $request->due_date;
         // save customer id in sales table
         $items = $request->items;
 
@@ -61,6 +63,8 @@ class SalesController extends Controller
         // create sale object for current  session
         $sale = Sale::create([
             'customer_id' => $customer_id,
+            'validity' => $validity,
+            'due_date' => $due_date,
             'cash_mode' => 2
         ]);
 

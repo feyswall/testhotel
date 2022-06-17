@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('email')->nullable();
             $table->string('company')->nullable();
+            $table->string('tin')->nullable();
+            $table->string('vrn')->nullable();
             $table->timestamps();
         });
     }

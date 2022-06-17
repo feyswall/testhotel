@@ -74,6 +74,26 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label" for="tin">TIN</label>
+                                    <input type="text" name="tin" value="{{ $customer->tin }}" class="form-control"
+                                        id="tin" placeholder="TIN number">
+                                    @error('tin')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label" for="vrn">VRN</label>
+                                    <input name="vrn" value="{{ $customer->vrn }}" type="text"
+                                        class="form-control" id="vrn" placeholder="VRN number">
+                                    @error('vrn')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                           
+                            </div>
                         </form>
                         <form method="POST" id="formTwo" action="{{ route('admin.customer.destroy', $customer->id) }}">
                             @csrf
