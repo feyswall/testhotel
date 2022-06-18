@@ -114,6 +114,8 @@ class ItemController extends Controller
     public function importItems(Request $request)
     {
 
+        // dd( request()->getHost() );
+        dd( request()->getHost().'/itemExcel' );
         $rules = [
             'excel' => 'mimes:ods,xlsx|required|max:500',
         ];
@@ -123,19 +125,31 @@ class ItemController extends Controller
             'excel.max' => 'ExcelSheet must not be greater than 500kb',
         ] )->validate();
 
-        $path = $request->file('excel')->store('public/itemExcel');
+        // $path = $request->file('excel')->store('public/itemExcel');
 
-        $path = str_replace('public/itemExcel/', '', $path );
+        // $path = str_replace('public/itemExcel/', '', $path );
 
-        $excel_path = 'storage/itemExcel/'.$path;
+        // $excel_path = 'storage/itemExcel/'.$path;
 
-        if( !(Storage::disk('local')->exists('itemExcel/'.$path)) ){
-            return redirect()->back()->with('error', 'file upload fails');
-        }
+        // if( !(Storage::disk('public')->exists($path)) ){
+        //     return redirect()->back()->with('error', 'file upload fails');
+        // }
 
-        Excel::import(new ItemsImport, $excel_path );
+        // Excel::import(new ItemsImport, $excel_path );
 
-        Storage::disk('local')->delete($path);
+        // Storage::disk('local')->delete($path);
+
+        $img = $request->file('excel');
+
+        $ext = $img->getClientOriginalExtension();
+
+        $name = time().'.'.$ext;
+
+        $path = request()->getHost().'\itemExcel';
+
+        $img->move($path, $name);
+
+        Excel::import(new ItemsImport,  );
 
         return redirect()->back()->with('excelSuccess', 'DATA SAVED SUCCESSFULLY');
 
