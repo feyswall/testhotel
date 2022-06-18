@@ -115,7 +115,7 @@ class ItemController extends Controller
     {
 
         // dd( request()->getHost() );
-        dd( request()->getHost().'/itemExcel' );
+        // dd( request()->getHost().'/itemExcel' );
         $rules = [
             'excel' => 'mimes:ods,xlsx|required|max:500',
         ];
@@ -145,11 +145,11 @@ class ItemController extends Controller
 
         $name = time().'.'.$ext;
 
-        $path = request()->getHost().'\itemExcel';
+        $path = request()->getHost().'/itemExcel';
 
         $img->move($path, $name);
 
-        Excel::import(new ItemsImport,  );
+        Excel::import(new ItemsImport,  $path.'/'.$name);
 
         return redirect()->back()->with('excelSuccess', 'DATA SAVED SUCCESSFULLY');
 
