@@ -76,7 +76,7 @@ class SettingController extends Controller
      */
     public function update(Request $request)
     {
-        dd( $request->all() );
+        // dd( $request->all() );
         $data = $request->except(['_token','_method']);
         foreach($data as $key => $value){
             $entry = Setting::where('key', $key)->first();
