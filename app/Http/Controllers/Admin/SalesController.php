@@ -249,12 +249,24 @@ class SalesController extends Controller
 
     public function set_cash(Request $request, $id){
 
+        $request->validate([
+            'cash_mode' => 'required',
+            'method' => 'exclude_if:cash_mode,0|required',
+        ]);
+
         $sale = Sale::find($id);
         if(!$sale){
             return redirect()->back()->with('error', 'Record not found!');
         }
-        $sale->cash_mode = $request->cash_mode;
-        $sale->save();
+        
+        $saleObj['cash_mode'] = $request->cash_mode;
+        
+        if( $request->cash_mode == '1' ){
+            $saleObj['payment_method_id'] = $request->method; 
+        }
+        
+        $sale->update( $saleObj );
+
         return redirect('/sales'.'/'.$request->cash_mode);
     }
 

@@ -21,7 +21,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy('id', 'desc')->paginate(1000);
+        $items = Item::orderBy('id', 'desc')->paginate(100);
         return view('manager.items.index')
         ->with('items', $items );
     }

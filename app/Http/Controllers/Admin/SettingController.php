@@ -76,6 +76,7 @@ class SettingController extends Controller
      */
     public function update(Request $request)
     {
+        dd( $request->all() );
         $data = $request->except(['_token','_method']);
         foreach($data as $key => $value){
             $entry = Setting::where('key', $key)->first();
@@ -88,7 +89,7 @@ class SettingController extends Controller
                 Setting::where('key', $key)->update(['value' => $value]);
             }
         }
-        return redirect()->back()->with('message', 'Company details updated!');
+        return redirect()->back()->with('success', 'Company details updated!');
     }
 
     /**

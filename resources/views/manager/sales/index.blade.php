@@ -93,24 +93,43 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body m-3">
-
+                                                    @error('cash_mode')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
                                                   <form method="POST" id="cash-mode-form" action="{{ route('sales.set.cash', $sale->id) }}">
                                                     @csrf
                                                     @method('PUT')
                                                     <label class="form-check">
-                                                        <input class="form-check-input" type="radio" value="0" name="cash_mode">
+                                                        <input id="creditCheck" class="form-check-input" type="radio" value="0" name="cash_mode">
                                                         <span class="form-check-label">
                                                             Record as sales on credit
                                                         </span>
                                                     </label>
                                                     <hr>
                                                     <label class="form-check">
-                                                        <input class="form-check-input" type="radio" value="1" name="cash_mode">
+                                                        <input id="cashCheck" class="form-check-input" type="radio" value="1" name="cash_mode">
                                                         <span class="form-check-label">
                                                             Record as sales on cash
                                                         </span>
                                                     </label>
+                                                    @error('method')
+                                                        <p class="text-danger mt-3">{{ $message }}</p>
+                                                    @enderror
+                                                    <div id="cashIn" class=" mt-3 lead" style="display: none;">
+                                                        <label for="method">payment method</label>
+                                                        <select class="form-control" name="method">
+                                                                  <option value="">Choose method</option>
+                                                            @foreach( App\Models\PaymentMethod::all() as $method )
+                                                                <option value="{{ $method->id }}">{{ $method->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
                                                   </form>
+
+
+
+
                                                   <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                         <button form="cash-mode-form" type="submit" class="btn btn-success">Confirm Payment</button>
@@ -160,5 +179,17 @@
                 }
             },
         });
+    </script>
+    <script>
+               
+        let cash_check_element = document.querySelector('#cashCheck');
+        cash_check_element.onchange = function(){;
+           document.querySelector('#cashIn').style.display = 'block';
+        }
+
+        let credit_check_element = document.querySelector('#creditCheck');
+        credit_check_element.onchange = function(){
+           document.querySelector('#cashIn').style.display = 'none';
+        }
     </script>
 @endsection

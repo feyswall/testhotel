@@ -14,6 +14,7 @@
 
             <div class="row">
                 <div class="col-12">
+                    @include('admin._partials._success_and_errors')
                     <div class="card">
                         <div class="card-body">
                             <form action="/update_setting" method="POST">
