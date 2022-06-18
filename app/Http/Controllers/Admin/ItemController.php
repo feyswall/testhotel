@@ -129,7 +129,7 @@ class ItemController extends Controller
 
         $excel_path = 'storage/itemExcel/'.$path;
 
-        if( !(Storage::disk('local')->exists($path)) ){
+        if( !(Storage::disk('local')->exists('itemExcel/'.$path)) ){
             return redirect()->back()->with('error', 'file upload fails');
         }
 
