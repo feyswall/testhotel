@@ -248,7 +248,7 @@ class SalesController extends Controller
     }
 
     public function set_cash(Request $request, $id){
-        dd('hetre');
+
         $sale = Sale::find($id);
         if(!$sale){
             return redirect()->back()->with('error', 'Record not found!');
