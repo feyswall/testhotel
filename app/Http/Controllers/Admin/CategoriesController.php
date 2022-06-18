@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
@@ -14,7 +15,11 @@ class CategoriesController extends Controller
      */
     public function index($type)
     {
-        return view('admin.categories.index')->with('type', $type);
+        $categories = Category::all();
+        return view('admin.categories.index')->with([
+            'type' => $type, 
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -35,7 +40,12 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create([
+            'name' => $request->name, 
+            'desc' => $request->desc,
+            'type' => $request->type
+        ]);
+        return redirect()->back()->with('success', 'New category created..');;;
     }
 
     /**
@@ -69,7 +79,14 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        if(!$category){
+            return redirect()->back()->with('error', 'Category not found!');
+        }
+        $category->name = $request->name;
+        $category->desc = $request->desc;
+        $category->save();
+        return redirect()->back()->with('success', 'Category updated..');
     }
 
     /**

@@ -63,6 +63,8 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     //Categories routes
     Route::controller(CategoriesController::class)->group(function(){
         Route::get('/categories/{type}', 'index');
+        Route::post('/save_category', 'store');
+        Route::put('/category/edit/{id}', 'update');
     });
 
     //Discounts routes
