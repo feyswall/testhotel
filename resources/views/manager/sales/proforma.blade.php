@@ -269,7 +269,7 @@
                                     @endforeach
                                     <tr>
                                         <td colspan="3" class="bg-light"></td>
-                                        <td colspan="3" class="text-start">SUBTOTAL: </td>
+                                        <td colspan="3" class="text-start">SUBTOTAL: {{  }}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" class="bg-light"></td>
