@@ -26,7 +26,7 @@
                     </div>
                     <div class="dropdown-mega-list">
                         <a class="dropdown-item" href="/methods">Payment methods</a>
-                        <a class="dropdown-item" href="/discounts">Discounts</a>
+                        <a class="dropdown-item" href="/taxes">Taxes</a>
                         <a class="dropdown-item" href="/users">Users</a>
                         </div>
                 </div>

@@ -18,8 +18,7 @@ return new class extends Migration
             $table->id();
             $table->integer('quantity')->unsigned();
             $table->boolean('invoice_mode')->default(false);
-            $table->double('due_price')->unsigned();
-            $table->double('due_tax')->unsigned();
+            $table->double('due_price')->unsigned()->nullable();
 
             $table->foreignId('sale_id')->constrained('sales');
             $table->foreignId('item_id')->constrained('items');

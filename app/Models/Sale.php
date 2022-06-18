@@ -23,7 +23,6 @@ class Sale extends Model
             'quantity',
             'invoice_mode',
             'due_price',
-            'due_tax',
         )
         ->withTimestamps();
     }

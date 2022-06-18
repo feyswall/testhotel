@@ -52,7 +52,7 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-
+   
         $customer_id = $request->customer_id;
         $validity = $request->validity;
         $due_date = $request->due_date;
@@ -81,11 +81,8 @@ class SalesController extends Controller
 
         // finally loop throgh every item and attach to the current sale
         foreach( $items as $item ){
-
                 $sale->items()->attach($item['item_id'], [
                     'quantity' => $item['item_quantity'],
-                    'due_price' => $item['due_price'],
-                    'due_tax' => $item['due_tax'],
                 ]);
 
         }
@@ -145,16 +142,17 @@ class SalesController extends Controller
     }
 
     function proforma($id){
-
         $sale = Sale::where('cash_mode', 2)->where('id', $id)->first();
-        
         if(!$sale){
             return redirect('/sales/2');
         }
-
+       
         $items = $sale->items()->where('invoice_mode', 0)->get();
+
         $confirmed = $sale->items()->where('invoice_mode', 1)->get();
+
         $customer = $sale->customer;
+
         $vat = Tax::where('type', 1)->first();
 
         $vat_rate = $vat->rate ?? 0;
@@ -164,7 +162,7 @@ class SalesController extends Controller
         foreach($settings as $item){
             $data[$item->key] = $item->value;
         }
-
+    
         // define Object to carry my datas;
         $purchase = new stdClass();
         // Assign data to my object
@@ -172,6 +170,9 @@ class SalesController extends Controller
         $purchase->current = $this;
         $purchase->discounted = $this->discounted($sale, $vat_rate);
         $purchase->vat_total = $this->vatTotal($sale->items, $vat_rate);
+
+        // after creating invoice
+        $purchase->subtotalAfter = $this->calculateSubTotalAfter($sale->items );
 
         return view('manager.sales.proforma', [
             'items' => $items,

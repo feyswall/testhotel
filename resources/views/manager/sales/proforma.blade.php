@@ -9,7 +9,7 @@
         <div class="container-fluid p-0">
 
             <div class="mb-3">
-                @if (sizeof($items) > 0)
+                @if (sizeof($confirmed) > 0)
                 <a href="#" onclick="printInvoice('printable-proforma')" class="btn btn-dark float-end mt-n1"><i class="la la-print"></i> Print Proforma</a>
                 @endif
                 <a href="/sales/2" class="btn btn-outline-primary float-end mt-n1 mx-2"><i class="la la-arrow-left"></i> Back To List</a>
@@ -77,7 +77,7 @@
                                     <th>Sn</th>
                                     <th>Item</th>
                                     <th>Description</th>
-                                    <th>Price</th>
+                                    <th>Due Price</th>
                                     <th>Quantity</th>
                                 </tr>
                             </thead>
@@ -143,7 +143,7 @@
                                         <td>#</td>
                                         <td>{{$item->code}}</td>
                                         <td>{{$item->desc}}</td>
-                                        <td>{{$item->pivot->due_price}}</td>
+                                        <td>{{$item->selling_price }}</td>
                                         <td class="text-center">{{$item->pivot->quantity}}</td>
                                         <td>{{ $purchase->current->total_item_income($item) }}</td>
                                     </tr>
@@ -253,7 +253,7 @@
                                     @php
                                         $tax_total = 0; 
                                     @endphp
-                                    @foreach ($items as $item)
+                                    @foreach ($confirmed as $item)
                                     @php
                                         $tax_total += 0;
                                         // $tax_category = Tax::where('type', )
@@ -263,21 +263,21 @@
                                             <td class="text-center">{{$item->code}}</td>
                                             <td>{{$item->desc}}</td>
                                             <td class="text-center">{{$item->pivot->quantity}}</td>
-                                            <td class="text-center">{{number_format($item->pivot->due_price, 2)}}</td>
-                                            <td class="text-center">{{number_format($item->pivot->quantity * $item->pivot->due_price, 2)}}</td>
+                                            <td class="text-center">{{number_format($item->selling_price, 2)}}</td>
+                                            <td class="text-center">{{number_format( $purchase->current->total_item_income($item), 2)}}</td>
                                         </tr>
                                     @endforeach
                                     <tr>
-                                        <td colspan="3" class="bg-light"></td>
-                                        <td colspan="3" class="text-start">SUBTOTAL: {{  }}</td>
+                                        <td colspan="3" class="bg-light text-end">SUBTOTAL:</td>
+                                        <td colspan="3" class="text-start text-end"> {{ number_format($purchase->subtotal) }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="bg-light"></td>
-                                        <td colspan="3" class="text-start">VAT TOTAL: {{$tax_total}}</td>
+                                        <td colspan="3" class="bg-light text-end">VAT TOTAL ({{ $vat_rate }}%):</td>
+                                        <td colspan="3" class="text-start text-end">  {{number_format($purchase->vat_total, 2)}}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="bg-light"></td>
-                                        <td colspan="3" class="text-start">TOTAL: </td>
+                                        <td colspan="3" class="bg-light text-end">TOTAL:</td>
+                                        <td colspan="3" class="text-start text-end"> {{ number_format($purchase->discounted, 2) }}</td>
                                     </tr>
                                 </table>
                             </div>
