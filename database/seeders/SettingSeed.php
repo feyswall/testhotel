@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class SettingSeed extends Seeder
 {
@@ -17,7 +18,8 @@ class SettingSeed extends Seeder
     public function run()
     {
         DB::table('truncate');
-        Setting::insert(
+
+        $settings = [
             ["key" => "email", "value" => "chau@hotel-solution.co.tz"],
             ["key" => "website", "value" => "hotel-solution.co.tz"],
             [ "key" => "phone", "value" => "07774118877"],
@@ -27,6 +29,20 @@ class SettingSeed extends Seeder
             [ "key" => "tin", "value" => "44556"],
             [  "key" => "vrn", "value"  => "2233-221"],
             [  "key" => "zrb", "value" => "22339-5656"],
-        );
+        ];
+        foreach( $settings as $setting ){
+            $rules = [
+                'key' => 'required|unique:settings,key',
+                'value' => 'required'
+            ];
+
+            $validate = Validator::make($setting, $rules);
+
+            if( $validate->fails() ){
+                continue;
+            }
+            Setting::create($setting);
+        }
+
     }
 }
