@@ -35,7 +35,13 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     //Employees routes
     Route::controller(EmployeesController::class)->group(function(){
-        Route::get('/employees', 'index');
+        Route::get('/employees', 'index')->name('employees.index');
+        Route::post('/employees', 'store')->name('employees.store');
+        Route::delete('/employees', 'destroy')->name('employees.delete');
+        Route::get('/employees/create', 'create')->name('employees.create');
+        Route::get('/employees/edit/{id}', 'edit')->name('employees.edit');
+        Route::put('/employees/{id}', 'update')->name('employees.update');
+
     });
 
     //Attributes routes

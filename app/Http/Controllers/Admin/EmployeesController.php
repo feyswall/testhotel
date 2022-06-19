@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Employee;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeesController extends Controller
 {
@@ -14,7 +16,10 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        return view('admin.employees.index');
+        $employees = Employee::all();
+        return view('admin.employees.index', [
+            'employees' => $employees,
+        ]);
     }
 
     /**
@@ -35,7 +40,20 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'name' => 'unique:employees,name|required|string',
+            'salary' => 'sometimes|numeric',
+        ])->validate();
+
+        $employee = Employee::create([
+            'name' => $request->name,
+            'salary' => $request->salary,
+        ]);
+
+        if( !$employee ){
+            return redirect()->back()->with('error', 'Fail registering user...')->withInput();
+        }
+        return redirect()->back()->with('success' , 'Employee Created Successfully...');
     }
 
     /**
@@ -57,7 +75,12 @@ class EmployeesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = Employee::where('id', $id)->first();
+        if( !$employee ){
+            return redirect()->back()->with('error', 'employee not found..')->withInput();
+        }
+        return view( 'admin.employees.edit',
+            [ 'employee' => $employee ]);
     }
 
     /**
@@ -69,7 +92,39 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $employee = Employee::find($id);
+         if( !$employee ){
+            return redirect()->back()->with('error', 'Fail to update Employe...');
+        }
+
+        $rules = [
+            'salary' => 'sometimes|numeric',
+        ];
+        if( $request->name != $employee->name ){
+            $rules['name'] = 'required|unique:employees,name|string'; 
+        }else{
+            $rules['name'] = 'required|string';
+        }
+
+
+        $employee = Employee::find($id);
+            if( !$employee ){
+                return redirect()->back()->with('error', 'Fail to update Employe...');
+        }
+
+        $validate = Validator::make($request->all(), $rules)->validate();
+
+        $status = $employee->update([
+           'name' => $request->name,
+           'salary' => $request->salary, 
+        ]);
+
+        if( $status ){
+            return redirect()->back()->with('success', 'data saved successfully..');
+        }else{
+            return redirect()->back()->with('error', 'fail to save data');
+        }
     }
 
     /**
@@ -80,6 +135,6 @@ class EmployeesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd('delete user');
     }
 }

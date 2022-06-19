@@ -54,6 +54,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-xl-3">
+                     <a href="/employees">
                     <div class="card custo-red">
                         <div class="card-body">
                             <div class="row">
@@ -67,12 +68,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <h1 class="mt-1 mb-3">46</h1>
+                            <h1 class="mt-1 mb-3">{{ App\Models\Employee::all()->count() }}</h1>
                             <div class="mb-0">
-                                <a href="/employees"><span class="text-black">Click to view more >></span></a>
+                                <span class="text-black">Click to view more >></span>
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-sm-6 col-xl-3">
                     <div class="card btn-amber">
@@ -109,7 +111,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <h1 class="mt-1 mb-3">126</h1>
+                            <h1 class="mt-1 mb-3">{{ App\Models\Customer::all()->count() }}</h1>
                             <div class="mb-0">
                                 <a href="/customers"><span class="text-black">Click to view more >></span></a>
                             </div>
