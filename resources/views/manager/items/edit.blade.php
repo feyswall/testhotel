@@ -16,8 +16,9 @@
 
             <div class="card">
                 <div class="card-body">
-                            <form method="POST" action="{{ route('admin.items.store') }}">
+                            <form method="POST" action="{{ route('admin.items.update', $item->id) }}">
                             @csrf
+                            @method('put')
                             <div class="row">
                                 {{-- <div class="mb-3 col-md-4">
                                     <label class="form-label" for="name">Names</label>
@@ -29,7 +30,7 @@
                                 </div> --}}
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="selling_price">Selling Price</label>
-                                    <input value="{{ old('selling_price') }}" type="text" name="selling_price" class="form-control"
+                                    <input value="{{ $item->selling_price }}" type="text" name="selling_price" class="form-control"
                                         required id="selling_price" placeholder="Contact selling_price">
                                     @error('selling_price')
                                         <p class="text-danger">{{ $message }}</p>
@@ -37,7 +38,7 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="code">Code</label>
-                                    <input value="{{ old('code') }}" type="text" name="code" class="form-control"
+                                    <input value="{{ $item->code }}" type="text" name="code" class="form-control"
                                         id="code" placeholder="code" required>
                                     @error('code')
                                         <p class="text-danger">{{ $message }}</p>
@@ -49,23 +50,23 @@
                             <div class="row">
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="desc">Description</label>
-                                    <textarea value="{{ old('desc') }}" rows="3" type="text" name="desc" class="form-control"
-                                        id="desc" required>{{  old('desc')}}</textarea>
+                                    <textarea value="{{ $item->desc }}" rows="3" type="text" name="desc" class="form-control"
+                                        id="desc" required>{{  $item->desc }}</textarea>
                                     @error('desc')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="pref_supplier">Prefered Supplier</label>
-                                    <input value="{{ old('pref_supplier') }}" type="text" name="pref_supplier" class="form-control"
-                                        id="pref_supplier" placeholder="Location pref_supplier" required>
+                                    <input value="{{ $item->pref_supplier }}" type="text" name="pref_supplier" class="form-control"
+                                        id="pref_supplier" placeholder="Location pref_supplier">
                                     @error('pref_supplier')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="gross_price">Gross Price</label>
-                                    <input name="gross_price" value="{{ old('gross_price') }}" type="text" class="form-control"
+                                    <input name="gross_price" value="{{ $item->gross_price }}" type="text" class="form-control"
                                         id="gross_price" placeholder="gross_price or organization" required>
                                 @error('gross_price')
                                     <p class="text-danger">{{ $message }}</p>
@@ -74,7 +75,7 @@
                             </div>
 
                         <button type="reset" class="btn btn-secondary">Reset Form</button>
-                        <button type="submit" class="btn btn-primary">Save Item</button>
+                        <button type="submit" class="btn btn-success">Save Item</button>
                     </form>
                 </div>
             </div>

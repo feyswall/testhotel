@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Warehouse;
 
 class WarehousesController extends Controller
 {
@@ -14,7 +15,8 @@ class WarehousesController extends Controller
      */
     public function index()
     {
-        return view('manager.warehouses.index');
+        $warehouses = Warehouse::orderBy('id', 'desc')->get();
+        return view('manager.warehouses.index', ['warehouses' => $warehouses]);
     }
 
     /**
@@ -35,7 +37,19 @@ class WarehousesController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'name' => 'required',
+            'location' => 'required',
+        ];
+        $validate = Validator::make( $request->all(), $rules )->validate();
+
+        $warehouse = Warehouse::create([
+            'name' => $request->name,
+            'location' => $request->location,
+        ]);
+
         return redirect('/warehouses');
+
     }
 
     /**

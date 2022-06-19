@@ -44,7 +44,27 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        return redirect('/items');
+       $rules = [
+            'code' => 'required|unique:items,code',
+            'selling_price' => 'required|numeric',
+            'gross_price' => 'required|numeric',
+       ];
+
+       $validate = Validator::make( $request->all(), $rules )->validate();
+
+       $item = Item::create([
+           'name' => $request->code,
+           'code' => $request->code,
+           'selling_price' => $request->selling_price,
+           'desc' => $request->desc,
+           'pref_supplier' => $request->pref_supplier,
+           'gross_price' => $request->gross_price,
+       ]);
+
+       if( !$item ){
+           return redirect()->back()->with('erro', 'fail to create item..');
+       }
+       return redirect()->route('admin.items.index')->with('success', 'item created successfully...');
     }
 
     /**
@@ -66,7 +86,12 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Item::find($id);
+        if( !$item ){
+            return redirect()->back()->with('error', 'item wasn\'t found');
+        }
+
+        return view('manager.items.edit', ['item' => $item ]);
     }
 
     /**
@@ -78,7 +103,26 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = Item::find($id);
+        if( !$item ){
+            return redirect()->back()->with('error', 'Item wasn\'t found');
+        }
+
+        $rules = [
+            'selling_price' => 'required|numeric',
+            'gross_price' => 'required|numeric',
+       ];
+
+       if( $request->code != $item->code ){
+           $rules['code'] = 'required|unique:items,code';
+       }else{
+           $rules['code'] = 'required|code';
+       }
+
+       $validate = Validator::make( $request->all(), $rules )->validate();
+    
+    
+    
     }
 
     /**
