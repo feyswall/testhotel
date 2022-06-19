@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AttributesController;
+use App\Http\Controllers\Admin\ContractsController;
 use App\Http\Controllers\Admin\CustomersController;
 use App\Http\Controllers\Admin\EmployeesController;
 use App\Http\Controllers\Admin\ItemController;
@@ -34,6 +35,11 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     //Back Office Routes
     Route::middleware(['auth', 'can:grob_users'])->controller(BackofficeController::class)->group(function(){
         Route::get('/backoffice', 'index');
+    });
+
+    //Contracts routes
+    Route::middleware(['auth', 'can:grob_users'])->controller(ContractsController::class)->group(function(){
+        Route::get('/contracts', 'index');
     });
 
     //Employees routes

@@ -10,4 +10,8 @@ class Category extends Model
     use HasFactory;
     protected $fillable = ['name', 'desc', 'type'];
 
+    public function contracts(){
+        return $this->hasMany(Contract::class);
+    }
+
 }
