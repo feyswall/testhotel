@@ -15,7 +15,7 @@ class CategoriesController extends Controller
      */
     public function index($type)
     {
-        $categories = Category::all();
+        $categories = Category::where('type', $type)->get();
         return view('admin.categories.index')->with([
             'type' => $type, 
             'categories' => $categories

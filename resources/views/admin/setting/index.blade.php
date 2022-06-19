@@ -6,7 +6,7 @@
 
 @section('content')
    
-    <main class="content">
+    <main class="content p-4">
         <div class="container-fluid p-0">
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle">System Setting</h1>

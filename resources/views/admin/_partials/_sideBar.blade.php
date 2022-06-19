@@ -24,8 +24,8 @@
                 </a>
                 <ul id="inventory" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link" href="/items">Items</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="/stocks">Stocks</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="/warehouses">Warehouses</a></li>
+                    {{-- <li class="sidebar-item"><a class="sidebar-link" href="/stocks">Stocks</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/warehouses">Warehouses</a></li> --}}
                 </ul>
             </li>
 
@@ -35,9 +35,9 @@
                 </a>
                 <ul id="records" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link" href="/sales/2">Sales records</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="/purchases">Purchase records</a></li>
+                    {{-- <li class="sidebar-item"><a class="sidebar-link" href="/purchases">Purchase records</a></li> --}}
                     <li class="sidebar-item"><a class="sidebar-link" href="/expenses">Expenses records</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="/contracts">Contracts records</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/contracts">Commitment Contracts</a></li>
                 </ul>
             </li>
 
