@@ -5,15 +5,15 @@
 @endsection
 
 @section('content')
-    <main class="content" id="app">
+    <main class="content p-4" id="app">
         <div class="container-fluid p-0">
             <a href="/new_sales" class="btn btn-primary float-end mt-n1">New Record</a>
-            <a href="/sales/1" class="btn {{$mode == 1 ? 'btn-success' : 'btn-outline-success'}} float-end mt-n1 mx-3">Sales On Cash</a>
-            <a href="/sales/0" class="btn {{$mode == 0 ? 'btn-danger': 'btn-outline-danger'}} float-end mt-n1">Sales On Credit</a>
-            <a href="/sales/2" class="btn {{$mode == 2 ? 'btn-dark' : 'btn-outline-dark'}} mx-3 float-end mt-n1">Sales Orders</a>
+            <a href="/sales/1" class="btn {{$mode == 1 ? 'btn-amber text-black' : 'btn-outline-secondary'}} float-end mt-n1 mx-3">Sales On Cash</a>
+            <a href="/sales/0" class="btn {{$mode == 0 ? 'btn-amber text-black': 'btn-outline-secondary'}} float-end mt-n1">Sales On Credit</a>
+            <a href="/sales/2" class="btn {{$mode == 2 ? 'btn-amber text-black' : 'btn-outline-secondary'}} mx-3 float-end mt-n1">Sales Orders</a>
 
             <div class="mb-3">
-                <h1 class="h3 d-inline align-middle">{{ ($mode == 2) ? 'Sales Orders' : ($mode == 1 ? 'Sales On Cash' : "Sales On Credit") }}</h1>
+                <h1 class="h3 d-inline align-middle font-weight-bold">{{ ($mode == 2) ? 'Sales Orders' : ($mode == 1 ? 'Sales On Cash' : "Sales On Credit") }}</h1>
             </div>
 
             <div class="row">

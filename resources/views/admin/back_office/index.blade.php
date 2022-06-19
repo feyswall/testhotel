@@ -21,7 +21,7 @@
                 ['name' => 'System Users', 'icon' => 'shield', 'color' => 'alert-primary', 'route' => '/users'],
             ];
         @endphp
-      <h1 class="h3 mb-3">Back Office</h1>
+      <h1 class="h3 mb-3 font-weight-bold">Back Office</h1>
       <div class="row">
           @foreach ($menu as $item)
           <a href="{{$item['route']}}" class="col col-md-4 col-sm-12 text-decoration-none">

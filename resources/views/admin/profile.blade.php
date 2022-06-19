@@ -9,14 +9,14 @@
     <main class="content p-4">
         <div class="container-fluid p-0">
 
-            <h1 class="h3 mb-3">Settings</h1>
+            <h1 class="h3 mb-3 font-weight-bold">Settings</h1>
             
             <div class="row">
                 <div class="col-md-3 col-xl-2">
 
                     <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Profile Settings</h5>
+                        <div class="card-header bg-dark">
+                            <h5 class="card-title mb-0">Profile Setting</h5>
                         </div>
 
                         <div class="list-group list-group-flush" role="tablist">

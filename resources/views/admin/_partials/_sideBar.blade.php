@@ -37,7 +37,7 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="/sales/2">Sales records</a></li>
                     {{-- <li class="sidebar-item"><a class="sidebar-link" href="/purchases">Purchase records</a></li> --}}
                     <li class="sidebar-item"><a class="sidebar-link" href="/expenses">Expenses records</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="/contracts">Commitment Contracts</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/contracts">Contracts records</a></li>
                 </ul>
             </li>
 
