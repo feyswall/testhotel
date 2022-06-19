@@ -19,32 +19,41 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
 
     //Items routes
-    Route::controller(ItemController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(ItemController::class)->group(function(){
         Route::get('/items', 'index')->name('admin.items.index');
         Route::get('/items/create', 'create')->name('admin.items.create');
         Route::get('/items/search/{text}', 'search')->name('admin.items.search');
         Route::post('/items/store', 'store')->name('admin.items.store');
         Route::post('/items/import', 'importItems')->name('admin.items.import');
         Route::delete('/items/delete/{id}', 'destroy')->name('admin.items.delete');
+        Route::get('/items/edit/{id}', 'edit')->name('admin.items.edit');
+        Route::put('/items/{id}/update', 'update')->name('admin.items.update');
+
     });
 
     //Back Office Routes
-    Route::controller(BackofficeController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(BackofficeController::class)->group(function(){
         Route::get('/backoffice', 'index');
     });
 
     //Employees routes
-    Route::controller(EmployeesController::class)->group(function(){
-        Route::get('/employees', 'index');
+    Route::middleware(['auth', 'can:grob_users'])->controller(EmployeesController::class)->group(function(){
+        Route::get('/employees', 'index')->name('employees.index');
+        Route::post('/employees', 'store')->name('employees.store');
+        Route::delete('/employees', 'destroy')->name('employees.delete');
+        Route::get('/employees/create', 'create')->name('employees.create');
+        Route::get('/employees/edit/{id}', 'edit')->name('employees.edit');
+        Route::put('/employees/{id}', 'update')->name('employees.update');
+
     });
 
     //Attributes routes
-    Route::controller(AttributesController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(AttributesController::class)->group(function(){
         Route::get('/attributes', 'index');
     });
 
     //Customer routes
-    Route::controller(CustomersController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(CustomersController::class)->group(function(){
         Route::get('/customers', 'index')->name('customers.index');
         Route::get('/customers/create', 'create');
         Route::get('/customers/search/{text}', 'search');
@@ -56,31 +65,31 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     });
 
     //Members routes
-    Route::controller(MembersController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(MembersController::class)->group(function(){
         Route::get('/users', 'index');
     });
 
     //Categories routes
-    Route::controller(CategoriesController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(CategoriesController::class)->group(function(){
         Route::get('/categories/{type}', 'index');
         Route::post('/save_category', 'store');
         Route::put('/category/edit/{id}', 'update');
     });
 
     //Discounts routes
-    Route::controller(DiscountsController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(DiscountsController::class)->group(function(){
         Route::get('/discounts', 'index');
     });
 
     //Tax routes
-    Route::controller(TaxController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(TaxController::class)->group(function(){
         Route::get('/taxes', 'index');
         Route::post('/save_tax', 'store');
         Route::put('/tax/edit/{id}', 'update');
     });
 
     //Setting routes
-    Route::controller(SettingController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(SettingController::class)->group(function(){
         Route::get('/settings', 'index');
         Route::get('/methods', 'payment_methods');
         Route::post('/save_method', 'save_method');
@@ -89,7 +98,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     });
 
     //Supplier routes
-    Route::controller(SupplierController::class)->group(function () {
+    Route::middleware(['auth', 'can:grob_users'])->controller(SupplierController::class)->group(function () {
         Route::get('/suppliers', 'index')->name('admin.supplier.index');
         Route::get('/suppliers/create', 'create')->name('admin.supplier.create');
         Route::post('/suppliers/store', 'store')->name('admin.supplier.store');
@@ -100,22 +109,22 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     });
 
     //Profile Route
-    Route::get('/profile', [ProfileController::class, 'profile']);
+    Route::middleware(['auth', 'can:grob_users'])->get('/profile', [ProfileController::class, 'profile']);
     Route::put('/profile_update/{id}', [ProfileController::class, 'update_details'])->name('profile_update');
     Route::put('/password_udpate/{id}', [ProfileController::class, 'password_udpate'])->name('password_udpate');
 
     //Warehouse routes
-    Route::controller(WarehousesController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(WarehousesController::class)->group(function(){
         Route::get('/warehouses', 'index');
         Route::get('/warehouses/create', 'create');
         Route::post('/warehouses/store', 'store');
     });
 
     //Stock routes
-    Route::get('/stocks', [StockController::class, 'index'])->name('list-stocks');
+    Route::get('/stocks', [StockController::class, 'index']);
 
     //Sales routes
-    Route::controller(SalesController::class)->group(function(){
+    Route::middleware(['auth', 'can:grob_users'])->controller(SalesController::class)->group(function(){
         Route::get('/sales/{mode}', 'index');
         Route::get('/new_sales', 'create');
         Route::get('/proforma/{id}', 'proforma');

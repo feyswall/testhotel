@@ -73,7 +73,7 @@
                                         <td>{{ number_format($item->selling_price, 2) }}</td>
                                         <td>{{ number_format($item->gross_price, 2) }}</td>
                                         <td class="table-action">
-                                            <a href="#" class="btn btn-sm btn-outline-secondary">Open</a>
+                                            <a href="{{ route('admin.items.edit', $item->id) }}" class="btn btn-sm btn-outline-secondary">Open</a>
                                             {{-- <form id="delete-item" method="POST" action="{{ route('admin.items.delete', $item->id) }}">
                                                 @csrf
                                                 @method('DELETE')
