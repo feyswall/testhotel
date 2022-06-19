@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <h1 class="mt-1 mb-3">16</h1>
+                            <h1 class="mt-1 mb-3">{{ App\Models\Supplier::all()->count() }}</h1>
                            
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <h1 class="mt-1 mb-3">126</h1>
+                                <h1 class="mt-1 mb-3">{{ App\Models\Customer::all()->count() }}</h1>
                             </div>
                         </div>
                     </a>
