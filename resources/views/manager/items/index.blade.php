@@ -12,7 +12,7 @@
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     <div class="alert-message">
-                        <strong>Hello there!  </strong>  {{ $errors->first() }}
+                       {{ $errors->first() }}
                     </div>
                 </div>
             @endif
@@ -52,12 +52,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>selling price</th>
-                                        <th>Code</th>
-                                        <th>description</th>
-                                        <th>supplier</th>
-                                        <th>Gross Price</th>
-                                        <th>Action</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                       <th>Selling Price</th>
+                                       <th>Gross Price</th>
+                                       <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,18 +68,17 @@
                                         </td> --}}
                                         
                                         <td>{{ $item->id }}</td>
-                                        <td>Tzs {{  $item->selling_price}}</td>
                                         <td>{{ $item->code }}</td>
                                         <td>{{ $item->desc }}</td>
-                                        <td>{{ $item->pref_supplier ?? 'empty' }}</td>
-                                        <td>{{ $item->gross_price }}</td>
+                                        <td>{{ number_format($item->selling_price, 2) }}</td>
+                                        <td>{{ number_format($item->gross_price, 2) }}</td>
                                         <td class="table-action">
-                                            <form id="delete-item" method="POST" action="{{ route('admin.items.delete', $item->id) }}">
+                                            <a href="#" class="btn btn-sm btn-outline-secondary">Open</a>
+                                            {{-- <form id="delete-item" method="POST" action="{{ route('admin.items.delete', $item->id) }}">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
-                                            <a href="#" form="delete-item"><i class="align-middle" data-feather="edit-2"></i></a>
-                                            <button form="delete-item" type="submit"><i class="align-middle" data-feather="trash"></i></button>
+                                            <button class="btn btn-light" form="delete-item" type="submit"><i class="align-middle la la-trash text-danger"></i></button> --}}
                                         </td>
                                     </tr>
                                     @endforeach
@@ -89,10 +87,9 @@
                                 <tfoot>
                                     <tr>
                                          <th>#</th>
-                                        <th>selling price</th>
-                                        <th>Code</th>
-                                        <th>description</th>
-                                        <th>supplier</th>
+                                         <th>Item</th>
+                                         <th>Description</th>
+                                        <th>Selling Price</th>
                                         <th>Gross Price</th>
                                         <th>Action</th>
                                     </tr>

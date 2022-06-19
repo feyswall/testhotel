@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <main class="content">
+    <main class="content p-4">
         <div class="container-fluid p-0">
 
             <h1 class="h3 mb-3">Settings</h1>
@@ -35,9 +35,8 @@
                         <div class="tab-pane fade show active" id="account" role="tabpanel">
 
                             <div class="card">
-                                <div class="card-header">
-
-                                    <h5 class="card-title mb-0">Public info</h5>
+                                <div class="card-header bg-dark">
+                                    <h5 class="card-title mb-0">Account info</h5>
                                 </div>
                                 <div class="card-body">
                                     <form method="POST" action="{{route('profile_update', $user->id)}}">
@@ -77,9 +76,10 @@
                         </div>
                         <div class="tab-pane fade" id="password" role="tabpanel">
                             <div class="card">
+                                <div class="card-header bg-dark">
+                                    <h5 class="card-title mb-0">Password Setting</h5>
+                                </div>
                                 <div class="card-body">
-                                    <h5 class="card-title">Password</h5>
-
                                     <form method="POST" action="{{route('password_udpate', $user->id)}}">
                                         @csrf
                                         @method('put')

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="content">
+    <main class="content p-4">
         @php
             $menu = [
                 ['name' => 'Employees', 'icon' => 'users', 'color' => 'alert-primary', 'route' => '/employees'],
@@ -24,13 +24,13 @@
       <h1 class="h3 mb-3">Back Office</h1>
       <div class="row">
           @foreach ($menu as $item)
-          <a href="{{$item['route']}}" class="col col-md-4 col-sm-12">
+          <a href="{{$item['route']}}" class="col col-md-4 col-sm-12 text-decoration-none">
             <div>
                 <div class="alert {{$item['color']}} alert-outline alert-dismissible" role="alert">
-                    <div class="alert-icon">
+                    <div class="alert-icon rounded-0 shadow-none">
                         <i data-feather="{{$item['icon']}}"></i>
                     </div>
-                    <div class="alert-message">
+                    <div class="alert-message rounded-0">
                         {{$item['name']}} 
                     </div>
                 </div>
