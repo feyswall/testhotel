@@ -149,5 +149,6 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     //Expenses routes
     Route::get('/expenses', [ExpensesController::class, 'index'])->name('expenses-list');
-
+    Route::get('/create_expenses', [ExpensesController::class, 'create'])->name('create-expenses');
+    Route::post('add_expenses', [ExpensesController::class, 'store'])->name('store-expenses');
 });

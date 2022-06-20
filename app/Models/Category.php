@@ -14,4 +14,8 @@ class Category extends Model
         return $this->hasMany(Contract::class);
     }
 
+    public function expenses(){
+        return $this->hasMany(Expense::class);
+    }
+
 }
