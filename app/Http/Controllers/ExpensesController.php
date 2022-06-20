@@ -7,6 +7,7 @@ use App\Models\Expense;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ExpensesController extends Controller
 {
