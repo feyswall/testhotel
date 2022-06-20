@@ -8,6 +8,9 @@
    
     <main class="content p-4">
         <div class="container-fluid p-0">
+
+            @include('admin._partials._success_and_errors')
+
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle">Expenses</h1>
             </div>
@@ -23,10 +26,16 @@
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="payee">Payee</label>
                                         <input name="payee" type="text" class="form-control" id="payee" placeholder="Payee Name" required>
+                                        @error('payee')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="payee_account">Payee Account (Optional)</label>
                                         <input name="payee_account" value="" type="number" min="0" class="form-control" id="payee_account" placeholder="Payee Account ">
+                                         @error('payee_account')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -39,10 +48,16 @@
                                               <option value="{{$cat->id}}">{{$cat->name}}</option>  
                                             @endforeach
                                         </select>
+                                     @error('category_id')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="amount">Amount</label>
                                         <input name="amount" value="" type="number" min="0" class="form-control" id="amount" placeholder="Expense Amount" required>
+                                         @error('amount')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div> 
                                 </div>
 
@@ -50,6 +65,9 @@
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="date">Payment Date</label>
                                         <input name="pay_date" type="date" value="{{date('Y-m-d')}}" class="form-control" id="date" placeholder="Date" required>
+                                         @error('pay_date')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="cat">Payment Method</label>
@@ -59,12 +77,18 @@
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
+                                         @error('payment_method_id')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="service">Product / Service</label>
                                         <input name="item" type="text"  class="form-control" id="service" placeholder="Product / Service" required>
+                                         @error('item')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="desc">Description</label>

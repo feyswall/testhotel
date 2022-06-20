@@ -27,12 +27,27 @@ class ExpensesController extends Controller
     }
 
     function store(Request $request){
+
+        $rules = [
+            'payee' => 'required',
+            'payee_account' => 'sometimes',
+            'category_id' => 'required',
+            'amount' => 'required',
+            'pay_date' => 'required',
+            'payment_method_id' => 'required',
+            'item' => 'required',
+            'desc' => 'sometimes'
+        ];
+
+        $validate = Validator::make( $request->all(), $rules )->validate();
+
         $inputs = $request->all();
         $insert = Expense::create($inputs);
 
-        if($insert){
-            return redirect('/expenses');
+        if( !$insert ) {
+            return redirect()->back()->with('error', 'fail to store expenses record..');
         }
+            return redirect('/expenses');
     }
 
     
