@@ -51,6 +51,23 @@ class ExpensesController extends Controller
     }
 
     
+    public function update($id){
+        $expense  = Expense::find($id);
+        $expense_cat = Category::where('type', 2)->get(); 
+        $pay_methods = PaymentMethod::all();
+        return view('admin.expenses.edit', compact('expense', 'expense_cat', 'pay_methods'));
+    }
 
+
+    public function save(Request $request, $id){
+        $data = Expense::find($id);
+
+        $inputs = $request->all();
+        $update = $data->update($inputs);
+
+        if($update){
+            return redirect()->back();
+        }
+    }
 
 }
