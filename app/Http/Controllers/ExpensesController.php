@@ -66,7 +66,7 @@ class ExpensesController extends Controller
         $update = $data->update($inputs);
 
         if($update){
-            return redirect()->back();
+            return redirect('/expenses');
         }
     }
 
