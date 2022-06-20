@@ -39,9 +39,11 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     //Contracts routes
     Route::middleware(['auth', 'can:grob_users'])->controller(ContractsController::class)->group(function(){
-        Route::get('/contracts', 'index');
+        Route::get('/contracts', 'index')->name('contracts.index');
         Route::post('/contracts/store', 'store')->name('contract.store');
         Route::get('/contracts/create', 'create')->name('contract.create');
+        Route::get('/contracts/show/{id}', 'show')->name('contract.show');
+        Route::put('/contracts/{id}/update', 'update')->name('contract.update');
     });
 
     //Employees routes

@@ -14,7 +14,12 @@
                         @csrf
                         <select class="form-select" name="category">
                             @foreach ($categories as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <option value="{{ $item->id }}"
+                                    @if ($item->id == $category_id)
+                                        selected
+                                    @endif
+                                    >
+                                    {{ $item->name }}</option>
                             @endforeach
                         </select>
                         <button class="btn btn-secondary" type="submit">Filter</button>
@@ -23,7 +28,7 @@
                 </div>
 
                 <div class="col-md-4 col-sm-12">
-                    <a href="#" class="btn btn-primary float-end mt-n1">Add Contract</a>
+                    <a href="{{ route('contract.create') }}" class="btn btn-primary float-end mt-n1">Add Contract</a>
                 </div>
             </div>
 
@@ -42,22 +47,28 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Position</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
+                                        <th>Description</th>
+                                        <th>Party</th>
+                                        <th>Category</th>
                                         <th>Start date</th>
+                                        <th>End Date</th>
                                         <th>Salary</th>
+                                        <th>action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($contracts as $contract)
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
+                                            <td>{{ $contract->name }}</td>
+                                            <td>{{ $contract->desc }}</td>
+                                            <td>{{ $contract->party }}</td>
+                                            <td>{{ $contract->category->name }}</td>
+                                            <td>{{  \Carbon\Carbon::parse($contract->start_date)->format('M d/Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($contract->end_date)->format('M d/y') }}</td>
                                             <td>$320,800</td>
+                                            <td>
+                                                <a href="{{ route('contract.show', $contract->id) }}" class="btn btn-outline-primary btn-sm">open</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

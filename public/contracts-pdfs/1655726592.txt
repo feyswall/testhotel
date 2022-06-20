@@ -1,0 +1,64 @@
+Password: 123
+
+
+
+=============
+Getintopc.com
+=============
+
+
+  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  
+
+feyswall
+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
+
+
+-p 65002 u284235417@151.106.116.205
+
+
+
+The first file showing how to pus....
+echo "# html" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/eastfiles/html.git
+git push -u origin main
+
+http://127.0.0.1:1337\
+
+http://192.168.8.1/html/home.html
+http://192.168.8.1/html/pincoderequired.html?index
+
+
+
+
+
+
+MANAGER atakuwa anaona tu requests na vitu vingine kwenye SYSTEM.
+
+CUSTOMER CARE asione contact za client mpaka apewe PERMISSION na COORDINATOR.
+
+CUSTOMER CARE ataona REQUESTS alizopewa kuhandle.
+
+CUSTOMER CARE ataMARK request kama service DONE kama ameshatoa service.
+
+COORDINATOR atakuwa anachagua CUSTOMER CARE wa kuhandle request iliyokuja.
+
+COORDINATOR anaweka SERVICE COST.
+
+Kuwe na sehemu ya kuADD  CONSULTATION ISSUES pamoja na COST yake.
+
+Kuwe na sehemu ya kuADD LOCATIONS pamoja na PICKUP COST yake.
+
+CLIENT anaweza kuCONFIRM au kuDECLINE SERVICE COST aliyowekewa
+
+
+
+
+
+
+
+
+
