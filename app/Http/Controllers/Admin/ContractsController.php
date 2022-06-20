@@ -63,15 +63,19 @@ class ContractsController extends Controller
             'start_date.required' => 'Contract Starting  date is required.'
         ] )->validate();
 
-        $img = $request->file('file');
+        $name = null;
 
-        $ext = $img->getClientOriginalExtension();
+        if( $request->file ){
+            $img = $request->file('file');
 
-        $name = time().'.'.$ext;
+            $ext = $img->getClientOriginalExtension();
 
-        $path = 'contracts-pdf/';
+            $name = time().'.'.$ext;
 
-        $img->move($path, $name);
+            $path = 'contracts-pdf/';
+
+            $img->move($path, $name);
+        }
 
         $contract = Contract::create( [
             "name" => $request->name,
