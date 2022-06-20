@@ -193,7 +193,7 @@ class ItemController extends Controller
 
         $img->move($path, $name);
 
-        $locate = request()->getHost().'/'.$path.'/'.$name;
+        $locate = 'https://'.request()->getHost().'/'.$path.'/'.$name;
         
         Excel::import(new ItemsImport,  $locate);
 
