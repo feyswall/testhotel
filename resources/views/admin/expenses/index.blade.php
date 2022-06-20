@@ -36,7 +36,7 @@
                                     <td>{{$expense->item}}</td>
                                     <td>{{$expense->paymentMethod->name}}</td>
                                     <td>
-                                        
+                                        <a href="{{ route('expenses-edit', $expense->id) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
                                     </td>
                                 </tr>
                                  @endforeach
