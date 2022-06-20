@@ -189,7 +189,7 @@ class ItemController extends Controller
 
         $name = time().'.'.$ext;
 
-        $path = '/itemExcel';
+        $path = 'itemExcel';
 
         $img->move($path, $name);
 
