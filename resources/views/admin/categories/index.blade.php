@@ -15,7 +15,12 @@
 @section('content')
 <main class="content">
     <div class="container-fluid p-0">
+
         @include('admin._partials._success_and_errors')
+
+        @if ($errors->any())
+            <h3 class="lead text-danger">{{ $errors->first() }}</h3>
+        @endif
 
         <div class="mb-3">
             <h1 class="h3 d-inline align-middle">{{$type_name}} Categories</h1>
@@ -54,7 +59,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body m-3">
-    
+
                                               <form method="POST" action="/category/edit/{{$item->id}}" id="edit-category-form-{{$item->id}}">
                                                 @csrf
                                                 @method('PUT')
@@ -69,7 +74,7 @@
                                                     </div>
                                                 </div>
                                               </form>
-    
+
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -81,7 +86,7 @@
                             </td>
                            </tr>
                             @endforeach
-                            
+
                         </tbody>
                     </table>
                 </div>
