@@ -32,7 +32,8 @@ class ContractsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::where('type', 3)->get();
+        return view('admin.contracts.create', ['categories' => $categories]);
     }
 
     /**
@@ -43,7 +44,20 @@ class ContractsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            "name" => 'required|unique:contracts,name',
+            "desc" => 'required',
+            "party" => 'required',
+            "category" => 'required',
+            "start_date" => "required",
+            "end_date" => "required",
+            "file" => "sometimes|mimes:pdf,docx",
+        ];
+        Validator::make( $request->all(), $rules, $messages = [
+            'start_date.required' => 'Contract Starting  date is required.'
+        ] )->validate();
+
+        $contract = 
     }
 
     /**

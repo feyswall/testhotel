@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoriesController extends Controller
 {
@@ -17,7 +18,7 @@ class CategoriesController extends Controller
     {
         $categories = Category::where('type', $type)->get();
         return view('admin.categories.index')->with([
-            'type' => $type, 
+            'type' => $type,
             'categories' => $categories
         ]);
     }
@@ -40,11 +41,23 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create([
-            'name' => $request->name, 
+        $rules = [
+            'name' => 'required|unique:categories,name',
+            'desc' => 'required',
+            'type' => 'required'
+        ];
+
+        Validator::make($request->all(), $rules)->validate();
+
+        $category = Category::create([
+            'name' => $request->name,
             'desc' => $request->desc,
             'type' => $request->type
         ]);
+
+        if( !$category ){
+            return redirect()->back()->with('error', 'fail to create object');
+        }
         return redirect()->back()->with('success', 'New category created..');;;
     }
 
@@ -79,13 +92,31 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+
         $category = Category::find($id);
         if(!$category){
             return redirect()->back()->with('error', 'Category not found!');
         }
+
+        if( $request->name != $category->name ){
+            $rules = [
+            'name' => 'required|unique:categories,name',
+            'desc' => 'required',
+        ];
+        }else{
+            $rules = [
+            'name' => 'required',
+            'desc' => 'required',
+        ];
+        }
+
+        Validator::make($request->all(), $rules)->validate();
+
         $category->name = $request->name;
         $category->desc = $request->desc;
         $category->save();
+
         return redirect()->back()->with('success', 'Category updated..');
     }
 

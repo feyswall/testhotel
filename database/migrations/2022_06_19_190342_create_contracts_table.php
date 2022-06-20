@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('desc');
             $table->string('party');
             $table->foreignId('category_id')->constrained('categories');
+            $table->string('contract_pdf')->nullable();
             $table->datetime('start_date');
             $table->datetime('end_date');
             $table->timestamps();
