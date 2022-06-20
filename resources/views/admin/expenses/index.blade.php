@@ -37,6 +37,9 @@
                                     <td>{{$expense->paymentMethod->name}}</td>
                                     <td>
                                         <a href="{{ route('expenses-edit', $expense->id) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <a href="{{route('delete-expense', $expense->id)}}" class="btn btn-danger btn-sm">
+                                            <i class="la la-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                  @endforeach

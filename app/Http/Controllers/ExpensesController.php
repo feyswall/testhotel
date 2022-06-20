@@ -71,4 +71,12 @@ class ExpensesController extends Controller
         }
     }
 
+    public function delete($id){
+        $delete = Expense::destroy($id);
+
+        if ($delete) {
+             return redirect('/expenses');
+        }
+    }
+
 }

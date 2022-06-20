@@ -157,4 +157,5 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::post('add_expenses', [ExpensesController::class, 'store'])->name('store-expenses');
     Route::get('edit_expenses/{id}', [ExpensesController::class, 'update'])->name('expenses-edit');
     Route::put('update_expenses/{id}', [ExpensesController::class, 'save'])->name('expense-save');
+    Route::get('delete_expenses/{id}', [ExpensesController::class, 'delete'])->name('delete-expense');
 });
