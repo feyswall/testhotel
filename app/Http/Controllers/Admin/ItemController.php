@@ -185,17 +185,19 @@ class ItemController extends Controller
 
         $img = $request->file('excel');
 
-        $ext = $img->getClientOriginalExtension();
+        // $ext = $img->getClientOriginalExtension();
 
-        $name = time().'.'.$ext;
+        // $name = time().'.'.$ext;
 
-        $path = 'itemExcel';
+        // $path = 'itemExcel';
 
-        $img->move($path, $name);
+        // $img->move($path, $name);
 
-        $locate = request()->getHost().'/'.$path.'/'.$name;
+        // $locate = request()->getHost().'/'.$path.'/'.$name;
 
-        Excel::import(new ItemsImport,  $locate);
+        // dd( $locate );
+
+        Excel::import(new ItemsImport,  $img);
 
         return redirect()->back()->with('excelSuccess', 'DATA SAVED SUCCESSFULLY');
 
