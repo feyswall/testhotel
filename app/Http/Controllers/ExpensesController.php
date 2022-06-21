@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Contract;
 use App\Models\Expense;
 use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
@@ -16,9 +17,19 @@ class ExpensesController extends Controller
         $this->middleware('auth');
     }
 
-    function index(){
-        $expenses = Expense::where('payee', '!=', null)->limit(30)->orderBy('id', 'desc')->get();
-        return view('admin.expenses.index', compact('expenses'));
+    function index(Request $request){
+        $category_id = null;
+        $categories = Category::where('type', 2)->get();
+        if(isset($request->category)){
+            $category_id = $request->category;
+            $expenses = Expense::where('payee', '!=', null)
+            ->where('category_id', $category_id)
+            ->limit(30)->orderBy('id', 'desc')->get();
+        }else{
+            $expenses = Expense::where('payee', '!=', null)->limit(30)->orderBy('id', 'desc')->get();
+        }
+
+        return view('admin.expenses.index', compact('expenses', 'categories', 'category_id'));
     }
 
     function create(){
