@@ -7,7 +7,21 @@
 @section('content')
     <main class="content p-4">
         <div class="container-fluid p-0">
-            <a href="/create_expenses" class="btn btn-primary float-end mt-n1">New Record</a>
+            <a href="/create_expenses" class="btn btn-primary float-end mt-n1 mx-3">New Record</a>
+            <form action="/expenses">
+                @csrf
+                <button class="btn btn-primary float-end mt-n1" type="submit">Filter</button>
+                <a href="#" class="float-end mt-n1 text-decoration-none">
+                    <select class="form-control choices-single" name="category">
+                        <option value="">Filter Category</option>
+                        @foreach ($categories as $item)
+                            <option value="{{ $item->id }}"@if ($item->id == $category_id) selected @endif>
+                                {{ $item->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </a>
+            </form>
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle"> Expenses Records</h1>
             </div>

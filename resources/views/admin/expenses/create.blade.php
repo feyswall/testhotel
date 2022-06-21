@@ -32,7 +32,7 @@
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label" for="payee_account">Payee Account (Optional)</label>
-                                        <input name="payee_account" value="" type="number" min="0" class="form-control" id="payee_account" placeholder="Payee Account ">
+                                        <input name="payee_account" value="" type="text" class="form-control" id="payee_account" placeholder="Payee Account ">
                                          @error('payee_account')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -84,8 +84,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
-                                        <label class="form-label" for="service">Product / Service</label>
-                                        <input name="item" type="text"  class="form-control" id="service" placeholder="Product / Service" required>
+                                        <label class="form-label" for="service">Item / Service</label>
+                                        <input name="item" type="text"  class="form-control" id="service" placeholder="Item / Service" required>
                                          @error('item')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror

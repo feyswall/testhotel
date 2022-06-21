@@ -7,34 +7,22 @@
 @section('content')
     <main class="content p-4">
 
-         <div class="row justify-content-end">
-                <div class="col-md-4 col-sm-12">
-                     <div class="input-group mb-3">
-                    <form action="/contracts">
-                        @csrf
-                        <select class="form-select" name="category">
-                            @foreach ($categories as $item)
-                                <option value="{{ $item->id }}"
-                                    @if ($item->id == $category_id)
-                                        selected
-                                    @endif
-                                    >
-                                    {{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                        <button class="btn btn-secondary" type="submit">Filter</button>
-                    </form>
-                </div>
-                </div>
-
-                <div class="col-md-4 col-sm-12">
-                    <a href="{{ route('contract.create') }}" class="btn btn-primary float-end mt-n1">Add Contract</a>
-                </div>
-            </div>
-
-
-        <div class="container-fluid p-0 card">
-
+        <div class="container-fluid p-0">
+            <a href="{{ route('contract.create') }}" class="btn btn-primary float-end mt-n1 mx-3">Add Contract</a>
+            <form action="/contracts">
+                @csrf
+                <button class="btn btn-primary float-end mt-n1" type="submit">Filter</button>
+                <a href="#" class="float-end mt-n1 text-decoration-none">
+                    <select class="form-control choices-single" name="category">
+                        <option value="">Filter Category</option>
+                        @foreach ($categories as $item)
+                            <option value="{{ $item->id }}"@if ($item->id == $category_id) selected @endif>
+                                {{ $item->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </a>
+            </form>
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle"> Contracts Records</h1>
             </div>
@@ -50,10 +38,10 @@
                                         <th>Description</th>
                                         <th>Party</th>
                                         <th>Category</th>
-                                        <th>Start date</th>
+                                        <th>Status</th>
+                                        <th>Start Date</th>
                                         <th>End Date</th>
-                                        <th>Salary</th>
-                                        <th>action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,9 +51,13 @@
                                             <td>{{ $contract->desc }}</td>
                                             <td>{{ $contract->party }}</td>
                                             <td>{{ $contract->category->name }}</td>
+                                            <td>
+                                                <a class="badge bg-warning ms-2 text-decoration-none" href="#">
+                                                   2 months left
+                                                </a>
+                                            </td>
                                             <td>{{  \Carbon\Carbon::parse($contract->start_date)->format('M d/Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($contract->end_date)->format('M d/y') }}</td>
-                                            <td>$320,800</td>
                                             <td>
                                                 <a href="{{ route('contract.show', $contract->id) }}" class="btn btn-outline-primary btn-sm">open</a>
                                             </td>

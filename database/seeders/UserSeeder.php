@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -16,6 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->delete();
 
         $user = User::create([
             'first_name' => 'Forbins',

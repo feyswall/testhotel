@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="content">
+    <main class="content p-4">
         <div class="container-fluid p-0">
 
              @if ( $errors->any() )
@@ -24,24 +24,21 @@
                 <div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     <div class="alert-message">
-                        <strong>Hi!  </strong>  {{ session()->get('excelSuccess') }}
+                        <strong>OK!  </strong>  {{ session()->get('excelSuccess') }}
                     </div>
                 </div>
             @endif
 
+            <a href="/items/create" class="btn btn-primary float-end mt-n1 mx-3">Add Item</a>
             <form action="/items/import" method="post" enctype="multipart/form-data">
                 @csrf
-                <div>
-                    <label class="form-label" for="itemExcel">Enter your file</label>
-                    <input type="file" name="excel" id="itemExcel">
-                </div>
-                <button class="btn btn-primary" type="submit">submit</button>
+                <button class="btn btn-success float-end mt-n1" type="submit">Upload Excel</button>
+                <a href="#" class="float-end mt-n1">
+                    <input type="file" name="excel" id="itemExcel" class="form-control rounded-none">
+                </a>
             </form>
-
-
-            <a href="/items/create" class="btn btn-primary float-end mt-n1">Add Item</a>
             <div class="mb-3">
-                <h1 class="h3 d-inline align-middle"> Items</h1>
+                <h1 class="h3 d-inline align-middle">Lastly Added Items</h1>
             </div>
 
             <div class="row justify-content-center">
@@ -99,9 +96,9 @@
                     </div>
                 </div>
 
-                <div class="col-md-5">
+                {{-- <div class="col-md-5">
                     {{ $items->links() }}
-                </div>
+                </div> --}}
             </div>
 
         </div>
