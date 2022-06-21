@@ -1,5 +1,5 @@
 <div class="text-center mb-4">
-    <img src="{{ asset('public/assets/img/avatars/logo-dark.png') }}" alt="logo" width="50%" height="50%">
+    <img src="{{ asset('assets/img/avatars/logo-dark.png') }}" alt="logo" width="50%" height="50%">
     {{-- <h1 class="h2">Welcome to Hotel Solutions</h1> --}}
     {{-- <p class="lead">
         Sign in
