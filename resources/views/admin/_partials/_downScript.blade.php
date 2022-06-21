@@ -14,7 +14,10 @@
             $(this).html("<input type=\"text\" class=\"form-control\" placeholder=\"Search " + title + "\" />");
         });
         // DataTables
-        var table = $("#datatables-column-search-text-inputs").DataTable();
+        var table = $("#datatables-column-search-text-inputs").DataTable({  
+            "pageLength": 7,
+            "lengthMenu": [ 7, 10, 25, 50, 75, 100 ]
+         });
         // Apply the search
         table.columns().every(function() {
             var that = this;
