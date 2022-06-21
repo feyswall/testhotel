@@ -21,11 +21,11 @@
 
 <!-- BEGIN SETTINGS -->
 <!-- Remove this after purchasing -->
-<link  href="{{ asset('public/assets/css/light.css') }}" rel="stylesheet">
-<link  href="{{ asset('public/assets/css/custom.css') }}" rel="stylesheet">
-{{-- <link  href="{{ asset('public/assets/css/fontawesome.min.css') }}" rel="stylesheet"> --}}
-<link  href="{{ asset('public/assets/css/line-awesome.min.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('public/assets/js/settings.js') }}"></script> --}}
+<link  href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
+<link  href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+{{-- <link  href="{{ asset('assets/css/fontawesome.min.css') }}" rel="stylesheet"> --}}
+<link  href="{{ asset('assets/css/line-awesome.min.css') }}" rel="stylesheet">
+{{-- <script src="{{ asset('assets/js/settings.js') }}"></script> --}}
 <style>
     body {
         opacity: 1;
@@ -40,4 +40,4 @@ gtag('js', new Date());
 
 gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
 </script> --}}
-<script src="{{ asset('public/assets/js/vue.js') }}"></script>
+<script src="{{ asset('assets/js/vue.js') }}"></script>

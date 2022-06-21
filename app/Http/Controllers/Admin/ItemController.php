@@ -174,34 +174,13 @@ class ItemController extends Controller
 
         $path = $request->file('excel')->store('itemExcel', 'local');
         
-            if (Storage::disk('local')->exists($path)) {
-                $file = Storage::path($path);
-                dd($file);
-                     Excel::import(new ItemsImport,  $file);
-                     return redirect()->back();
-            }
-        
+        if (!(Storage::disk('local')->exists($path))) {
+            return redirect()->back()->with('error', 'File upload fail');
+        }
 
-        $name = str_replace('itemExcel/', '', $path );
+        $file = Storage::path($path);
 
-        // if( !(Storage::disk('local')->exists($path)) ){
-        //     return redirect()->back()->with('error', 'file upload fails');
-        // }
-        
-        $url_name = URL::asset('public/storage/itemExcel/'.$name); 
-        
-
-            try{
-                  Excel::import(new ItemsImport, storage_path($path ) );            
-                }catch(Exception $e){
-                    return $e;
-                }
-
-
-        Storage::disk('local')->delete($path);
-
-        
-        Excel::import(new ItemsImport,  );
+        Excel::import(new ItemsImport,  $file);
 
         return redirect()->back()->with('excelSuccess', 'DATA SAVED SUCCESSFULLY');
 
