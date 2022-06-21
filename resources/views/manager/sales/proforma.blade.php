@@ -116,7 +116,7 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="input-group">
-                                            <input type="number" name="discount" v-on:keyup="setDiscount" min="0" v-on:change="setDiscount" required value="{{$sale->discount}}" class="form-control" placeholder="Total discount">
+                                            <input type="number" name="discount" v-on:keyup="setDiscount" min="0" v-on:change="setDiscount" required class="form-control" placeholder="Total discount">
                                             <button form="discount" class="btn btn-primary" type="submit">Calculate</button>
                                         </div>
                                     </form>
