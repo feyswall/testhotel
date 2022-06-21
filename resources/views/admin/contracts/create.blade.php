@@ -10,7 +10,7 @@
 
             @include('admin._partials._success_and_errors')
 
-            <a href="{{ route('contracts.index') }}" class="btn btn-primary float-end mt-n1"><i class="fa fa-arrow-left"></i> All Contract</a>
+            <a href="{{ route('contracts.index') }}" class="btn btn-primary float-end mt-n1">All Contracts</a>
 
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle"> New Contract</h1>
@@ -89,7 +89,7 @@
                         </div>
 
                         <button type="reset" class="btn btn-secondary">Reset Form</button>
-                        <button type="submit" class="btn btn-primary">Save Supplier</button>
+                        <button type="submit" class="btn btn-primary">Save Contract</button>
                     </form>
                 </div>
             </div>

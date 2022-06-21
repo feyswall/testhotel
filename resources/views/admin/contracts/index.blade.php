@@ -7,7 +7,7 @@
 @section('content')
     <main class="content p-4">
 
-         <div class="row justify-content-end">
+            {{-- <div class="row justify-content-end">
                 <div class="col-md-4 col-sm-12">
                      <div class="input-group mb-3">
                     <form action="/contracts">
@@ -30,11 +30,25 @@
                 <div class="col-md-4 col-sm-12">
                     <a href="{{ route('contract.create') }}" class="btn btn-primary float-end mt-n1">Add Contract</a>
                 </div>
-            </div>
+            </div> --}}
 
 
-        <div class="container-fluid p-0 card">
-
+        <div class="container-fluid p-0">
+            <a href="{{ route('contract.create') }}" class="btn btn-primary float-end mt-n1 mx-3">Add Contract</a>
+            <form action="/contracts">
+                @csrf
+                <button class="btn btn-primary float-end mt-n1" type="submit">Filter</button>
+                <a href="#" class="float-end mt-n1 text-decoration-none">
+                    <select class="form-control choices-single" name="category">
+                        <option value="">Filter Category</option>
+                        @foreach ($categories as $item)
+                            <option value="{{ $item->id }}"@if ($item->id == $category_id) selected @endif>
+                                {{ $item->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </a>
+            </form>
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle"> Contracts Records</h1>
             </div>
