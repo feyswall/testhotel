@@ -44,8 +44,13 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header border-bottom">
-                            <input type="text" placeholder="Find specific item" class="form-control">
+                        <div class="card-header border-bottom pb-0">
+                            <div class="row justify-content-between">
+                                <div class="col col-md-6">
+                                    <input type="text" placeholder="Find specific item" class="form-control">
+                                </div>
+                                <div class="col col-md-5">{{ $items->links() }}</div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
