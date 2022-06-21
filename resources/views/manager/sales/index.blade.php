@@ -61,8 +61,7 @@
                                         </td>
                                         <td>{{ date_format(date_create($sale->created_at), 'M d, Y. H:i') }}</td>
                                         <td>
-                                            <button type="button" class="btn
-                                            @if($sale->invoice_number != null && $sale->cash_mode == 2) btn-outline-success @else btn-outline-secondary @endif
+                                            <button type="button" class="btn btn-outline-secondary 
                                              btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 Options
                                             </button>
