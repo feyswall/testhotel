@@ -154,7 +154,7 @@
                                     <td colspan="2" class="text-end">{{number_format($purchase->subtotal, 2)}}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="5" class="font-weight-bold text-secondary">VAT Total ({{$vat->rate}}%)</td>
+                                    <td colspan="5" class="font-weight-bold text-secondary">VAT Total 10%)</td>
                                     <td colspan="2" class="text-end">{{number_format($purchase->vat_total, 2)}}</td>
                                 </tr>
                                 <tr>
@@ -272,7 +272,7 @@
                                         <td colspan="3" class="text-start text-end"> {{ number_format($purchase->subtotal) }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="bg-light text-end">VAT TOTAL ({{ $vat->rate }}%):</td>
+                                        <td colspan="3" class="bg-light text-end">VAT TOTAL 10%):</td>
                                         <td colspan="3" class="text-start text-end">  {{number_format($purchase->vat_total, 2)}}</td>
                                     </tr>
                                     <tr>
