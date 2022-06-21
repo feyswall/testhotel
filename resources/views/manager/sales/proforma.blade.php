@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="content" id="app">
+    <main class="content p-4" id="app">
         <div class="container-fluid p-0">
 
             <div class="mb-3">
@@ -13,7 +13,7 @@
                 <a href="#" onclick="printInvoice('printable-proforma')" class="btn btn-dark float-end mt-n1"><i class="la la-print"></i> Print Proforma</a>
                 @endif
                 <a href="/sales/2" class="btn btn-outline-primary float-end mt-n1 mx-2"><i class="la la-arrow-left"></i> Back To List</a>
-                <h1 class="h3 d-inline align-middle">Prepare Invoice</h1>
+                <h1 class="h3 d-inline align-middle font-weight-bold">Prepare Invoice</h1>
             </div>
 
            <div class="row">
