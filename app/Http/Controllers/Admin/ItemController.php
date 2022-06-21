@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class ItemController extends Controller
 {
@@ -161,41 +162,46 @@ class ItemController extends Controller
         // dd( request()->getHost() );
         // dd( request()->getHost().'/itemExcel' );
         $rules = [
-            'excel' => 'mimes:ods,xlsx|required|max:500',
+            'excel' => 'mimes:ods,xlsx,png,jpg,jpeg|required|max:500',
         ];
 
         $validate = Validator::make( $request->all(), $rules, $messages = [
             'excel.required' => 'Select Excel sheet First....',
             'excel.max' => 'ExcelSheet must not be greater than 500kb',
         ] )->validate();
+        
 
-        // $path = $request->file('excel')->store('public/itemExcel');
 
-        // $path = str_replace('public/itemExcel/', '', $path );
+        $path = $request->file('excel')->store('itemExcel', 'local');
+        
+            if (Storage::disk('local')->exists($path)) {
+                $file = Storage::path($path);
+                dd($file);
+                     Excel::import(new ItemsImport,  $file);
+                     return redirect()->back();
+            }
+        
 
-        // $excel_path = 'storage/itemExcel/'.$path;
+        $name = str_replace('itemExcel/', '', $path );
 
-        // if( !(Storage::disk('public')->exists($path)) ){
+        // if( !(Storage::disk('local')->exists($path)) ){
         //     return redirect()->back()->with('error', 'file upload fails');
         // }
-
-        // Excel::import(new ItemsImport, $excel_path );
-
-        // Storage::disk('local')->delete($path);
-
-        $img = $request->file('excel');
-
-        $ext = $img->getClientOriginalExtension();
-
-        $name = time().'.'.$ext;
-
-        $path = 'itemExcel';
-
-        $img->move($path, $name);
-
-        $locate = 'https://'.request()->getHost().'/'.$path.'/'.$name;
         
-        Excel::import(new ItemsImport,  $locate);
+        $url_name = URL::asset('public/storage/itemExcel/'.$name); 
+        
+
+            try{
+                  Excel::import(new ItemsImport, storage_path($path ) );            
+                }catch(Exception $e){
+                    return $e;
+                }
+
+
+        Storage::disk('local')->delete($path);
+
+        
+        Excel::import(new ItemsImport,  );
 
         return redirect()->back()->with('excelSuccess', 'DATA SAVED SUCCESSFULLY');
 
