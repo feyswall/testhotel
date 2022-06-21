@@ -44,6 +44,9 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="card">
+                        <div class="card-header border-bottom">
+                            <input type="text" placeholder="Find specific item" class="form-control">
+                        </div>
                         <div class="card-body">
                             <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
                                 <thead>
