@@ -23,7 +23,7 @@
                         @csrf
                         <div class="row">
                             <div class="mb-3 col-md-4">
-                                <label class="form-label" for="name">Names</label>
+                                <label class="form-label" for="name">Name</label>
                                 <input type="text" value="{{ old('name') }}" name="name" class="form-control"
                                     id="name" placeholder="">
                                 @error('name')
