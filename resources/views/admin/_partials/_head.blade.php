@@ -8,7 +8,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="shortcut icon" href="{{ asset('assets/img/icons/icon-48x48.png') }}">
+<link rel="shortcut icon" href="{{ asset('public/assets/img/icons/icon-48x48.png') }}">
 <link rel="canonical" href="pages-blank.html">
 <link rel="canonical" href="tables-datatables-column-search.html">
 
@@ -21,11 +21,11 @@
 
 <!-- BEGIN SETTINGS -->
 <!-- Remove this after purchasing -->
-<link  href="{{ asset('assets/css/light.css') }}" rel="stylesheet">
-<link  href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
-{{-- <link  href="{{ asset('assets/css/fontawesome.min.css') }}" rel="stylesheet"> --}}
-<link  href="{{ asset('assets/css/line-awesome.min.css') }}" rel="stylesheet">
-{{-- <script src="{{ asset('assets/js/settings.js') }}"></script> --}}
+<link  href="{{ asset('public/assets/css/light.css') }}" rel="stylesheet">
+<link  href="{{ asset('public/assets/css/custom.css') }}" rel="stylesheet">
+{{-- <link  href="{{ asset('public/assets/css/fontawesome.min.css') }}" rel="stylesheet"> --}}
+<link  href="{{ asset('public/assets/css/line-awesome.min.css') }}" rel="stylesheet">
+{{-- <script src="{{ asset('public/assets/js/settings.js') }}"></script> --}}
 <style>
     body {
         opacity: 1;
@@ -40,4 +40,4 @@ gtag('js', new Date());
 
 gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
 </script> --}}
-<script src="{{ asset('assets/js/vue.js') }}"></script>
+<script src="{{ asset('public/assets/js/vue.js') }}"></script>
