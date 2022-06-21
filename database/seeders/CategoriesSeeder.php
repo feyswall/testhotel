@@ -61,5 +61,20 @@ class CategoriesSeeder extends Seeder
         }
 
 
+
+         $items3 = [
+            ['name' => 'COMMITMENT CONTRACTS', 'desc' => 'commitment contracts', 'type' => 3],
+            ['name' => 'EMPLOYMENTS CONTRACTS', 'desc' => 'employment constract', 'type' => 3],
+        ];
+
+        foreach ( $items3 as $item ){
+            $rules = [
+                'name' => 'required|unique:categories,name',
+            ];
+            $validate = Validator::make($items, $rules);
+            Category::create($item);
+        }
+
+
     }
 }
