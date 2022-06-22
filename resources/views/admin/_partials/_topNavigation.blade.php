@@ -52,7 +52,7 @@
          
             <li class="nav-item">
                 <a class="nav-icon pe-md-0" href="/profile">
-                    <img src="{{ asset('assets/img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded-circle" alt="Latram">
+                    <img src="{{ asset('assets/img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded-circle" alt="image">
                 </a>
                 {{-- <div class="dropdown-menu dropdown-menu-end">
                     <small class="dropdown-item">

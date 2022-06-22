@@ -16,19 +16,15 @@ yarn-error.log
 /public/~$items.xlsx
 /storage/framework/cache/laravel-excel/laravel-excel-3mXL4RdimRNZmelWytWyP7mv455ZVjVO.xlsx
 /storage/framework/cache/laravel-excel/laravel-excel-FtWzJeUU3HiWDArTJkXA1MD25NCNIQie.xlsx
-
-resources/views/_partials/_loginForm.blade.php
-resources/views/_partials/_head.blade.php
-resources/views/_partials/_downScript.blade.php
-
-resources/views/Admin/_partials/_loginForm.blade.php
-resources/views/Admin/_partials/_head.blade.php
-resources/views/Admin/_partials/_downScript.blade.php
-resources/views/Admin/_partials/_topNavigation.blade.php
-
+/resources/views/_partials/_loginForm.blade.php
+/resources/views/_partials/_head.blade.php
+/resources/views/_partials/_downScript.blade.php
+/resources/views/admin/_partials/_loginForm.blade.php
+/resources/views/admin/_partials/_head.blade.php
+/resources/views/admin/_partials/_downScript.blade.php
+/resources/views/admin/_partials/_topNavigation.blade.php
 index.php
 public/index.php
-
 .htaccess
 /.htaccess
 

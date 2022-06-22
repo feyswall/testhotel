@@ -3,6 +3,7 @@
 
 	<script src="{{ asset('assets/js/datatables.js') }}"></script>
 
+
 	{{-- <script>
 		document.addEventListener("DOMContentLoaded", function() {
 			// Datatables Responsive

@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\Admin\WarehousesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StockController;
+use App\Http\Controllers\Admin\StocksController;
 use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\ExpensesController;
@@ -131,7 +131,11 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     });
 
     //Stock routes
-    Route::get('/stocks', [StockController::class, 'index']);
+    Route::get('/stocks', [StocksController::class, 'index'])->name('admin.stock.index');
+    Route::get('/stocks/create', [StocksController::class, 'create'])->name('admin.stock.create');
+    Route::post('/stocks/store', [StocksController::class, 'store'])->name('admin.stock.store');
+    Route::get('/stocks/edit/{id}', [StocksController::class, 'edit'])->name('admin.stock.edit');
+    Route::put('/stocks/{id}/update', [StocksController::class, 'update'])->name('admin.stock.update');
 
     //Sales routes
     Route::middleware(['auth', 'can:grob_users'])->controller(SalesController::class)->group(function(){

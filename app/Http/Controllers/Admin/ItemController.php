@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 
 class ItemController extends Controller
 {
@@ -161,41 +162,25 @@ class ItemController extends Controller
         // dd( request()->getHost() );
         // dd( request()->getHost().'/itemExcel' );
         $rules = [
-            'excel' => 'mimes:ods,xlsx|required|max:500',
+            'excel' => 'mimes:ods,xlsx,png,jpg,jpeg|required|max:500',
         ];
 
         $validate = Validator::make( $request->all(), $rules, $messages = [
             'excel.required' => 'Select Excel sheet First....',
             'excel.max' => 'ExcelSheet must not be greater than 500kb',
         ] )->validate();
+        
 
 
-
-        $path = $request->file('excel')->storePublicly('public/itemExcel');
-
-        // $path = str_replace('public/itemExcel/', '', $path );
-
-
-        if( !(Storage::disk('local')->exists($path)) ){
-            return redirect()->back()->with('error', 'file upload fails');
+        $path = $request->file('excel')->store('itemExcel', 'local');
+        
+        if (!(Storage::disk('local')->exists($path))) {
+            return redirect()->back()->with('error', 'File upload fail');
         }
 
-        Excel::import(new ItemsImport, Storage::disk('local')->path($path) );
+        $file = Storage::path($path);
 
-        Storage::disk('local')->delete($path);
-
-
-
-        // $img = $request->file('excel');
-
-        // $ext = $img->getClientOriginalExtension();
-
-        // $name = time().'.'.$ext;
-
-        // $path = request()->getHost().'/itemExcel';
-
-        // $img->move($path, $name);
-
+        Excel::import(new ItemsImport,  $file);
 
         return redirect()->back()->with('excelSuccess', 'DATA SAVED SUCCESSFULLY');
 

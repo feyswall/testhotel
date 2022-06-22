@@ -48,7 +48,6 @@ class ContractsController extends Controller
      */
     public function store(Request $request)
     {
-
         $rules = [
             "name" => 'required|unique:contracts,name',
             "desc" => 'required',
@@ -72,9 +71,11 @@ class ContractsController extends Controller
 
             $name = time().'.'.$ext;
 
-            $path = 'contracts-pdf/';
+            $path = 'contractsPdf/';
 
             $img->move($path, $name);
+            
+            // 0765076772
         }
 
         $contract = Contract::create( [
