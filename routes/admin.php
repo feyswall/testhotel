@@ -142,6 +142,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     //Sales routes
     Route::middleware(['auth', 'can:grob_users'])->controller(SalesController::class)->group(function(){
+        Route::get('/preview_sale/{id}', 'preview');
         Route::get('/sales/{mode}', 'index');
         Route::get('/new_sales', 'create');
         Route::get('/proforma/{id}', 'proforma');

@@ -14,11 +14,11 @@
                 ['name' => 'Contracts Categories', 'icon' => 'file-text', 'color' => 'alert-success', 'route' => '/categories/3'],
                 ['name' => 'Suppliers', 'icon' => 'truck', 'color' => 'alert-primary', 'route' => '/suppliers'],
                 ['name' => 'Taxes', 'icon' => 'dollar-sign', 'color' => 'alert-warning', 'route' => '/taxes'],
-                ['name' => 'Item Attributes', 'icon' => 'list', 'color' => 'alert-info', 'route' => '/attributes'],
+                // ['name' => 'Item Attributes', 'icon' => 'list', 'color' => 'alert-info', 'route' => '/attributes'],
                 ['name' => 'Customers', 'icon' => 'shopping-bag', 'color' => 'alert-dark', 'route' => '/customers'],
                 ['name' => 'Settings', 'icon' => 'settings', 'color' => 'alert-success', 'route' => '/settings'],
-                ['name' => 'Payment Methods', 'icon' => 'credit-card', 'color' => 'alert-warning', 'route' => '/methods'],
-                ['name' => 'System Users', 'icon' => 'shield', 'color' => 'alert-primary', 'route' => '/users'],
+                ['name' => 'Payment Methods', 'icon' => 'credit-card', 'color' => 'alert-info', 'route' => '/methods'],
+                // ['name' => 'System Users', 'icon' => 'shield', 'color' => 'alert-primary', 'route' => '/users'],
             ];
         @endphp
       <h1 class="h3 mb-3 font-weight-bold">Back Office</h1>

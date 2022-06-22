@@ -141,8 +141,8 @@
                                         <th>Sn</th>
                                         <th>Item</th>
                                         <th>Description</th>
-                                        <th>Item quantity</th>
-                                        <th>Selling Price</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
                                         <th>Total</th>
                                         <th>Action</th>
                                     </tr>

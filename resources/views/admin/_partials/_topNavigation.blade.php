@@ -14,6 +14,8 @@
                         {{-- <div class="dropdown-header">UI Elements</div> --}}
                         <a class="dropdown-item" href="/settings">Setting</a>
                         <a class="dropdown-item" href="/attributes">Attributes</a>
+                        {{-- <a class="dropdown-item" href="/attributes">Attributes</a> --}}
+                        <a class="dropdown-item" href="/customers">Customers</a>
                         <a class="dropdown-item" href="/suppliers">Suppliers</a>
                         <a class="dropdown-item" href="/employees">Employees</a>
                     </div>
@@ -28,7 +30,10 @@
                         <a class="dropdown-item" href="/methods">Payment methods</a>
                         <a class="dropdown-item" href="/taxes">Taxes</a>
                         <a class="dropdown-item" href="/users">Users</a>
-                        </div>
+ 
+                        <a class="dropdown-item" href="/settings">Setting</a>
+                        {{-- <a class="dropdown-item" href="/users">Users</a> --}}
+                    </div>
                 </div>
             </div>
         </li>
@@ -49,13 +54,11 @@
             <li class="nav-item mt-1">
                 <a href="/profile" class="btn">{{ ucfirst(Auth::user()->user_name) }}</a>
             </li>
-
+         
             <li class="nav-item">
                 <a class="nav-icon pe-md-0" href="/profile">
-                    <img src="{{ asset(  'assets/img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded-circle" alt="Latram">
+                    <img src="{{ asset('assets/img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded-circle" alt="image">
                 </a>
-
-                
                 {{-- <div class="dropdown-menu dropdown-menu-end">
                     <small class="dropdown-item">
                         {{ Auth::user()->roles()->first() ? Auth::user()->roles()->first()->name: 'empty' }}
@@ -65,11 +68,11 @@
                     </a>
 
                     <a class="dropdown-item" href="{{ route('admin.getProfile', Auth::user()->id) }}">
-                        <i class="align-middle me-1" data-feather="user"></i>
+                        <i class="align-middle me-1" data-feather="user"></i> 
                         Profile
                     </a>
-
-
+                                   
+                   
                 </div> --}}
             </li>
         </ul>

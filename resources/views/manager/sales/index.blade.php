@@ -71,7 +71,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 @if($sale->invoice_number != null && $sale->cash_mode == 2)
-                                                    <a class="dropdown-item" href="{{ route('print.sales.invoice', $sale->id) }}">Print Invoice</a>
+                                                    <a class="dropdown-item" href="/preview_sale/{{$sale->id}}">Print Invoice</a>
                                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment-{{$sale->id}}" href="#">Receive Payment</a>
                                                 @elseif($sale->invoice_number == null && $sale->cash_mode == 2)
                                                     <a class="dropdown-item" href="#">Print Proforma</a>
@@ -80,7 +80,7 @@
                                                     <a class="dropdown-item" href="#">View Record</a>
                                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment-{{$sale->id}}" href="#">Receive Payment</a>
                                                 @else
-                                                    <a class="dropdown-item" href="#">View Record</a>
+                                                    <a class="dropdown-item" href="/preview_sale/{{$sale->id}}">View Record</a>
                                                 @endif
 
                                             </div>

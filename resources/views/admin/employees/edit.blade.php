@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="content">
+    <main class="content p-4">
         <div class="container-fluid p-0">
 
             <div class="row justify-content-end">
