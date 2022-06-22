@@ -138,6 +138,7 @@
                 item_search(c, o){
                     if(c.length == 0){
                         this.results = [];
+                        window.location.reload();
                     }
                     if(c.length != 0 && this.searching == false){
                         this.search();
