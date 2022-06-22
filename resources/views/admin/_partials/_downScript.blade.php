@@ -1,8 +1,8 @@
 
-	<script src="{{ asset('public/assets/js/app.js') }}"></script>
+	<script src="{{ asset('assets/js/app.js') }}"></script>
 
-	<script src="{{ asset('public/assets/js/datatables.js') }}"></script>
-	<script src="{{ asset('public/assets/js/fontawesome.min.js') }}"></script>
+	<script src="{{ asset('assets/js/datatables.js') }}"></script>
+	<script src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
 
 
 <script>
@@ -30,6 +30,8 @@
             });
         });
     });
+
+
 
     document.addEventListener("DOMContentLoaded", function() {
 			// Datatables with Buttons

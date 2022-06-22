@@ -1,0 +1,8 @@
+_partials/_loginForm.blade.php
+_partials/_head.blade.php
+_partials/_downScript.blade.php
+admin/_partials/_loginForm.blade.php
+admin/_partials/_head.blade.php
+admin/_partials/_downScript.blade.php
+admin/_partials/_topNavigation.blade.php
+index.php
