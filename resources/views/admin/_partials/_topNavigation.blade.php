@@ -49,10 +49,10 @@
             <li class="nav-item mt-1">
                 <a href="/profile" class="btn">{{ ucfirst(Auth::user()->user_name) }}</a>
             </li>
-         
+
             <li class="nav-item">
                 <a class="nav-icon pe-md-0" href="/profile">
-                    <img src="{{ asset('assets/img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded-circle" alt="Latram">
+                    <img src="{{ asset(  'assets/img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded-circle" alt="Latram">
                 </a>
                 {{-- <div class="dropdown-menu dropdown-menu-end">
                     <small class="dropdown-item">
@@ -63,11 +63,11 @@
                     </a>
 
                     <a class="dropdown-item" href="{{ route('admin.getProfile', Auth::user()->id) }}">
-                        <i class="align-middle me-1" data-feather="user"></i> 
+                        <i class="align-middle me-1" data-feather="user"></i>
                         Profile
                     </a>
-                                   
-                   
+
+
                 </div> --}}
             </li>
         </ul>
