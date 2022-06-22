@@ -22,7 +22,7 @@ yarn-error.log
 /resources/views/admin/_partials/_loginForm.blade.php
 /resources/views/admin/_partials/_head.blade.php
 /resources/views/admin/_partials/_downScript.blade.php
-/resources/views/admin/_partials/_topNavigation.blade.php
+
 index.php
 public/index.php
 .htaccess
