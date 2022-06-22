@@ -74,7 +74,7 @@
                                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment-{{$sale->id}}" href="#">Receive Payment</a>
                                                 @elseif($sale->invoice_number == null && $sale->cash_mode == 2)
                                                     <a class="dropdown-item" href="#">Print Proforma</a>
-                                                    <a class="dropdown-item" href="/proforma/{{$sale->id}}">Generate Invoice</a>
+                                                    <a class="dropdown-item" href="/proforma/{{$sale->id}}">Prepare Invoice</a>
                                                 @elseif($sale->invoice_number != null && $sale->cash_mode == 0 )
                                                     <a class="dropdown-item" href="#">View Record</a>
                                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#receive-payment-{{$sale->id}}" href="#">Receive Payment</a>
@@ -105,7 +105,7 @@
                                                         </span>
                                                     </label>
                                                     <hr>
-                                                    <label class="form-check">
+                                                    <label class="form-check pb-3">
                                                         <input id="cashCheck" class="form-check-input" type="radio" value="1" name="cash_mode">
                                                         <span class="form-check-label">
                                                             Record as sales on cash
@@ -114,10 +114,10 @@
                                                     @error('method')
                                                         <p class="text-danger mt-3">{{ $message }}</p>
                                                     @enderror
-                                                    <div id="cashIn" class=" mt-3 lead" style="display: none;">
-                                                        <label for="method">payment method</label>
-                                                        <select class="form-control" name="method">
-                                                                  <option value="">Choose method</option>
+                                                    <div id="cashIn" class="mt-3 lead" style="display: none;">
+                                                        <label for="method" class="form-label">Payment Method</label>
+                                                        <select class="form-control" name="method" id="method">
+                                                            <option value="">Choose method</option>
                                                             @foreach( App\Models\PaymentMethod::all() as $method )
                                                                 <option value="{{ $method->id }}">{{ $method->name }}</option>
                                                             @endforeach
