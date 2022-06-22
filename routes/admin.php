@@ -30,6 +30,9 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::get('/items/edit/{id}', 'edit')->name('admin.items.edit');
         Route::put('/items/{id}/update', 'update')->name('admin.items.update');
 
+        // second item search with vue
+        Route::post('/items/in/search', 'inSearch')->name('admin.items.inSearch');
+
     });
 
     //Back Office Routes

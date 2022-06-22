@@ -187,5 +187,9 @@ class ItemController extends Controller
     }
 
 
+    public function inSearch(Request $request){
+        $items = Item::where('code', 'like', '%'.$request->term.'%' )->orderBy('id', 'desc')->get();
+        return response()->json($items);
+    }
 
 }

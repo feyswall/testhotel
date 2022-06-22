@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Stock;
+use App\Models\Item;
 
 class StocksController extends Controller
 {
@@ -82,9 +83,11 @@ class StocksController extends Controller
      */
     public function edit($id)
     {
+        $items = Item::orderBy('id', 'desc')->paginate(100);
         $stock = Stock::find($id);
         return view('admin.stock.edit', [
             'stock' => $stock,
+            'items' => $items,
         ]);
     }
 
@@ -135,4 +138,5 @@ class StocksController extends Controller
     {
         //
     }
+
 }

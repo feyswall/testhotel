@@ -26,4 +26,14 @@ class Item extends Model
         );
     }
 
+    /**
+     * The stocks that belong to the Item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function stocks(): BelongsToMany
+    {
+        return $this->belongsToMany(Stock::class);
+    }
+
 }
