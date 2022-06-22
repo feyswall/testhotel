@@ -35,12 +35,13 @@
                                 </thead>
                                 <tbody>
                                     @foreach( $sales as $sale )
+
+
                                     <tr>
                                         @php
                                         $gross = 0;
                                         $total_due_tax = 0;
                                         foreach( $sale->items as $item ){
-                                            $total_due_tax += $item->pivot->due_tax * $item->pivot->quantity;
                                             $gross += ($item->pivot->due_price + $item->pivot->due_tax) * $item->pivot->quantity;
                                         }
 
@@ -48,7 +49,7 @@
                                         <td>{{ $sale->customer->name }}</td>
                                         <td> {{ number_format($gross, 2) }}</td>
                                         <td>{{ number_format(($sale->vat/100) * $gross, 2) }}</td>
-                                        <td>{{ $sale->discount }}</td>
+                                        <td>{{ number_format($sale->discount,2) }}</td>
                                         <td>{{ number_format($gross + (($sale->vat/100) * $gross) - $sale->discount, 2) }}</td>
                                         <td>
                                             <a class="badge @if($sale->invoice_number != null) bg-success @else bg-warning @endif ms-2" href="#">

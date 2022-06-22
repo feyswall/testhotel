@@ -65,12 +65,14 @@ class SalesController extends Controller
             return response()->json(['error' => 'customer not found... ']);
         }
 
+        $vat = Tax::where('type', 1)->first();
         // create sale object for current  session
         $sale = Sale::create([
             'customer_id' => $customer_id,
             'validity' => $validity,
             'due_date' => $due_date,
             'cash_mode' => 2,
+            'vat' => $vat->rate ?? 0,
             'pi_number' => time(),
         ]);
 
@@ -83,6 +85,7 @@ class SalesController extends Controller
         foreach( $items as $item ){
                 $sale->items()->attach($item['item_id'], [
                     'quantity' => $item['item_quantity'],
+                    'due_price' => $item['due_price'],
                 ]);
 
         }
@@ -153,9 +156,7 @@ class SalesController extends Controller
 
         $customer = $sale->customer;
 
-        $vat = Tax::where('type', 1)->first();
-
-        $vat_rate = $vat->rate ?? 0;
+        $vat_rate = $sale->vat ?? 0;
 
         $settings = Setting::all();
         $data = [];
@@ -181,7 +182,7 @@ class SalesController extends Controller
             'customer' => $customer, 
             'purchase' => $purchase,
             'setting' => $data, 
-            'vat' => $vat,
+            'vat_rate' => $vat_rate,
         ]);
     }
 
@@ -236,7 +237,6 @@ class SalesController extends Controller
             return redirect()->back();
         }
         $sale->invoice_number = time();
-        $sale->vat = $request->vat;
         $sale->save();
         $removable = $sale->items()->where('invoice_mode', 0)->get();
         if($removable->count() == 0){

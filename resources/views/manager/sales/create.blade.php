@@ -74,7 +74,7 @@
                                                         <td>@{{item.code}}</td>
                                                         <td>@{{item.desc}}</td>
                                                         <td>@{{item.selling_price}}</td>
-                                                        <td><input type="number" v-model="item.quantity"></td>
+                                                        <td><input type="number" min="0" v-model="item.quantity"></td>
                                                         <td><button v-on:click="addItem(index)" class="btn btn-primary"><i class="la la-plus"></i></button></td>
                                                     </tr>
                                                 </table>
@@ -222,7 +222,6 @@
                         'item_id': this.proforma[i].id, 
                         'item_quantity': this.proforma[i].quantity, 
                         'due_price': this.proforma[i].selling_price,
-                        'due_tax': 0 
                     });  //this.proforma[i].tax
                 }
                 var dataSet = {

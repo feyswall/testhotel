@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="content p-4">
+    <main class="content p-4" id="app">
         <div class="container-fluid p-0">
 
              @if ( $errors->any() )
@@ -47,7 +47,7 @@
                         <div class="card-header border-bottom pb-0">
                             <div class="row justify-content-between">
                                 <div class="col col-md-6">
-                                    <input type="text" placeholder="Find specific item" class="form-control">
+                                    <input v-model="item_search" type="text" placeholder="Find specific item" class="form-control">
                                 </div>
                                 <div class="col col-md-5">{{ $items->links() }}</div>
                             </div>
@@ -64,8 +64,7 @@
                                        <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-
+                                <tbody v-if="results.length == 0">
                                     @foreach ($items as $item)                                        
                                     <tr>
                                         {{-- <td>
@@ -87,7 +86,21 @@
                                         </td>
                                     </tr>
                                     @endforeach
-
+                                </tbody>
+                                <tbody v-if="searching">
+                                    <tr>
+                                        <td>Searching..</td>
+                                    </tr>
+                                </tbody>
+                                <tbody v-else>
+                                    <tr v-for="(item, index) in results" :key="'item' + item.id">
+                                        <td>@{{ item.id }}</td>
+                                        <td>@{{ item.code }}</td>
+                                        <td>@{{ item.desc }}</td>
+                                        <td>@{{ item.selling_price }}</td>
+                                        <td>@{{ item.gross_price }}</td>
+                                        <td><a :href="'/items/edit/' + item.id" class="btn btn-sm btn-outline-secondary">Open</a></td>
+                                    </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -103,12 +116,48 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- <div class="col-md-5">
-                    {{ $items->links() }}
-                </div> --}}
             </div>
 
         </div>
     </main>
+
+    <script>
+        var app = new Vue({
+            el: "#app", 
+
+            data(){
+                return {
+                    item_search: '', 
+                    searching: false, 
+                    results: [],
+                    noResults: true
+                }
+            },
+
+            watch: {
+                item_search(c, o){
+                    if(c.length == 0){
+                        this.results = [];
+                        window.location.reload();
+                    }
+                    if(c.length != 0 && this.searching == false){
+                        this.search();
+                    }
+                }
+            },
+
+            methods: {
+                search() {
+                this.searching = true;
+                fetch(`/items/search/${encodeURIComponent(this.item_search)}`)
+                    .then(res => res.json())
+                    .then(res => {
+                        this.searching = false;
+                        this.results = res;
+                        this.noResults = this.results.length === 0;
+                    });
+                }
+            }
+        });
+    </script>
 @endsection
