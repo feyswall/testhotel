@@ -35,12 +35,13 @@
                                 </thead>
                                 <tbody>
                                     @foreach( $sales as $sale )
+
+
                                     <tr>
                                         @php
                                         $gross = 0;
                                         $total_due_tax = 0;
                                         foreach( $sale->items as $item ){
-                                            $total_due_tax += $item->pivot->due_tax * $item->pivot->quantity;
                                             $gross += ($item->pivot->due_price + $item->pivot->due_tax) * $item->pivot->quantity;
                                         }
 

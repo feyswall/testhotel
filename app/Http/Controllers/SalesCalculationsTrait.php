@@ -14,7 +14,7 @@ trait SalesCalculationsTrait
     public function calculateSubTotal(Collection $items){
         $sub_total = 0;
         foreach( $items as $item ){
-        $sub_total += $item->selling_price * $item->pivot->quantity;
+        $sub_total += $item->pivot->due_price * $item->pivot->quantity;
         }
         return $sub_total;
     }

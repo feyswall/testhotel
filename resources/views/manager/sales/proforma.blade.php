@@ -77,7 +77,7 @@
                                     <th>Sn</th>
                                     <th>Item</th>
                                     <th>Description</th>
-                                    <th>Due Price</th>
+                                    <th>Price</th>
                                     <th>Quantity</th>
                                 </tr>
                             </thead>
@@ -87,7 +87,7 @@
                                         <td>#</td>
                                         <td>{{$item->code}}</td>
                                         <td>{{$item->desc}}</td>
-                                        <td>{{$item->pivot->due_price}}</td>
+                                        <td>{{number_format($item->pivot->due_price, 2)}}</td>
                                         <td class="text-center">{{$item->pivot->quantity}}</td>
                                         <td><input type="checkbox" name="item_id[]" value="{{$item->id}}" checked="yes"></td>
                                     </tr>
@@ -105,7 +105,6 @@
                                 <form action="/sales/confirm_invoice/{{$sale->id}}" method="POST" id="invoice-confirmation">
                                     @csrf
                                     @method('PUT')
-                                    <input type="hidden" name="vat" value="{{$vat->rate ?? 0}}">
                                     <div class="col col-md-12">
                                         <button :disabled="discount == 1" class="btn btn-success w-100" type="submit">Confirm & Save</button></div>
                                 </form>
@@ -137,13 +136,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $vat_rate = $vat->rate ?? 0; @endphp
                                 @foreach ($confirmed as $item)
                                     <tr>
                                         <td>#</td>
                                         <td>{{$item->code}}</td>
                                         <td>{{$item->desc}}</td>
-                                        <td>{{$item->selling_price }}</td>
+                                        <td>{{$item->pivot->due_price }}</td>
                                         <td class="text-center">{{$item->pivot->quantity}}</td>
                                         <td>{{ $purchase->current->total_item_income($item) }}</td>
                                     </tr>
@@ -269,10 +267,10 @@
                                     @endforeach
                                     <tr>
                                         <td colspan="3" class="bg-light text-end">SUBTOTAL:</td>
-                                        <td colspan="3" class="text-start text-end"> {{ number_format($purchase->subtotal) }}</td>
+                                        <td colspan="3" class="text-start text-end"> {{ number_format($purchase->subtotal, 2) }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="bg-light text-end">VAT TOTAL ({{ $vat->rate }}%):</td>
+                                        <td colspan="3" class="bg-light text-end">VAT TOTAL ({{ $vat_rate }}%):</td>
                                         <td colspan="3" class="text-start text-end">  {{number_format($purchase->vat_total, 2)}}</td>
                                     </tr>
                                     <tr>
