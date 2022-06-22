@@ -141,9 +141,9 @@
                                         <td>#</td>
                                         <td>{{$item->code}}</td>
                                         <td>{{$item->desc}}</td>
-                                        <td>{{$item->pivot->due_price }}</td>
+                                        <td>{{number_format($item->pivot->due_price, 2 )}}</td>
                                         <td class="text-center">{{$item->pivot->quantity}}</td>
-                                        <td>{{ $purchase->current->total_item_income($item) }}</td>
+                                        <td>{{ number_format($purchase->current->total_item_income($item), 2)}}</td>
                                     </tr>
                                 @endforeach
                                 <tr><td colspan="7" class="border-top"></td></tr>

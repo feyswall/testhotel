@@ -49,7 +49,7 @@
                                         <td>{{ $sale->customer->name }}</td>
                                         <td> {{ number_format($gross, 2) }}</td>
                                         <td>{{ number_format(($sale->vat/100) * $gross, 2) }}</td>
-                                        <td>{{ $sale->discount }}</td>
+                                        <td>{{ number_format($sale->discount,2) }}</td>
                                         <td>{{ number_format($gross + (($sale->vat/100) * $gross) - $sale->discount, 2) }}</td>
                                         <td>
                                             <a class="badge @if($sale->invoice_number != null) bg-success @else bg-warning @endif ms-2" href="#">
