@@ -8,7 +8,7 @@
     <main class="content p-4" id="app">
         <div class="container-fluid p-0">
 
-                <a class="btn btn-primary float-end mt-n1 mx-3" href="{{ route('admin.stock.index') }}">all stocks</a>
+                <a class="btn btn-primary float-end mt-n1 mx-3" href="{{ route('admin.stock.index') }}">All stocks</a>
                 <a class="btn btn-success float-end mt-n1" data-bs-toggle="modal" data-bs-target="#new-stock" href="#">Edit Record</a>
 
 
@@ -17,7 +17,7 @@
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Update stock<span class="font-weight-bold"></span></h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body m-3">
                                                     @error('cash_mode')
@@ -42,7 +42,7 @@
                                                         </div>
 
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="desc">Textarea</label>
+                                                            <label class="form-label" for="desc">Description</label>
                                                             <textarea class="form-control" id="desc" name="desc" required  placeholder="Description" rows="3">{{  $stock->desc }}</textarea>
                                                         </div>
                                         
@@ -76,7 +76,7 @@
                     <div class="card">
                         <div class="card-body">
                             <p>STOCK NAME:  {{ $stock->name }}</p>
-                            <P>stock location:  {{ $stock->location }}</P>
+                            <P>STOCK LOCATION:  {{ $stock->location }}</P>
                             <p>STOCK DESCRIPTION: {{ $stock->desc }}</p>
                         </div>
                     </div>

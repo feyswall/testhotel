@@ -52,6 +52,8 @@
                                 <div class="col col-md-5">{{ $items->links() }}</div>
                             </div>
                         </div>
+                       
+                        
                         <div class="card-body">
                             <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
                                 <thead>
@@ -64,7 +66,7 @@
                                        <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody v-if="results.length == 0">
+                                <tbody v-if="item_search == ''">
                                     @foreach ($items as $item)                                        
                                     <tr>
                                         {{-- <td>
@@ -87,12 +89,7 @@
                                     </tr>
                                     @endforeach
                                 </tbody>
-                                <tbody v-if="searching">
-                                    <tr>
-                                        <td>Searching..</td>
-                                    </tr>
-                                </tbody>
-                                <tbody v-else>
+                                <tbody v-if="item_search != ''">
                                     <tr v-for="(item, index) in results" :key="'item' + item.id">
                                         <td>@{{ item.id }}</td>
                                         <td>@{{ item.code }}</td>
@@ -138,9 +135,12 @@
                 item_search(c, o){
                     if(c.length == 0){
                         this.results = [];
-                        window.location.reload();
+                        this.noResults = true;
+                        this.item_search = '';
                     }
-                    if(c.length != 0 && this.searching == false){
+                    if(c.length == 0){
+                        window.location.reload();
+                    }else{
                         this.search();
                     }
                 }
@@ -148,16 +148,17 @@
 
             methods: {
                 search() {
-                this.searching = true;
-                fetch(`/items/search/${encodeURIComponent(this.item_search)}`)
-                    .then(res => res.json())
-                    .then(res => {
-                        this.searching = false;
-                        this.results = res;
-                        this.noResults = this.results.length === 0;
+                    this.searching = true;
+                    fetch(`/items/search/${encodeURIComponent(this.item_search)}`)
+                        .then(res => res.json())
+                        .then(res => {
+                            this.searching = false;
+                            this.results = res;
+                            this.noResults = this.results.length === 0;
                     });
                 }
             }
+            
         });
     </script>
 @endsection

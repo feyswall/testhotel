@@ -14,8 +14,8 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title">adding new record form <span class="font-weight-bold"></span></h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    <h5 class="modal-title">Add new stock <span class="font-weight-bold"></span></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body m-3">
                                                     @error('cash_mode')
@@ -37,7 +37,7 @@
                                                         </div>
 
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="desc">Textarea</label>
+                                                            <label class="form-label" for="desc">Description</label>
                                                             <textarea class="form-control" id="desc" name="desc" required  placeholder="Description" rows="3">{{ old('desc') }}</textarea>
                                                         </div>
                                         
@@ -73,7 +73,7 @@
                                         <th>id</th>
                                         <th>Name</th>
                                         <th>Location</th>
-                                        <th>action</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -83,7 +83,7 @@
                                         <td>{{ $stock->name }}</td>
                                         <td>{{ $stock->location }}</td>
                                         <td>
-                                            <a href="{{ route('admin.stock.edit', $stock->id) }}" class="btn btn-outline-primary">view</a>
+                                            <a href="{{ route('admin.stock.edit', $stock->id) }}" class="btn btn-outline-primary">View</a>
                                         </td>
                                     </tr>
                                   @endforeach
