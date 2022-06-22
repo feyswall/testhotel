@@ -90,75 +90,54 @@
                             <div class="row justify-content-between">
                                 <div class="col col-md-6">
                                     <input v-model="item_search" type="text" placeholder="Find specific item" class="form-control">
+                                    <button v-on:click='search'>search</button>
                                 </div>
-                                <div class="col col-md-5">{{ $items->links() }}</div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Item</th>
-                                        <th>Description</th>
-                                       <th>Selling Price</th>
-                                       <th>Gross Price</th>
-                                       <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody v-if="results.length == 0">
-                                    @foreach ($items as $item)                                        
-                                    <tr>
-                                        {{-- <td>
-                                            <img src="{{ asset('assets/img/avatars/avatar-5.jpg') }}" width="35" height="35" class="rounded m-0" alt="image">
-                                        </td> --}}
-                                        
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->code }}</td>
-                                        <td>{{ $item->desc }}</td>
-                                        <td>{{ number_format($item->selling_price, 2) }}</td>
-                                        <td>{{ number_format($item->gross_price, 2) }}</td>
-                                        <td class="table-action">
-                                            <a href="{{ route('admin.items.edit', $item->id) }}" class="btn btn-sm btn-outline-secondary">Open</a>
-                                            {{-- <form id="delete-item" method="POST" action="{{ route('admin.items.delete', $item->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                            <button class="btn btn-light" form="delete-item" type="submit"><i class="align-middle la la-trash text-danger"></i></button> --}}
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                                <tbody v-if="searching">
-                                    <tr rowspan>
-                                        <td>Searching..</td>
-                                    </tr>
-                                </tbody>
-                                <tbody v-else>
-                                    <tr v-for="(item, index) in results" :key="'item' + item.id">
-                                        <td>@{{ item.id }}</td>
-                                        <td>@{{ item.code }}</td>
-                                        <td>@{{ item.desc }}</td>
-                                        <td>@{{ item.selling_price }}</td>
-                                        <td>@{{ item.gross_price }}</td>
-                                        <td><a :href="'/items/edit/' + item.id" class="btn btn-sm btn-outline-secondary">Open</a></td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                         <th>#</th>
-                                         <th>Item</th>
-                                         <th>Description</th>
-                                        <th>Selling Price</th>
-                                        <th>Gross Price</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                    <table class="table table-striped" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Item</th>
+                                                <th>Description</th>
+                                            <th>Selling Price</th>
+                                            <th>Gross Price</th>
+                                            <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($items as $item)                                        
+                                            <tr>
+                                                {{-- <td>
+                                                    <img src="{{ asset('assets/img/avatars/avatar-5.jpg') }}" width="35" height="35" class="rounded m-0" alt="image">
+                                                </td> --}}
+                                                
+                                                <td>{{ $item->id }}</td>
+                                                <td>{{ $item->code }}</td>
+                                                <td>
+                                                    <form id="form-{{ $item->id }}" action="">
+                                                        <input type="text" name="quantiy">
+                                                    </form>
+                                                </td>
+                                                <td>{{ number_format($item->selling_price, 2) }}</td>
+                                                <td>{{ number_format($item->gross_price, 2) }}</td>
+                                                <td class="table-action">
+                                                    <button form="form-{{ $item->id }}" class="btn btn-sm btn-outline-secondary">add</button>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
+                                    <div class="col col-md-5">{{ $items->links() }}</div>
+                        
+                                </div>
+
+
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,10 +146,11 @@
 
         </div>
     </main>
+@endsection
 
 
-
-
+@section('ourScript')
+    
 
         <script>
         var app = new Vue({
@@ -179,21 +159,7 @@
             data(){
                 return {
                     item_search: '', 
-                    searching: false, 
                     results: [],
-                    noResults: true
-                }
-            },
-
-            watch: {
-                item_search(c, o){
-                    if(c.length == 0){
-                        this.results = [];
-                        window.location.reload();
-                    }
-                    if(c.length != 0 && this.searching == false){
-                        this.search();
-                    }
                 }
             },
 
@@ -210,16 +176,12 @@
                 fetch('/items/in/search', requestOptions)
                     .then(res => res.json())
                     .then(res => {
-                        this.searching = false;
+                        console.log( res )
                         this.results = res;
-                        this.loadTable();
-                        this.noResults = this.results.length === 0;
                     });
                 },
 
-                loadTable() {
-                   
-                }
+                
             }
         });
     </script>

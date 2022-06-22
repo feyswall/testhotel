@@ -84,7 +84,10 @@ class StocksController extends Controller
     public function edit($id)
     {
         $items = Item::orderBy('id', 'desc')->paginate(100);
+        // return $items; 
+
         $stock = Stock::find($id);
+        
         return view('admin.stock.edit', [
             'stock' => $stock,
             'items' => $items,
