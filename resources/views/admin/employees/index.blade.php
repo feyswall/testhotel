@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="content">
+    <main class="content p-4">
         <div class="container-fluid p-0">
 
             <div class="mb-2 mt-2">
@@ -18,7 +18,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Large modal</h5>
+                            <h5 class="modal-title">Register Employee</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                         <div class="modal-body m-3">

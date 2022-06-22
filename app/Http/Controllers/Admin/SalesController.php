@@ -300,6 +300,26 @@ class SalesController extends Controller
 
     }
 
+    function preview($id){
+        $sale = Sale::find($id);
+        $customer = $sale->customer;
+        $vat_rate = $sale->vat ?? 0;
+        $setting = Setting::all();
+        $settings = Setting::all();
+        $data = [];
+        foreach($settings as $item){
+            $data[$item->key] = $item->value;
+        }
+        $setting = $data;
+        $purchase = new stdClass();
+        // Assign data to my object
+        $purchase->subtotal = $this->calculateSubTotal($sale->items);
+        $purchase->current = $this;
+        $purchase->discounted = $this->discounted($sale, $vat_rate);
+        $purchase->vat_total = $this->vatTotal($sale->items, $vat_rate);
+        return view('manager.sales.preview', compact('sale', 'customer', 'purchase', 'vat_rate', 'setting'));
+    }
+
 
 
 }

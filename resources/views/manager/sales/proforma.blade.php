@@ -267,11 +267,11 @@
                                     @endforeach
                                     <tr>
                                         <td colspan="3" class="bg-light text-end">SUBTOTAL:</td>
-                                        <td colspan="3" class="text-start text-end"> {{ number_format($purchase->subtotal, 2) }}</td>
+                                        <td colspan="3" class="text-start text-end">{{ number_format($purchase->subtotal, 2) }}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" class="bg-light text-end">VAT TOTAL ({{ $vat_rate }}%):</td>
-                                        <td colspan="3" class="text-start text-end">  {{number_format($purchase->vat_total, 2)}}</td>
+                                        <td colspan="3" class="text-start text-end">{{number_format($purchase->vat_total, 2)}}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" class="bg-light text-end">TOTAL:</td>

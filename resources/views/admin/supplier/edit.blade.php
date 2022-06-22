@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-    <main class="content">
+    <main class="content p-4">
         <div class="container-fluid p-0">
-            <a href="{{ route('admin.supplier.index') }}" class="btn btn-primary float-end mt-n1">All Supplier</a>
+            <a href="{{ route('admin.supplier.index') }}" class="btn btn-primary float-end mt-n1">All Suppliers</a>
             <div class="mb-3">
-                <h1 class="h3 d-inline align-middle"> New Suppliers</h1>
+                <h1 class="h3 d-inline align-middle"> Edit Supplier</h1>
             </div>
 
 

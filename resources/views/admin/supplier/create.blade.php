@@ -5,12 +5,12 @@
 @endsection
 
 @section('content')
-    <main class="content">
+    <main class="content p-4">
         <div class="container-fluid p-0">
-            <a href="/suppliers" class="btn btn-primary float-end mt-n1"><i class="fa fa-arrow-left"></i> View Suppliers</a>
+            <a href="/suppliers" class="btn btn-primary float-end mt-n1">View Suppliers</a>
 
             <div class="mb-3">
-                <h1 class="h3 d-inline align-middle"> New Suppliers</h1>
+                <h1 class="h3 d-inline align-middle"> New Supplier</h1>
             </div>
 
 
