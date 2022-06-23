@@ -59,7 +59,7 @@
 
 
             <div class="mb-3">
-                <h1 class="h3 d-inline align-middle font-weight-bold">Stock Records</h1>
+                <h1 class="h3 d-inline align-middle font-weight-bold">Stocks</h1>
             </div>
 
 
@@ -83,7 +83,7 @@
                                         <td>{{ $stock->name }}</td>
                                         <td>{{ $stock->location }}</td>
                                         <td>
-                                            <a href="{{ route('admin.stock.edit', $stock->id) }}" class="btn btn-outline-primary">View</a>
+                                            <a href="{{ route('admin.stock.edit', $stock->id) }}" class="btn btn-outline-primary">View Items</a>
                                         </td>
                                     </tr>
                                   @endforeach
