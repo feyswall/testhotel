@@ -45,7 +45,7 @@
                                                             <label class="form-label" for="desc">Description</label>
                                                             <textarea class="form-control" id="desc" name="desc" required  placeholder="Description" rows="3">{{  $stock->desc }}</textarea>
                                                         </div>
-                                        
+
                                                     </form>
 
 
@@ -92,9 +92,16 @@
                                     <input v-model="item_search" type="text" placeholder="Find specific item" class="form-control">
                                     <button v-on:click='search'>search</button>
                                 </div>
+
+                                <button v-if='items.length > 0' class="btn btn-outline-success w-25" v-on:click='submitItems()' type="button">send items</button>
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="mx-3">
+                                @if($errors->any())
+                                    <p class="text-danger">{{ $errors->first() }}</p>
+                                @endif
+                            </div>
                                     <table class="table table-striped" style="width:100%">
                                         <thead>
                                             <tr>
@@ -107,23 +114,31 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($items as $item)                                        
+                                            @foreach ($items as $item)
                                             <tr>
                                                 {{-- <td>
                                                     <img src="{{ asset('assets/img/avatars/avatar-5.jpg') }}" width="35" height="35" class="rounded m-0" alt="image">
                                                 </td> --}}
-                                                
-                                                <td>{{ $item->id }}</td>
+
+                                                <td>
+                                                    <input @change='addItems($event)' value="{{ $item->id }}" name="items_id[]" type="checkbox">
+                                                    {{ $item->id }}
+                                                </td>
                                                 <td>{{ $item->code }}</td>
                                                 <td>
-                                                    <form id="form-{{ $item->id }}" action="">
-                                                        <input type="text" name="quantiy">
+                                                    <form id="form-{{ $item->id }}" method="post" action="{{ route('admin.stock.add.item', $stock->id) }}">
+                                                        @csrf
+                                                        @method('put')
+                                                        <input value="0" type="text" name="quantity">
+                                                        <input value="{{ $item->id }}" type="hidden" name="item_id">
                                                     </form>
                                                 </td>
                                                 <td>{{ number_format($item->selling_price, 2) }}</td>
                                                 <td>{{ number_format($item->gross_price, 2) }}</td>
                                                 <td class="table-action">
-                                                    <button form="form-{{ $item->id }}" class="btn btn-sm btn-outline-secondary">add</button>
+                                                    <button form="form-{{ $item->id }}" class="btn btn-sm btn-outline-secondary">
+                                                        add
+                                                    </button>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -131,7 +146,7 @@
                                     </table>
 
                                     <div class="col col-md-5">{{ $items->links() }}</div>
-                        
+
                                 </div>
 
 
@@ -150,29 +165,28 @@
 
 
 @section('ourScript')
-    
+
 
         <script>
         var app = new Vue({
-            el: "#app", 
+            el: "#app",
 
             data(){
                 return {
-                    item_search: '', 
+                    item_search: '',
                     results: [],
+                    items: [],
                 }
             },
 
             methods: {
                 search() {
                 this.searching = true;
-
                   const requestOptions = {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ term:this.item_search, _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content') })
                     };
-
                 fetch('/items/in/search', requestOptions)
                     .then(res => res.json())
                     .then(res => {
@@ -180,8 +194,47 @@
                         this.results = res;
                     });
                 },
+                addItems(event) {
+                     item = event.target.value;
+                     let status = this.isExist(item);
 
-                
+                    if( status ){
+                        console.log( this.items )
+                    }else{
+                       console.log( status )
+                       this.items.push(item)
+                       console.log( this.items )
+                    }
+                },
+                    isExist(item) {
+                for(var i=0; i < this.items.length; i++){
+                    if( this.items[i] == item){
+                        this.items.splice(i, 1);
+                        return true;
+                    }
+                }
+                return false
+                },
+
+                submitItems() {
+                    const requestOptions = {
+                        method: "put",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ items_id:this.items, _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content') })
+                    };
+                    let url = '/stocks/add/items/{!! $stock->id !!}';
+                    console.log( url );
+
+                fetch(url, requestOptions)
+                    .then(res => res.json())
+                    .then(res => {
+                        if(res[0] == 'success'){
+                            location.reload(); 
+                        }else{
+                            elert( res[1] )
+                        }
+                    });
+                }
             }
         });
     </script>

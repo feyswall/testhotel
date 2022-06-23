@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\Item;
 
+
 class StocksController extends Controller
 {
     public function __contruct(){
@@ -60,7 +61,7 @@ class StocksController extends Controller
 
         if( !$stock ){
             return redirect()->back()->with('fail', 'fail to create stock');
-        } 
+        }
         return redirect()->back()->with('success', 'Stck created Successfully..');
     }
 
@@ -83,11 +84,15 @@ class StocksController extends Controller
      */
     public function edit($id)
     {
-        $items = Item::orderBy('id', 'desc')->paginate(100);
-        // return $items; 
-
         $stock = Stock::find($id);
-        
+
+        if( !$stock ){
+            return redirect()->back()->with('error', 'unable to find stock');
+        }
+        $stock_items = $stock->items()->select('*')->pluck('item_id');
+
+        $items = Item::whereNotIn('id', $stock_items)->paginate(100);
+
         return view('admin.stock.edit', [
             'stock' => $stock,
             'items' => $items,
@@ -140,6 +145,50 @@ class StocksController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addItem(Request $request, $id){
+        $rules = [
+            'item_id' => 'required|unique:item_stock,item_id',
+            'quantity' => 'required',
+        ];
+        Validator::make($request->all(), $rules)->validate();
+
+        $item = Item::find($request->item_id);
+
+        $stock = Stock::find($id);
+        if( !$stock ){
+            return redirect()->back()->with('error', 'stock was\'t found');
+        }
+
+        if( !$item ){
+            return redirect()->back()->with('error', 'item wasn\'t found');
+        }
+        $attachment = $stock->items()->attach($item->id, ['quantity' => $request->quantity]);
+
+        return redirect()->route('admin.stock.edit', $stock->id)->with('success', 'product added in stock');
+    }
+
+    /**
+     * for  attaching many items in the database with initial
+     * quantity of zero
+     */
+    public function addItems(Request $request, $id){
+        // dd( $request );
+        // $rules = [
+        //     '*.items_id' => 'required|unique:item_stock,item_id',
+        // ];
+        // Validator::make($request->all(), $rules)->validate();
+
+        $stock = Stock::find($id);
+        // if( !$stock ){
+        //     return redirect()->back()->with('error', 'stock was\'t found');
+        // }
+
+        foreach( $request->items_id as $item_id ){
+            $attachment = $stock->items()->attach($item_id, ['quantity' => 0]);
+        }
+        return response()->json(['success', 'send success']);
     }
 
 }
