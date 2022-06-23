@@ -16,8 +16,10 @@ class Stock extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function items(): BelongsToMany
+    public function items()
     {
-        return $this->belongsToMany(Items::class);
+        return $this->belongsToMany(Item::class)->withPivot(
+        'quantity'
+        );
     }
 }

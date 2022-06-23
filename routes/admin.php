@@ -139,6 +139,8 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::post('/stocks/store', [StocksController::class, 'store'])->name('admin.stock.store');
     Route::get('/stocks/edit/{id}', [StocksController::class, 'edit'])->name('admin.stock.edit');
     Route::put('/stocks/{id}/update', [StocksController::class, 'update'])->name('admin.stock.update');
+    Route::put('/stocks/add/item/{id}', [StocksController::class, 'addItem'])->name('admin.stock.add.item');
+    Route::put('/stocks/add/items/{id}', [StocksController::class, 'addItems'])->name('admin.stock.add.items');
 
     //Sales routes
     Route::middleware(['auth', 'can:grob_users'])->controller(SalesController::class)->group(function(){

@@ -45,7 +45,7 @@
                                                             <label class="form-label" for="desc">Description</label>
                                                             <textarea class="form-control" id="desc" name="desc" required  placeholder="Description" rows="3">{{  $stock->desc }}</textarea>
                                                         </div>
-                                        
+
                                                     </form>
 
 
@@ -90,75 +90,69 @@
                             <div class="row justify-content-between">
                                 <div class="col col-md-6">
                                     <input v-model="item_search" type="text" placeholder="Find specific item" class="form-control">
+                                    <button v-on:click='search'>search</button>
                                 </div>
-                                <div class="col col-md-5">{{ $items->links() }}</div>
+
+                                <button v-if='items.length > 0' class="btn btn-outline-success w-25" v-on:click='submitItems()' type="button">send items</button>
                             </div>
                         </div>
                         <div class="card-body">
-                            <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Item</th>
-                                        <th>Description</th>
-                                       <th>Selling Price</th>
-                                       <th>Gross Price</th>
-                                       <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody v-if="results.length == 0">
-                                    @foreach ($items as $item)                                        
-                                    <tr>
-                                        {{-- <td>
-                                            <img src="{{ asset('assets/img/avatars/avatar-5.jpg') }}" width="35" height="35" class="rounded m-0" alt="image">
-                                        </td> --}}
-                                        
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->code }}</td>
-                                        <td>{{ $item->desc }}</td>
-                                        <td>{{ number_format($item->selling_price, 2) }}</td>
-                                        <td>{{ number_format($item->gross_price, 2) }}</td>
-                                        <td class="table-action">
-                                            <a href="{{ route('admin.items.edit', $item->id) }}" class="btn btn-sm btn-outline-secondary">Open</a>
-                                            {{-- <form id="delete-item" method="POST" action="{{ route('admin.items.delete', $item->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                            <button class="btn btn-light" form="delete-item" type="submit"><i class="align-middle la la-trash text-danger"></i></button> --}}
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                                <tbody v-if="searching">
-                                    <tr rowspan>
-                                        <td>Searching..</td>
-                                    </tr>
-                                </tbody>
-                                <tbody v-else>
-                                    <tr v-for="(item, index) in results" :key="'item' + item.id">
-                                        <td>@{{ item.id }}</td>
-                                        <td>@{{ item.code }}</td>
-                                        <td>@{{ item.desc }}</td>
-                                        <td>@{{ item.selling_price }}</td>
-                                        <td>@{{ item.gross_price }}</td>
-                                        <td><a :href="'/items/edit/' + item.id" class="btn btn-sm btn-outline-secondary">Open</a></td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                         <th>#</th>
-                                         <th>Item</th>
-                                         <th>Description</th>
-                                        <th>Selling Price</th>
-                                        <th>Gross Price</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <div class="mx-3">
+                                @if($errors->any())
+                                    <p class="text-danger">{{ $errors->first() }}</p>
+                                @endif
+                            </div>
+                                    <table class="table table-striped" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Item</th>
+                                                <th>Description</th>
+                                            <th>Selling Price</th>
+                                            <th>Gross Price</th>
+                                            <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($items as $item)
+                                            <tr>
+                                                {{-- <td>
+                                                    <img src="{{ asset('assets/img/avatars/avatar-5.jpg') }}" width="35" height="35" class="rounded m-0" alt="image">
+                                                </td> --}}
+
+                                                <td>
+                                                    <input @change='addItems($event)' value="{{ $item->id }}" name="items_id[]" type="checkbox">
+                                                    {{ $item->id }}
+                                                </td>
+                                                <td>{{ $item->code }}</td>
+                                                <td>
+                                                    <form id="form-{{ $item->id }}" method="post" action="{{ route('admin.stock.add.item', $stock->id) }}">
+                                                        @csrf
+                                                        @method('put')
+                                                        <input value="0" type="text" name="quantity">
+                                                        <input value="{{ $item->id }}" type="hidden" name="item_id">
+                                                    </form>
+                                                </td>
+                                                <td>{{ number_format($item->selling_price, 2) }}</td>
+                                                <td>{{ number_format($item->gross_price, 2) }}</td>
+                                                <td class="table-action">
+                                                    <button form="form-{{ $item->id }}" class="btn btn-sm btn-outline-secondary">
+                                                        add
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
+                                    <div class="col col-md-5">{{ $items->links() }}</div>
+
+                                </div>
+
+
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,58 +161,79 @@
 
         </div>
     </main>
+@endsection
 
 
-
+@section('ourScript')
 
 
         <script>
         var app = new Vue({
-            el: "#app", 
+            el: "#app",
 
             data(){
                 return {
-                    item_search: '', 
-                    searching: false, 
+                    item_search: '',
                     results: [],
-                    noResults: true
-                }
-            },
-
-            watch: {
-                item_search(c, o){
-                    if(c.length == 0){
-                        this.results = [];
-                        window.location.reload();
-                    }
-                    if(c.length != 0 && this.searching == false){
-                        this.search();
-                    }
+                    items: [],
                 }
             },
 
             methods: {
                 search() {
                 this.searching = true;
-
                   const requestOptions = {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ term:this.item_search, _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content') })
                     };
-
                 fetch('/items/in/search', requestOptions)
                     .then(res => res.json())
                     .then(res => {
-                        this.searching = false;
+                        console.log( res )
                         this.results = res;
-                        this.loadTable();
-                        this.noResults = this.results.length === 0;
                     });
                 },
+                addItems(event) {
+                     item = event.target.value;
+                     let status = this.isExist(item);
 
-                loadTable() {
-                   
+                    if( status ){
+                        console.log( this.items )
+                    }else{
+                       console.log( status )
+                       this.items.push(item)
+                       console.log( this.items )
+                    }
+                },
+                    isExist(item) {
+                for(var i=0; i < this.items.length; i++){
+                    if( this.items[i] == item){
+                        this.items.splice(i, 1);
+                        return true;
+                    }
+                }
+                return false
+                },
+
+                submitItems() {
+                    const requestOptions = {
+                        method: "put",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ items_id:this.items, _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content') })
+                    };
+                    let url = '/stocks/add/items/{!! $stock->id !!}';
+                    console.log( url );
+
+                fetch(url, requestOptions)
+                    .then(res => res.json())
+                    .then(res => {
+                        if(res[0] == 'success'){
+                            location.reload(); 
+                        }else{
+                            elert( res[1] )
+                        }
+                    });
                 }
             }
         });
