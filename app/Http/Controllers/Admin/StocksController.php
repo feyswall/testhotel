@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\InStock;
 use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\Item;
-
+use Carbon\Carbon;
 
 class StocksController extends Controller
 {
@@ -184,7 +185,7 @@ class StocksController extends Controller
      */
     public function addItems(Request $request, $id){
         
-        dd( $list );
+        dd( $request );
 
         $rules = [
             'list.items_id' => 'required|unique:item_stock,item_id',
@@ -214,7 +215,7 @@ class StocksController extends Controller
             // adding the upcoming item in stock "inStock"
             InStock::create([
                 'quantity' => $request->quantity,
-                'date_in' => Carbon\Carbon::now(),
+                'date_in' => Carbon::now(),
                 'old_item_price' => $request->price,
                 'stock_id' => $stock->id,
                 'item_id' => $request->item_id,
