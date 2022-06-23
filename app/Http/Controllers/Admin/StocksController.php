@@ -147,6 +147,8 @@ class StocksController extends Controller
         //
     }
 
+
+
     public function addItem(Request $request, $id){
         $rules = [
             'item_id' => 'required|unique:item_stock,item_id',
@@ -169,26 +171,63 @@ class StocksController extends Controller
         return redirect()->route('admin.stock.edit', $stock->id)->with('success', 'product added in stock');
     }
 
+
+    public function updateItemNumber(){
+
+    }
+
+
+
     /**
      * for  attaching many items in the database with initial
      * quantity of zero
      */
     public function addItems(Request $request, $id){
-        // dd( $request );
-        // $rules = [
-        //     '*.items_id' => 'required|unique:item_stock,item_id',
-        // ];
-        // Validator::make($request->all(), $rules)->validate();
+        
+        dd( $list );
+
+        $rules = [
+            'list.items_id' => 'required|unique:item_stock,item_id',
+            'list.quantity' => 'required|numeric',
+            'list.price' => 'required',
+        ];
+        $validate = Validator::make($request->all(), $rules, $messages = [
+            'list.items_id' => 'The product name aready taken', 
+        ]);
+
+        if( $validate->fails() ){
+            return response()->json(['error' => 'validation error', 'data' => $validate->errors()->all()]);
+        }
 
         $stock = Stock::find($id);
+
+        if( !$stock ){
+            return response()->json(['error', 'unable to locate stock.. maybe deleted!']);
+        }
+
+        foreach( $request->items_id as $item_id ){
+            $item_stock = $stock->items()->attach($item_id, ['quantity' => $request->quantity]);
+        
+            if( !$item_stock ){
+                continue;
+            }
+            // adding the upcoming item in stock "inStock"
+            InStock::create([
+                'quantity' => $request->quantity,
+                'date_in' => Carbon\Carbon::now(),
+                'old_item_price' => $request->price,
+                'stock_id' => $stock->id,
+                'item_id' => $request->item_id,
+                'item_stock_id' => $item_stock->id,
+                'stock_mode_id' => 1,
+            ]);
+
+        }
+
         // if( !$stock ){
         //     return redirect()->back()->with('error', 'stock was\'t found');
         // }
-
-        foreach( $request->items_id as $item_id ){
-            $attachment = $stock->items()->attach($item_id, ['quantity' => 0]);
-        }
-        return response()->json(['success', 'send success']);
+        return response()->json(['success', 'data saved Successfullty...']);
     }
 
 }

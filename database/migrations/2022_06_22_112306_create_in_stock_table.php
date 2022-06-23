@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('stock_mode_id')->constrained('stock_modes');
 
             $table->integer('in_from');
+            $table->integer('item_stock_id')->nullable();
 
             $table->timestamps();
         });

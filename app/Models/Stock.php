@@ -22,4 +22,8 @@ class Stock extends Model
         'quantity'
         );
     }
+
+    public function inStock(){
+        return $this->hasMany( InStock::class );
+    }
 }

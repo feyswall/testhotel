@@ -26,15 +26,20 @@ class Item extends Model
         );
     }
 
+    
     /**
      * The stocks that belong to the Item
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function stocks(): BelongsToMany
+    public function stocks()
     {
         return $this->belongsToMany(Stock::class)->withPivot(
             'quantity');
+    }
+
+    public function inStock(){
+        return $this->hasMany( InStock::class);
     }
 
 }
