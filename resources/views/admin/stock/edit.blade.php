@@ -101,6 +101,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card-actions float-end">
+                                    <a href="#" v-if="results.length > 0"  v-on:click="closeTable()" class="btn btn-danger text-white float-end">
+                                        <i class="la la-close"></i>
+                                    </a>
+                                </div>
                                 <h5 class="card-title">Stock Items</h5>
                                 <h6 class="card-subtitle text-muted">Pick stock items</h6>
                             </div>
@@ -216,6 +221,10 @@
             },
 
             methods: {
+                closeTable(){
+                    this.results = [];
+                }, 
+
                 async search() {
                     if (this.item_search == "") {
                         this.results = [];
