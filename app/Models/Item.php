@@ -31,7 +31,7 @@ class Item extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function stocks(): BelongsToMany
+    public function stocks()
     {
         return $this->belongsToMany(Stock::class);
     }

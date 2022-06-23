@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 
 use App\Imports\ItemsImport;
+use App\Models\Supplier;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +35,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('manager.items.create');
+        $suppliers = Supplier::all();
+        return view('manager.items.create', compact('suppliers'));
     }
 
     /**
