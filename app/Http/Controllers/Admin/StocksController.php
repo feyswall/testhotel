@@ -8,7 +8,6 @@ use App\Models\InStock;
 use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\Item;
-use App\Models\InStock;
 use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
