@@ -8,6 +8,9 @@ use App\Models\InStock;
 use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\Item;
+use App\Models\InStock;
+use Illuminate\Support\Facades\DB;
+
 use Carbon\Carbon;
 
 class StocksController extends Controller
@@ -184,16 +187,17 @@ class StocksController extends Controller
      * quantity of zero
      */
     public function addItems(Request $request, $id){
-        
-        dd( $request );
 
         $rules = [
-            'list.items_id' => 'required|unique:item_stock,item_id',
-            'list.quantity' => 'required|numeric',
-            'list.price' => 'required',
+            'list' => 'required|array',
+            'list.*.item_id' => 'required|unique:item_stock,item_id',
+            'list.*.item_quantity' => 'required|numeric',
+            'list.*.due_price' => 'required|numeric',
         ];
         $validate = Validator::make($request->all(), $rules, $messages = [
-            'list.items_id' => 'The product name aready taken', 
+            'list.*.item_id.required' => 'The product name aready taken', 
+            'list.*.item_quantity.numeric' => 'only numbers allowed in quantities',
+            'list.*.due_price' => 'Only numbers allowed in price',
         ]);
 
         if( $validate->fails() ){
@@ -206,25 +210,25 @@ class StocksController extends Controller
             return response()->json(['error', 'unable to locate stock.. maybe deleted!']);
         }
 
-        foreach( $request->items_id as $item_id ){
-            $item_stock = $stock->items()->attach($item_id, ['quantity' => $request->quantity]);
+        foreach( $request->list as $item ){
+
+            $stock->items()->attach($item['item_id']);
         
-            if( !$item_stock ){
-                continue;
-            }
+             $item_stock_id = DB::table('item_stock')->select('id')->
+             orderByDesc('id')->first();
+
             // adding the upcoming item in stock "inStock"
             InStock::create([
-                'quantity' => $request->quantity,
-                'date_in' => Carbon::now(),
-                'old_item_price' => $request->price,
+                'quantity' => $item['item_quantity'],
+                'date_in' => \Carbon\Carbon::now(),
+                'old_item_price' => $item['due_price'],
                 'stock_id' => $stock->id,
-                'item_id' => $request->item_id,
-                'item_stock_id' => $item_stock->id,
+                'item_id' => $item['item_id'],
+                'item_stock_id' => $item_stock_id->id,
                 'stock_mode_id' => 1,
             ]);
 
         }
-
         // if( !$stock ){
         //     return redirect()->back()->with('error', 'stock was\'t found');
         // }

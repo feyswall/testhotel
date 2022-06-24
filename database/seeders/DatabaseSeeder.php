@@ -24,11 +24,12 @@ class DatabaseSeeder extends Seeder
 
 
         $this->call( SettingSeed::class );
-        // $this->call( CustomerSeeder::class );
+        $this->call( CustomerSeeder::class );
         $this->call( PermissionSeeder::class );
         $this->call( UserSeeder::class );
         $this->call( CategoriesSeeder::class );
         $this->call( PaymentMethodsSeeder::class );
         $this->call( TaxesSeeder::class );
+        $this->call( StockModesSeeder::class );
     }
 }
