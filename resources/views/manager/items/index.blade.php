@@ -44,7 +44,7 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header border-bottom pb-0">
+                        <div class="card-header border-bottom pb-2">
                             <div class="row justify-content-between">
                                 <div class="col col-md-6">
                                     <input v-model="item_search" type="text" placeholder="Find specific item" class="form-control">

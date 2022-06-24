@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Models\InStock;
 use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\Item;
 use App\Models\InStock;
 use Illuminate\Support\Facades\DB;
 
+use Carbon\Carbon;
 
 class StocksController extends Controller
 {
