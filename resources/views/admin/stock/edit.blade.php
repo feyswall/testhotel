@@ -108,7 +108,7 @@
                                  --}}
                                  <td>{{ $item->id }}</td>
                                  <td>{{ $item->code }}</td>
-                                 <td>{{ $item->desc }}</td>
+                                 <td style="width: 30%">{{ $item->desc }}</td>
                                  <td>{{ number_format($item->selling_price, 2) }}</td>
                                  <td>{{ number_format($item->gross_price, 2) }}</td>
                               </tr>
@@ -227,7 +227,7 @@
                                        <tr v-for="(item, index) in results" :key="'item' + index">
                                           <td>@{{ index + 1 }}</td>
                                           <td>@{{ item.code }}</td>
-                                          <td>@{{ item.desc }}</td>
+                                          <td style="width: 30%">@{{ item.desc }}</td>
                                           <td>@{{ item.selling_price }}</td>
                                           <td><input type="number" min="0" v-model="item.quantity"
                                              class="form-control" placeholder="Quantity"></td>
