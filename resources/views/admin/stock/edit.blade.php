@@ -165,7 +165,7 @@
                                         <tr v-for="(item, index) in results" :key="'item' + index">
                                             <td>@{{ index + 1 }}</td>
                                             <td>@{{ item.code }}</td>
-                                            <td>@{{ item.desc }}</td>
+                                            <td style="width: 30%">@{{ item.desc }}</td>
                                             <td>@{{ item.selling_price }}</td>
                                             <td><input type="number" min="0" v-model="item.quantity"
                                                     class="form-control" placeholder="Quantity"></td>
