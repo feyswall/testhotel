@@ -83,11 +83,7 @@
 											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings align-middle"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a class="nav-link" href="#vertical-icon-tab-3" data-bs-toggle="tab" role="tab">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square align-middle"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-										</a>
-									</li>
+									
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane active" id="vertical-icon-tab-1" role="tabpanel">
@@ -176,15 +172,22 @@
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       @foreach ([1, 2] as $item)
+                                       {{-- @foreach ( App\Models\Item::limit(500)->get() as $item)
                                        <tr>
-                                          <td></td>
-                                          <td>existing</td>
-                                          <td></td>
-                                          <td></td>
-                                          <td></td>
-                                          <td></td>
+                                          <td>{{ $item->id }}</td>
+                                          <td>{{ $item->name }}</td>
+                                          <td>{{ $item->desc }}</td>
+                                          <td>{{ $item->selling_price }}</td>
+                                          <td>{{  $item->gross_price}}</td>
+                                          <td>{{ $item->selling_price }}</td>
                                           <td class="table-action">
+                                          </td>
+                                       </tr>
+                                       @endforeach --}}
+                                        @foreach ( [1] as $item)
+                                       <tr>
+                                          <td colspan="7" class="text-center">
+                                             <h2>@{{ myStatus }}</h2>
                                           </td>
                                        </tr>
                                        @endforeach
@@ -265,7 +268,8 @@
                results: [],
                items: [],
                item_search: "",
-               searching: false
+               searching: false,
+               myStatus: "Start Searching"
            }
        },
    
@@ -293,6 +297,11 @@
                        .then(res => res.json())
                        .then(res => {
                            this.results = res;
+                           console.log( res )
+                           if( res.length == 0){
+                              this.myStatus = 'Nothing Were Found...';
+                              console.log( this.myStatus )
+                           }
                        });
                }
            },
