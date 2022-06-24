@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->foreignId('stock_mode_id')->constrained('stock_modes');
 
-            $table->integer('out_to');
+            $table->integer('out_to')->nullable();
 
             $table->timestamps();
         });

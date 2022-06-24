@@ -87,8 +87,8 @@
 								</ul>
 								<div class="tab-content">
 									<div class="tab-pane active" id="vertical-icon-tab-1" role="tabpanel">
-										<h4 class="tab-title">Vertical icon tabs</h4>
-                                                                <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
+										<h4 class="tab-title">Available Items</h4>
+                           <table id="datatables-item-in-stock" class="table table-striped" style="width:100%">
                            <thead>
                               <tr>
                                  <th>#</th>
@@ -288,7 +288,7 @@
                } else {
                    this.searching = true;
                   let stock = {!! $stock->id !!}
-                  
+
                     var requestOptionsSearch = {
                        method: "POST",
                        headers: {
@@ -367,5 +367,32 @@
            },
        },
    });
+</script>
+
+<script>
+         // DataTables with Column Search by Text Inputs
+      document.addEventListener("DOMContentLoaded", function() {
+        // Setup - add a text input to each footer cell
+        $("#datatables-item-in-stock tfoot th").each(function() {
+            var title = $(this).text();
+            $(this).html("<input type=\"text\" class=\"form-control\" placeholder=\"Search " + title + "\" />");
+        });
+        // DataTables
+        let second_table = $("#datatables-item-in-stock").DataTable({  
+            "pageLength": 7,
+            "lengthMenu": [ 7, 10, 25, 50, 75, 100, 500, 1000, 2000, 5000 ]
+         });
+        // Apply the search
+        second_table.columns().every(function() {
+            var that = this;
+            $("#datatables-item-in-stock input", this.footer()).on("keyup change clear", function() {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+    });
 </script>
 @endsection

@@ -38,7 +38,7 @@ class Item extends Model
     }
 
     public function inStock(){
-        return $this->hasMany( InStock::class);
+        return $this->hasMany(InStock::class);
     }
 
 }

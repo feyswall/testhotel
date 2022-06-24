@@ -196,7 +196,9 @@ class StocksController extends Controller
         $validate = Validator::make($request->all(), $rules, $messages = [
             'list.*.item_id.required' => 'The product name aready taken', 
             'list.*.item_quantity.numeric' => 'only numbers allowed in quantities',
-            'list.*.due_price' => 'Only numbers allowed in price',
+            'list.*.item_quantity.required' => 'The quantity field is required',
+            'list.*.due_price.numeric' => 'Only numbers allowed in price',
+            'list.*.due_price.required' => 'Item price is required',
         ]);
 
         if( $validate->fails() ){
@@ -240,8 +242,41 @@ class StocksController extends Controller
         ->get();
 
         return  view('admin.stock.stock-item-trace', [
-            'items' => $in_stock_items,
+            'inStocks' => $in_stock_items,
         ]);
+    }
+
+    public function stockItemModifyQuantity(Request $request, $instock){
+
+        $inStock = InStock::find($instock);
+        if( !$instock ){
+            return redirect()->back()->with('error', 'fail to load some reference.')->withInput();
+        }
+        $initial_quantity = $inStock->quantity;
+        $after_sale_quantity = $inStock->outStocks ? $inStock->outStocks->sum('quantity') : 0 ;
+        if( $request->operation == 0){
+            // removal request
+            $current_quantity = $initial_quantity - $after_sale_quantity;
+            $result_quantity = $current_quantity - $request->quantity;
+            if( $result_quantity < 0 ){
+                return redirect()->back()->with('error', 'No enough products... Only '.$result_quantity.' remains.')
+                ->withInput();
+            }
+            $inStock->update([
+                'quantity' => $result_quantity,
+            ]);
+            return redirect()->back()->with('success', 'Quantiy updated successfully')->withInput();
+        }else{
+            // additional request
+            $current_quantity = $initial_quantity - $after_sale_quantity;
+            $result_quantity = $current_quantity + $request->quantity;
+            
+            $inStock->update([
+                'quantity' => $result_quantity,
+            ]);
+            return redirect()->back()->with('success', 'quantity changed successfully..');
+        }
+
     }
 
 }

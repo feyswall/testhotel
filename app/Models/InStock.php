@@ -17,6 +17,10 @@ class InStock extends Model
     }
 
     public function item(){
-        return $this->belongsTo( Stock::class );
+        return $this->belongsTo(Item::class);
+    }
+
+    public function outStocks(){
+        return $this->hasMany( OutStock::class );
     }
 }
