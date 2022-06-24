@@ -34,8 +34,7 @@ class Item extends Model
      */
     public function stocks()
     {
-        return $this->belongsToMany(Stock::class)->withPivot(
-            'quantity');
+        return $this->belongsToMany(Stock::class);
     }
 
     public function inStock(){
