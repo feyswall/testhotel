@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
+use App\Models\Stock;
 
 class ItemController extends Controller
 {
@@ -148,9 +149,14 @@ class ItemController extends Controller
     }
 
 
-   public function search($text)
+   public function search(Request $request)
    {
-        $items = Item::where('code', 'like', '%'.$text.'%' )->get();
+        $stock = Stock::find( $request->id );
+        $stocks_id = $stock->items->pluck('id');
+        
+        $items = Item::where('code', 'like', '%'.$request->item.'%' )
+        ->whereNotIn('id', $stocks_id)
+        ->get();
 
         return response()->json($items);
 

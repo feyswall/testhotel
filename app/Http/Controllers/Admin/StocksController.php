@@ -186,18 +186,21 @@ class StocksController extends Controller
      */
     public function addItems(Request $request, $id){
 
-        // $rules = [
-        //     'list.*.items_id' => 'required|unique:item_stock,item_id',
-        //     'list.*.item_idquantity' => 'required|numeric',
-        //     'list.*.due_price' => 'required',
-        // ];
-        // $validate = Validator::make($request->all(), $rules, $messages = [
-        //     'list.items_id' => 'The product name aready taken', 
-        // ]);
+        $rules = [
+            'list' => 'required|array',
+            'list.*.item_id' => 'required|unique:item_stock,item_id',
+            'list.*.item_quantity' => 'required|numeric',
+            'list.*.due_price' => 'required|numeric',
+        ];
+        $validate = Validator::make($request->all(), $rules, $messages = [
+            'list.*.item_id.required' => 'The product name aready taken', 
+            'list.*.item_quantity.numeric' => 'only numbers allowed in quantities',
+            'list.*.due_price' => 'Only numbers allowed in price',
+        ]);
 
-        // if( $validate->fails() ){
-        //     return response()->json(['error' => 'validation error', 'data' => $validate->errors()->all()]);
-        // }
+        if( $validate->fails() ){
+            return response()->json(['error' => 'validation error', 'data' => $validate->errors()->all()]);
+        }
 
         $stock = Stock::find($id);
 

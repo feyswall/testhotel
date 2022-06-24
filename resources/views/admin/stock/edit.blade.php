@@ -5,7 +5,7 @@
 @section('content')
 <main class="content p-4" id="app">
    <div class="container-fluid p-0">
-      <a class="btn btn-primary float-end mt-n1 mx-3" href="{{ route('admin.stock.index') }}">All stocks</a>
+      <a class="btn btn-primary float-end mt-n1 mx-3" href="{{ route('admin.stock.index') }}">stocks</a>
       <a class="btn btn-success float-end mt-n1" data-bs-toggle="modal" data-bs-target="#new-stock" href="#">Edit
       Record</a>
       <div class="modal fade" id="new-stock" tabindex="-1" role="dialog" aria-hidden="true">
@@ -61,6 +61,11 @@
                   <p>STOCK NAME: {{ $stock->name }}</p>
                   <P>STOCK LOCATION: {{ $stock->location }}</P>
                   <p>STOCK DESCRIPTION: {{ $stock->desc }}</p>
+
+                  <div>
+                     <p class="bold">Containing</p>
+                     <h3 class="lead">{{ $stock->items->count() }} - <small>Products</small></h3>
+                  </div>
                </div>
             </div>
     
@@ -274,7 +279,17 @@
                    this.results = [];
                } else {
                    this.searching = true;
-                   fetch(`/items/search/${encodeURIComponent(this.item_search)}`)
+                  let stock = {!! $stock->id !!}
+                    var requestOptionsSearch = {
+                       method: "POST",
+                       headers: {
+                           "Content-Type": "application/json",
+                           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                       },
+                       body: JSON.stringify({ item:this.item_search, id: stock })
+                   };
+
+                   fetch('/items/search', requestOptionsSearch)
                        .then(res => res.json())
                        .then(res => {
                            this.results = res;
@@ -304,7 +319,11 @@
                    };
                    var response = await fetch(`/stocks/add/items/${stock_id}`, requestOptions);
                    var data = await response.json();
-                   // window.location.reload();
+                   if( data.error ){
+                     alert(data.data[0])
+                   }else{
+                      window.location.reload();
+                   }
                }
            },
    
