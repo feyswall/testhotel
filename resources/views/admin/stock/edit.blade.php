@@ -96,6 +96,7 @@
                                  <th>Description</th>
                                  <th>Selling Price</th>
                                  <th>Gross Price</th>
+                                 <th>Manage</th>
                               </tr>
                            </thead>
                            <tbody>
@@ -111,6 +112,9 @@
                                  <td>{{ $item->desc }}</td>
                                  <td>{{ number_format($item->selling_price, 2) }}</td>
                                  <td>{{ number_format($item->gross_price, 2) }}</td>
+                                 <td>
+                                    <a href="{{ route('admin.stock.items.trace', [$stock->id, $item->id] ) }}">manage</a>
+                                 </td>
                               </tr>
                               @endforeach
                            </tbody>
@@ -284,6 +288,7 @@
                } else {
                    this.searching = true;
                   let stock = {!! $stock->id !!}
+                  
                     var requestOptionsSearch = {
                        method: "POST",
                        headers: {

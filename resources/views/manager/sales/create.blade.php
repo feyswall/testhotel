@@ -285,6 +285,27 @@
                 this.searching = true;
                 var endpoint = mode == 0 ? "customers" : "items";
                 var text = mode == 0 ? this.customer_search : this.item_search;
+
+                var requestOptionsSearch = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    body: JSON.stringify({ item:this.item_search, id: 1 })
+                };
+
+                if( endpoint == 'items'){
+
+                fetch('/items/search', requestOptionsSearch )
+                    .then(res => res.json())
+                    .then(res => {
+                        this.searching = false;
+                        this.results = res;
+                        this.noResults = this.results.length === 0;
+                    });
+                }else{
+
                 fetch(`/${endpoint}/search/${encodeURIComponent(text)}`)
                     .then(res => res.json())
                     .then(res => {
@@ -292,6 +313,7 @@
                         this.results = res;
                         this.noResults = this.results.length === 0;
                     });
+                }
             }
             
         }, 

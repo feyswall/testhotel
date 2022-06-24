@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\InStock;
 use Illuminate\Http\Request;
 use App\Models\Stock;
-use App\Models\Item;
+use App\Models\Item;    
 use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
@@ -232,6 +232,16 @@ class StocksController extends Controller
         //     return redirect()->back()->with('error', 'stock was\'t found');
         // }
         return response()->json(['success', 'data saved Successfullty...']);
+    }
+
+    public function stockItemTrace($stock_id, $item_id){
+        $in_stock_items = InStock::where('stock_id', $stock_id)
+        ->where('item_id', $item_id)
+        ->get();
+
+        return  view('admin.stock.stock-item-trace', [
+            'items' => $in_stock_items,
+        ]);
     }
 
 }

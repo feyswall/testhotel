@@ -142,6 +142,9 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::put('/stocks/add/item/{id}', [StocksController::class, 'addItem'])->name('admin.stock.add.item');
     Route::put('/stocks/add/items/{id}', [StocksController::class, 'addItems'])->name('admin.stock.add.items');
 
+    Route::get('/stocks/item/trace/{stock}/{item}', [StocksController::class, 'stockItemTrace'])->name('admin.stock.items.trace');
+
+
     //Sales routes
     Route::middleware(['auth', 'can:grob_users'])->controller(SalesController::class)->group(function(){
         Route::get('/preview_sale/{id}', 'preview');
