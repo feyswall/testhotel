@@ -191,24 +191,6 @@
                                           </td>
                                        </tr>
                                        @endforeach
-                                        @if (sizeof($stock->items)  == 0)
-                                            <tr>
-                                                <td colspan="7" class="text-center">No item assigned</td>
-                                            </tr>
-                                        @else 
-                                            @foreach ($stock->items as $item)
-                                                <tr>
-                                                    <td></td>
-                                                    <td>existing</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="table-action">
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
                                     </tbody>
                                  </table>
                                  <table v-if="results.length != 0" class="table table-striped" style="width:100%">
