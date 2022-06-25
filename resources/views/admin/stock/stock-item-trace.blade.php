@@ -82,7 +82,7 @@
                 <div class="col-lg-12 col-12">
                                 <div class="card">
                 <div class="card-header pb-0">
-                    <h5 class="card-title mb-3">{{$item->desc}}</h5>
+                     <h5 class="mb-3"> <span style="font-size: 18px">Item:</span> <span style="color: burlywood; font-weight:bold;font-size:18px">{{$item->name }}</span></h5>
                 </div>
                 <div class="card-body">
 
@@ -90,8 +90,7 @@
                         <thead>
                             <tr>
                                 <th>Sn</th>
-                                <th>Item code</th>
-                                <th>date</th>
+                                <th>Inward Date</th>
                                 <th>Quantity</th>
                                 <th>Action</th>
                             </tr>
@@ -101,7 +100,6 @@
                             @foreach ($inStocks as $inStock)
                                 <tr>
                                     <td>{{ $inStock->id }}</td>
-                                    <td>{{ $inStock->item->name }}</td>
                                     <td>{{  \Carbon\Carbon::parse($inStock->created_at)->format('d-M Y') }}</td>
                                     <td>{{ InStocksController::currentQuantity($inStock) }}</td>
                                     <td>
@@ -176,10 +174,9 @@
                         <tfoot>
                             <tr>
                                <th>Sn</th>
-                                <th>Customer names</th>
-                                <th>date</th>
+                                <th>Date</th>
                                 <th>Quantity</th>
-                                <th>action</th>
+                                <th>Action</th>
                             </tr>
                         </tfoot>
                     </table>
