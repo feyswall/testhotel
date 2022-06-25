@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\StocksController;
 use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\ExpensesController;
+use App\Http\Controllers\Admin\InStocksController;
 
 Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\Admin')->group(function(){
     Route::put('/admin/update/profile/{id}', 'AdminsController@updateProfile')->name('admin.updateProfile');
@@ -39,6 +40,14 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::middleware(['auth', 'can:grob_users'])->controller(BackofficeController::class)->group(function(){
         Route::get('/backoffice', 'index');
     });
+
+
+
+    //Back Office Routes
+    Route::middleware(['auth', 'can:grob_users'])->controller(InStocksController::class)->group(function(){
+        Route::post('/stock/item/add-new/in-existing', 'stockItemAddNewInExisting')->name('item.add.in.existing');
+    });
+
 
     //Contracts routes
     Route::middleware(['auth', 'can:grob_users'])->controller(ContractsController::class)->group(function(){

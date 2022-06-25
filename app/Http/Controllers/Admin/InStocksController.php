@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\StockProductTrait;
+use Illuminate\Support\Facades\Validator;
 
 class InStocksController extends Controller
 {
+    use StockProductTrait;
     /**
      * Display a listing of the resource.
      *
@@ -81,5 +84,23 @@ class InStocksController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function stockItemAddNewInExisting(Request $request){
+        $rules = [
+            'item_id' => 'required|numeric',
+            'stock_id' => 'required|numeric',
+            'inDate' => 'required',
+        ];
+
+        Validator::make( $request->all(), $rules )->validate();
+
+        InStock::create([
+            'item_id' => $request->item_id,
+            'stock_id' => $request->stock_id,
+            'date_id' => $request->inDate,
+            'quantity' => $request->quantity,
+        ]);
+
     }
 }

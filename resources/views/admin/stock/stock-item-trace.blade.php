@@ -1,3 +1,11 @@
+@php
+    /**
+     * Neccessary Classes that could be used directly in this
+     * view
+     */
+    use \App\Http\Controllers\Admin\InStocksController; 
+@endphp
+
 @extends('pageLayouts.admin')
 
 
@@ -9,13 +17,67 @@
     <main class="content">
         <div class="container-fluid p-0">
             @include('admin._partials._success_and_errors')
-            {{-- <a href="/customers/create" class="btn btn-primary float-end mt-n1">New Customer</a> --}}
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle"></h1>
             </div>
 
+            <div class="row justify-content-end mb-3">
+                <div class="col-lg-3 col-md-3">
+                    
+                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#itemStockNewAdd">
+                            New Product
+                        </button>
 
-            <div class="card">
+                                    
+                                <div class="modal fade" id="itemStockNewAdd" tabindex="-1" style="display: none;" aria-hidden="true">
+
+                                    <div class="modal-dialog modal-md" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Add or Remove Items</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body m-3">
+
+                                   
+                                    <div class="row justify-content-center">
+                                        <form action="{{ route('item.add.in.existing') }}" id="stock-item-add-new" method="POST">
+                                            @csrf
+										<div class="mb-3">
+											<label class="form-label">Stock Name</label>
+											<input name="stock_id" type="text" class="form-control" value="{{ $stock->name }}" >
+										</div>
+										<div class="mb-3">
+											<label class="form-label">Product Code</label>
+											<input name="item_id" type="text" class="form-control" value="{{ $item->code }}" placeholder="{{ $item->code }}">
+										</div>
+                                        <div class="mb-3">
+											<label class="form-label">In Date</label>
+											<input name="inDate" value="{{ \Carbon\Carbon::now() }}" type="date" class="form-control">
+										</div>
+                                         <div class="mb-3">
+											<label class="form-label">Quantity</label>
+											<input name="quantity" value="0" type="number" class="form-control">
+										</div>
+
+                                        
+                                       
+									</form>
+                                    </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button form="stock-item-add-new" type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-12">
+                                <div class="card">
                 <div class="card-header pb-0">
                     <h5 class="card-title mb-0">Clients</h5>
                 </div>
@@ -37,8 +99,8 @@
                                 <tr>
                                     <td>{{ $inStock->id }}</td>
                                     <td>{{ $inStock->item->name }}</td>
-                                    <td>{{  \Carbon\Carbon::parse($inStock->created_at)->format('y M-d') }}</td>
-                                    <td>progress...</td>
+                                    <td>{{  \Carbon\Carbon::parse($inStock->created_at)->format('d-M Y') }}</td>
+                                    <td>{{ InStocksController::currentQuantity($inStock) }}</td>
                                     <td>
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#itemAddOrRemove-{{$inStock->id}}">
 										add & remove
@@ -61,9 +123,9 @@
                                         Added in: {{ \Carbon\Carbon::parse($inStock->created_at)->format('Y d-M') }}
                                         
                                         @php
-                                            $initial_quantity = $inStock->quantity;
-                                            $after_sale_quantity = $inStock->outStocks ? $inStock->outStocks->sum('quantity') : 0 ;
-                                            $current_quantity = $initial_quantity - $after_sale_quantity;
+                                            $initial_quantity = InStocksController::initialQuantity($inStock);
+                                            $after_sale_quantity = InStocksController::afterSaleQuantity($inStock);
+                                            $current_quantity = InStocksController::currentQuantity($inStock);
                                         @endphp
 
                                         <p class="lead">Current Quantity: {{ $current_quantity }}</p>
@@ -110,12 +172,16 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Sn</th>
+                               <th>Sn</th>
                                 <th>Customer names</th>
-                             
+                                <th>date</th>
+                                <th>Quantity</th>
+                                <th>action</th>
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+            </div>
                 </div>
             </div>
         </div>

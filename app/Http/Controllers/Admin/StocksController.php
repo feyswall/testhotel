@@ -9,11 +9,14 @@ use Illuminate\Http\Request;
 use App\Models\Stock;
 use App\Models\Item;    
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\StockProductTrait;
 
 use Carbon\Carbon;
 
 class StocksController extends Controller
 {
+    use StockProductTrait;
+
     public function __contruct(){
         $this->middleware(['auth']);
     }
@@ -241,19 +244,32 @@ class StocksController extends Controller
         ->where('item_id', $item_id)
         ->get();
 
+        $item = Item::find($item_id);
+        $stock = Stock::find($stock_id);
+
         return  view('admin.stock.stock-item-trace', [
             'inStocks' => $in_stock_items,
+            'stock' => $stock,
+            'item' => $item,
         ]);
     }
 
+
+
+    /**
+     * adding or removing product in the stock
+     * this function only edit the permissible quantity of the
+     * product in a stock and not otherwise
+     */
     public function stockItemModifyQuantity(Request $request, $instock){
 
         $inStock = InStock::find($instock);
+
         if( !$instock ){
             return redirect()->back()->with('error', 'fail to load some reference.')->withInput();
         }
-        $initial_quantity = $inStock->quantity;
-        $after_sale_quantity = $inStock->outStocks ? $inStock->outStocks->sum('quantity') : 0 ;
+        $initial_quantity = self::initialQuantity($inStock);
+        $after_sale_quantity = self::afterSaleQuantity($inStock);
         if( $request->operation == 0){
             // removal request
             $current_quantity = $initial_quantity - $after_sale_quantity;
