@@ -35,9 +35,9 @@
                 </a>
                 <ul id="records" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link" href="/sales/2">Sales records</a></li>
-                    {{-- <li class="sidebar-item"><a class="sidebar-link" href="/purchases">Purchase records</a></li> --}}
                     <li class="sidebar-item"><a class="sidebar-link" href="/expenses">Expenses records</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="/contracts">Contracts records</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="/purchases">Complementary records</a></li>
                 </ul>
             </li>
 

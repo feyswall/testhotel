@@ -107,7 +107,7 @@
                                     <td>{{ InStocksController::currentQuantity($inStock) }}</td>
                                     <td>
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#itemAddOrRemove-{{$inStock->id}}">
-										edit
+										Edit
 									</button>
 
                                     

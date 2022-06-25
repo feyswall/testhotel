@@ -96,18 +96,18 @@
                                  <th>Description</th>
                                  <th>Selling Price</th>
                                  <th>Gross Price</th>
-                                 <th>Manage</th>
+                                 <th>Action</th>
                               </tr>
                            </thead>
                            <tbody>
-                              @foreach ($stock->items as $item)                                        
+                              @foreach ($stock->items as $key=> $item)                                        
                               <tr>
                                  {{-- 
                                  <td>
                                     <img src="{{ asset('assets/img/avatars/avatar-5.jpg') }}" width="35" height="35" class="rounded m-0" alt="image">
                                  </td>
                                  --}}
-                                 <td>{{ $item->id }}</td>
+                                 <td>{{ $key }}</td>
                                  <td>{{ $item->code }}</td>
                                  <td style="width: 30%">{{ $item->desc }}</td>
                                  <td>{{ number_format($item->selling_price, 2) }}</td>
