@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\StockProductTrait;
 use Illuminate\Support\Facades\Validator;
+use App\Models\InStock;
+use App\Models\Item;
+use App\Models\StockModes;
 
 class InStocksController extends Controller
+
 {
     use StockProductTrait;
     /**
@@ -87,20 +91,36 @@ class InStocksController extends Controller
     }
 
     public function stockItemAddNewInExisting(Request $request){
+       
         $rules = [
-            'item_id' => 'required|numeric',
-            'stock_id' => 'required|numeric',
+            'item_id' => 'required',
+            'stock_id' => 'required',
             'inDate' => 'required',
         ];
 
         Validator::make( $request->all(), $rules )->validate();
 
-        InStock::create([
+        $item = Item::find($request->item_id);
+
+        if( !$item ){
+            return redirect()->back()->with('error', 'Product not found...');
+        }
+
+        $mode = StockModes::where('name', 'receive_purchased')->first();
+
+        $inStock = InStock::create([
             'item_id' => $request->item_id,
             'stock_id' => $request->stock_id,
-            'date_id' => $request->inDate,
+            'date_in' => $request->inDate,
             'quantity' => $request->quantity,
+            'old_item_price' => $item->selling_price,
+            'stock_mode_id' => $mode->id,
         ]);
+
+        if( !$inStock ){
+            return redirect()->back()->with('error', 'Fail to add Product in stock...');
+        }
+        return redirect()->back()->with('success', 'Data inserted successfully...');
 
     }
 }

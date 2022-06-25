@@ -17,6 +17,11 @@
     <main class="content">
         <div class="container-fluid p-0">
             @include('admin._partials._success_and_errors')
+
+            @if( $errors->any() )
+                <p class="lead text-danger">{{ $errors->first() }}</p>
+            @endif
+
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle"></h1>
             </div>
@@ -43,26 +48,23 @@
                                     <div class="row justify-content-center">
                                         <form action="{{ route('item.add.in.existing') }}" id="stock-item-add-new" method="POST">
                                             @csrf
-										<div class="mb-3">
-											<label class="form-label">Stock Name</label>
-											<input name="stock_id" type="text" class="form-control" value="{{ $stock->name }}" >
-										</div>
-										<div class="mb-3">
-											<label class="form-label">Product Code</label>
-											<input name="item_id" type="text" class="form-control" value="{{ $item->code }}" placeholder="{{ $item->code }}">
-										</div>
-                                        <div class="mb-3">
-											<label class="form-label">In Date</label>
-											<input name="inDate" value="{{ \Carbon\Carbon::now() }}" type="date" class="form-control">
-										</div>
-                                         <div class="mb-3">
-											<label class="form-label">Quantity</label>
-											<input name="quantity" value="0" type="number" class="form-control">
-										</div>
-
-                                        
-                                       
-									</form>
+                                            <div class="mb-3">
+                                                <label class="form-label">Stock Name</label>
+                                                <input name="stock_id" type="text" class="form-control" value="{{ $stock->id }}" readonly='readonly'>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Product Code</label>
+                                                <input name="item_id" type="text" class="form-control" value="{{ $item->id }}" placeholder="{{ $item->code }}" readonly='readonly'>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">In Date</label>
+                                                <input required name="inDate" value="{{ \Carbon\Carbon::now() }}" type="date" class="form-control">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Quantity</label>
+                                                <input min="1" name="quantity" value="0" type="number" class="form-control">
+                                            </div>                  
+									    </form>
                                     </div>
                                             </div>
                                             <div class="modal-footer">
