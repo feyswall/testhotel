@@ -17,13 +17,13 @@ trait StockProductTrait
         return $initial_quantity;
     }
 
-    public static function afterSaleQuantity( InStock $inStock ){
+    public static function outStockQuantity( InStock $inStock ){
         $after_sale_quantity = $inStock->outStocks ? $inStock->outStocks->sum('quantity') : 0 ;
         return $after_sale_quantity;
     }
 
     public static function currentQuantity($inStock){
-        $current_quantity = self::initialQuantity($inStock) - self::afterSaleQuantity($inStock);
+        $current_quantity = self::initialQuantity($inStock) - self::outStockQuantity($inStock);
         return $current_quantity;
     }
 

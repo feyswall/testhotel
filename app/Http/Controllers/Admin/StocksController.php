@@ -20,6 +20,9 @@ class StocksController extends Controller
     public function __contruct(){
         $this->middleware(['auth']);
     }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -33,6 +36,9 @@ class StocksController extends Controller
         ]);
     }
 
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -42,6 +48,9 @@ class StocksController extends Controller
     {
         //
     }
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -71,6 +80,9 @@ class StocksController extends Controller
         return redirect()->back()->with('success', 'Stck created Successfully..');
     }
 
+
+
+
     /**
      * Display the specified resource.
      *
@@ -81,6 +93,9 @@ class StocksController extends Controller
     {
         //
     }
+
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -104,6 +119,8 @@ class StocksController extends Controller
             'items' => $items,
         ]);
     }
+
+
 
     /**
      * Update the specified resource in storage.
@@ -142,6 +159,8 @@ class StocksController extends Controller
         return redirect()->back()->with('success', 'Stock updated Successfully...');
     }
 
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -155,6 +174,9 @@ class StocksController extends Controller
 
 
 
+    /**
+     * 
+     */
     public function addItem(Request $request, $id){
         $rules = [
             'item_id' => 'required|unique:item_stock,item_id',
@@ -178,6 +200,10 @@ class StocksController extends Controller
     }
 
 
+
+    /**
+     * 
+     */
     public function updateItemNumber(){
 
     }
@@ -263,35 +289,29 @@ class StocksController extends Controller
      */
     public function stockItemModifyQuantity(Request $request, $instock){
 
+        // $rules = [
+        //     'operation' => 
+        // ];
+
         $inStock = InStock::find($instock);
 
         if( !$instock ){
             return redirect()->back()->with('error', 'fail to load some reference.')->withInput();
         }
         $initial_quantity = self::initialQuantity($inStock);
-        $after_sale_quantity = self::afterSaleQuantity($inStock);
-        if( $request->operation == 0){
+        $outStockQuantity = self::outStockQuantity($inStock);
+
             // removal request
-            $current_quantity = $initial_quantity - $after_sale_quantity;
-            $result_quantity = $current_quantity - $request->quantity;
+            $result_quantity = $request->quantity - $outStockQuantity;
             if( $result_quantity < 0 ){
-                return redirect()->back()->with('error', 'No enough products... Only '.$result_quantity.' remains.')
+                return redirect()->back()->with('error', 'Updated number is too low.')
                 ->withInput();
             }
+
             $inStock->update([
                 'quantity' => $result_quantity,
             ]);
             return redirect()->back()->with('success', 'Quantiy updated successfully')->withInput();
-        }else{
-            // additional request
-            $current_quantity = $initial_quantity - $after_sale_quantity;
-            $result_quantity = $current_quantity + $request->quantity;
-            
-            $inStock->update([
-                'quantity' => $result_quantity,
-            ]);
-            return redirect()->back()->with('success', 'quantity changed successfully..');
-        }
 
     }
 

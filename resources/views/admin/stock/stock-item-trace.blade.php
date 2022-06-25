@@ -27,7 +27,7 @@
             </div>
 
             <div class="row justify-content-end mb-3">
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-2 col-md-2">
                     
                     <button type="button" style="float: right" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#itemStockNewAdd">
                         Add Product
@@ -51,11 +51,14 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <label class="form-label">Stock Name</label>
-                                                <input name="stock_id" type="text" class="form-control" value="{{ $stock->id }}" readonly='readonly'>
+                                                <input type="text" class="form-control" value="{{ $stock->name }}" disabled>
+                                                <input name="stock_id" type="hidden" class="form-control" value="{{ $stock->id }}" readonly='readonly'>
+
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Item Code</label>
-                                                <input name="item_id" type="text" class="form-control" value="{{ $item->id }}" placeholder="{{ $item->code }}" readonly='readonly'>
+                                                <input type="text" class="form-control" value="{{ $item->code }}" disabled>
+                                                <input name="item_id" type="hidden"  value="{{ $item->id }}" readonly='readonly'>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">In Date</label>
@@ -104,7 +107,7 @@
                                     <td>{{ InStocksController::currentQuantity($inStock) }}</td>
                                     <td>
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#itemAddOrRemove-{{$inStock->id}}">
-										add & remove
+										edit
 									</button>
 
                                     
@@ -114,7 +117,6 @@
                                     <div class="modal-dialog modal-md" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Add or Remove Items</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body m-3">
@@ -125,7 +127,7 @@
                                         
                                         @php
                                             $initial_quantity = InStocksController::initialQuantity($inStock);
-                                            $after_sale_quantity = InStocksController::afterSaleQuantity($inStock);
+                                            $after_sale_quantity = InStocksController::outStockQuantity($inStock);
                                             $current_quantity = InStocksController::currentQuantity($inStock);
                                         @endphp
 
@@ -133,25 +135,12 @@
                                     </div>
                                     <div class="row justify-content-center">
                                         
-                                        <form id="stock-item-modifications" method="POST" action="{{ route('admin.stock.items.modifications', $inStock->id ) }}">
+                                        <form id="stock-item-modifications{{$inStock->id}}" method="POST" action="{{ route('admin.stock.items.modifications', $inStock->id ) }}">
                                             @method('put')
                                             @csrf
-                                            <h3 class="lead">Choose Operation</h3>
-                                            <label class="form-check">
-                                                <input class="form-check-input" type="radio" value="1" name="operation" checked>
-                                                <span class="form-check-label">
-                                                    Adding  {{ $inStock->code }}
-                                                </span>
-                                            </label>
-                                            <label class="form-check">
-                                                <input class="form-check-input" type="radio" value="0" name="operation">
-                                                <span class="form-check-label">
-                                                    Removing  {{ $inStock->code  }}
-                                                </span>
-                                            </label>
 
                                             <div>
-                                                <label for="quantity"></label>
+                                                <label for="quantity">New Quantity</label>
                                                 <input type="text" name="quantity" class="form-control" placeholder="Quantity">
                                             </div>
 
@@ -162,7 +151,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button form="stock-item-modifications" type="submit" class="btn btn-primary">Save changes</button>
+                                                <button form="stock-item-modifications{{ $inStock->id }}" type="submit" class="btn btn-primary">Save changes</button>
                                             </div>
                                         </div>
                                     </div>
