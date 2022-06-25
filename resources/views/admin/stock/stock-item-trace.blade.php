@@ -10,7 +10,7 @@
 
 
 @section('title')
-    <title>stock | trace</title>
+    <title>Stock || Trace</title>
 @endsection
 
 @section('content')
@@ -29,9 +29,10 @@
             <div class="row justify-content-end mb-3">
                 <div class="col-lg-2 col-md-2">
                     
-                        <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#itemStockNewAdd">
-                            New Product
-                        </button>
+                    <button type="button" style="float: right" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#itemStockNewAdd">
+                        Add Product
+                    </button>
+
 
                                     
                                 <div class="modal fade" id="itemStockNewAdd" tabindex="-1" style="display: none;" aria-hidden="true">
@@ -39,8 +40,8 @@
                                     <div class="modal-dialog modal-md" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Add or Remove Items</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                <h5 class="modal-title">Add Items</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body m-3">
 
@@ -55,13 +56,13 @@
 
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label">Product Code</label>
+                                                <label class="form-label">Item Code</label>
                                                 <input type="text" class="form-control" value="{{ $item->code }}" disabled>
                                                 <input name="item_id" type="hidden"  value="{{ $item->id }}" readonly='readonly'>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">In Date</label>
-                                                <input required name="inDate" value="{{ \Carbon\Carbon::now() }}" type="date" class="form-control">
+                                                <input required name="inDate" value="{{ date('Y-m-d') }}" type="date" class="form-control">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label">Quantity</label>
@@ -84,7 +85,7 @@
                 <div class="col-lg-12 col-12">
                                 <div class="card">
                 <div class="card-header pb-0">
-                    <h5 class="card-title mb-0">Clients</h5>
+                    <h5 class="card-title mb-3">{{$item->desc}}</h5>
                 </div>
                 <div class="card-body">
 
@@ -92,10 +93,10 @@
                         <thead>
                             <tr>
                                 <th>Sn</th>
-                                <th>Customer names</th>
+                                <th>Item code</th>
                                 <th>date</th>
                                 <th>Quantity</th>
-                                <th>action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
