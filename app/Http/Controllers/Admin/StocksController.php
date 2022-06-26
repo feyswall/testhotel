@@ -315,4 +315,12 @@ class StocksController extends Controller
 
     }
 
+    public function stockItemsSearch(Request $request){
+        $items = [
+            ['name' => 'first', 'id' => 1],
+            ['name' => 'second', 'id' => 2 ]
+        ];
+        return response()->json($items);
+    }
+
 }

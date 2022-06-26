@@ -15,6 +15,7 @@ use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\Admin\InStocksController;
 
+
 Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\Admin')->group(function(){
     Route::put('/admin/update/profile/{id}', 'AdminsController@updateProfile')->name('admin.updateProfile');
     Route::get('/admin/profile/{id}', 'AdminsController@getProfile')->name('admin.getProfile');
@@ -73,6 +74,15 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::middleware(['auth', 'can:grob_users'])->controller(AttributesController::class)->group(function(){
         Route::get('/attributes', 'index');
     });
+
+
+
+    //Attributes routes
+    Route::middleware(['auth', 'can:grob_users'])->controller(OutStocksController::class)->group(function(){
+        Route::get('/stock/out/complementary', 'index')->name('complementary.out.stock');
+        Route::get('/stock/out/complementary/create', 'create')->name('complementary.out.stock.create');
+    });
+
 
     //Customer routes
     Route::middleware(['auth', 'can:grob_users'])->controller(CustomersController::class)->group(function(){
@@ -152,8 +162,8 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::put('/stocks/add/items/{id}', [StocksController::class, 'addItems'])->name('admin.stock.add.items');
 
     Route::get('/stocks/item/trace/{stock}/{item}', [StocksController::class, 'stockItemTrace'])->name('admin.stock.items.trace');
-
     Route::put('/stocks/item/trace/modify/quantity/{instock}', [StocksController::class, 'stockItemModifyQuantity'])->name('admin.stock.items.modifications');
+    Route::post('/stock/items/search', [StocksController::class, 'stockItemsSearch'])->name('stock.items.search');
 
 
     //Sales routes

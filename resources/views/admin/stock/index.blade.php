@@ -10,7 +10,7 @@
 
                 <a class="btn btn-primary float-end mt-n1" data-bs-toggle="modal" data-bs-target="#new-stock" href="#">New Record</a>
 
-                              <div class="modal fade" id="new-stock" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal fade" id="new-stock" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -44,7 +44,7 @@
                                                     </form>
 
 
-                                                  <div class="modal-footer">
+                                                    <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                         <button form="add-stock" type="submit" class="btn btn-success">save stock</button>
                                                     </div>
