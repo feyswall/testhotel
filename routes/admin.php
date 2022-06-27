@@ -27,6 +27,9 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
         Route::get('/items/create', 'create')->name('admin.items.create');
         Route::post('/items/search', 'search')->name('admin.items.search');
 
+        Route::post('/items/search/except', 'searchExcept')->name('admin.items.search.except');
+
+
         Route::post('all/items/search', 'searchItems')->name('admin.all.items.search');
 
         Route::post('/items/store', 'store')->name('admin.items.store');

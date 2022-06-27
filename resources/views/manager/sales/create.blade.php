@@ -214,13 +214,13 @@
             }, 
         },
 
-        watch: {
-            item_search(c, o){
-                if(c == ''){
-                    this.results = [];
-                }
-            }
-        },
+        // watch: {
+        //     item_search(c, o){
+        //         if(c == ''){
+        //             this.results = [];
+        //         }
+        //     }
+        // },
 
         methods: {
             async saveProforma(){
@@ -290,6 +290,7 @@
             },
 
             search(mode) {
+                // console.log('searching')
                 this.searching = true;
                 var endpoint = mode == 0 ? "customers" : "items";
                 var text = mode == 0 ? this.customer_search : this.item_search;
