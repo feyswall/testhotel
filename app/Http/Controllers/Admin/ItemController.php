@@ -169,6 +169,18 @@ class ItemController extends Controller
 
 
 
+       public function searchItems(Request $request)
+   {
+        $item = $request->item ?? ' ';
+        $items = Item::where('code', 'like', '%'.$item.'%' )
+        ->get();
+
+        return response()->json($items);
+
+    }
+
+
+
     public function importItems(Request $request)
     {
 

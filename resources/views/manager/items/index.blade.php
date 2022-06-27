@@ -49,13 +49,12 @@
                                 <div class="col col-md-6">
                                     <input v-model="item_search" type="text" placeholder="Find specific item" class="form-control">
                                 </div>
-                                <div class="col col-md-5">{{ $items->links() }}</div>
                             </div>
                         </div>
                        
                         
                         <div class="card-body">
-                            <table id="datatables-column-search-text-inputs" class="table table-striped" style="width:100%">
+                            <table id="" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -115,6 +114,9 @@
                 </div>
             </div>
 
+                                <div class="col col-md-5">{{ $items->links() }}</div>
+
+
         </div>
     </main>
 
@@ -149,7 +151,17 @@
             methods: {
                 search() {
                     this.searching = true;
-                    fetch(`/items/search/${encodeURIComponent(this.item_search)}`)
+
+                    var requestOptions = {
+                        method: "post",
+                        headers: { 
+                            "Content-Type": "application/json",
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                         body: JSON.stringify({ item:this.item_search })
+                    };
+
+                    fetch('all/items/search', requestOptions)
                         .then(res => res.json())
                         .then(res => {
                             this.searching = false;
