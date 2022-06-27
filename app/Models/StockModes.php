@@ -9,5 +9,5 @@ class StockModes extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'operation'];
+    protected $fillable = ['name', 'operation', 'show'];
 }

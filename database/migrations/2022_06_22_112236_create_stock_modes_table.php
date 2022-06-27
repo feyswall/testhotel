@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->tinyInteger('operation');
+            $table->string('for_view')->nullable();
             $table->timestamps();
         });
     }

@@ -25,8 +25,6 @@ return new class extends Migration
 
             $table->integer('out_to')->nullable();
 
-            $table->string('for_view')->nullable();
-
             $table->timestamps();
         });
     }
