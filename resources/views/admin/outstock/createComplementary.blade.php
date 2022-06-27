@@ -43,32 +43,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="mb-3 col-md-4">
-                                    <label class="form-label" for="desc">Description</label>
-                                    <textarea value="{{ old('desc') }}" rows="3" type="text" name="desc" class="form-control"
-                                        id="desc" required>{{  old('desc')}}</textarea>
-                                    @error('desc')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label class="form-label" for="pref_supplier">Supplier</label>
-                                    <input value="{{ old('pref_supplier') }}" type="text" name="pref_supplier" class="form-control"
-                                        id="pref_supplier" placeholder="Prefered supplier" required>
-                                    @error('pref_supplier')
-                                        <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="mb-3 col-md-4">
-                                    <label class="form-label" for="gross_price">Gross Price</label>
-                                    <input name="gross_price" value="{{ old('gross_price') }}" type="text" class="form-control"
-                                        id="gross_price" placeholder="Price" required>
-                                @error('gross_price')
-                                    <p class="text-danger">{{ $message }}</p>
-                                @enderror
-                                    </div>
-                            </div>
+                        
 
                         <button type="reset" class="btn btn-secondary">Reset Form</button>
                         <button type="submit" class="btn btn-primary">Save Item</button>

@@ -44,12 +44,21 @@ trait SalesCalculationsTrait
 
 
     // after creating invoice
-    public function calculateSubTotalAfter(Collection $items){
+
+    /**
+     *  Calculating sub-total
+     */
+    public static function calculateSubTotalAfter(Collection $items){
         $sub_total = 0;
         foreach( $items as $item ){
-        $sub_total = $item->pivot->due_price * $item->pivot->quantity;
+        $sub_total += ($item->pivot->due_price + $item->pivot->due_tax) * $item->pivot->quantity;
         }
         return $sub_total;
+    }
+
+    public function vatTotalAfter($items, $vat_rate){
+        $vat_total = ($vat_rate/100) * $this->calculateSubTotal($items);
+        return $vat_total;
     }
 
 
