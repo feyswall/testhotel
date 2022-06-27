@@ -57,7 +57,7 @@ trait SalesCalculationsTrait
     }
 
     public function vatTotalAfter($items, $vat_rate){
-        $vat_total = ($vat_rate/100) * $this->calculateSubTotal($items);
+        $vat_total = ($vat_rate/100) * $this->calculateSubTotalAfter($items);
         return $vat_total;
     }
 
