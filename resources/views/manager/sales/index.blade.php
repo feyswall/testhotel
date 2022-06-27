@@ -1,3 +1,11 @@
+@php
+    /**
+     * including some neccesary libralies
+     */
+    use App\Http\Controllers\Admin\SalesController;
+@endphp
+
+
 @extends('pageLayouts.admin')
 
 @section('title')
@@ -36,21 +44,15 @@
                                 <tbody>
                                     @foreach( $sales as $sale )
 
-
                                     <tr>
                                         @php
-                                        $gross = 0;
-                                        $total_due_tax = 0;
-                                        foreach( $sale->items as $item ){
-                                            $gross += ($item->pivot->due_price + $item->pivot->due_tax) * $item->pivot->quantity;
-                                        }
-
+                                        $vat_rate = $sale->vat ?? 0;
                                         @endphp
                                         <td>{{ $sale->customer->name }}</td>
-                                        <td> {{ number_format($gross, 2) }}</td>
-                                        <td>{{ number_format(($sale->vat/100) * $gross, 2) }}</td>
+                                        <td> {{ number_format(SalesController::calculateSubTotalAfter($sale->items), 2) }}</td>
+                                        <td>{{ number_format(SalesController::vatTotalAfter($sale->items, $vat_rate), 2) }}</td>
                                         <td>{{ number_format($sale->discount,2) }}</td>
-                                        <td>{{ number_format($gross + (($sale->vat/100) * $gross) - $sale->discount, 2) }}</td>
+                                        <td>{{ number_format(SalesController::discountedNetAfter($sale, $vat_rate), 2) }}</td>
                                         <td>
                                             <a class="badge @if($sale->invoice_number != null) bg-success @else bg-warning @endif ms-2" href="#">
                                                 @if ($sale->invoice_number != null)

@@ -56,9 +56,16 @@ trait SalesCalculationsTrait
         return $sub_total;
     }
 
-    public function vatTotalAfter($items, $vat_rate){
-        $vat_total = ($vat_rate/100) * $this->calculateSubTotalAfter($items);
+    public static function vatTotalAfter($items, $vat_rate){
+        $vat_total = ($vat_rate/100) * self::calculateSubTotalAfter($items);
         return $vat_total;
+    }
+
+
+
+    public static function discountedNetAfter($sale, $vat_rate){
+        $discounted_income = self::calculateSubTotalAfter($sale->items) + (($vat_rate/100) * self::calculateSubTotalAfter($sale->items)) - $sale->discount;
+        return $discounted_income;
     }
 
 
