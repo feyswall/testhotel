@@ -214,14 +214,6 @@
             }, 
         },
 
-        watch: {
-            item_search(c, o){
-                if(c == ''){
-                    this.results = [];
-                }
-            }
-        },
-
         methods: {
             async saveProforma(){
                 var items = [];
