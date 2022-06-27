@@ -316,11 +316,11 @@ class StocksController extends Controller
     }
 
     public function stockItemsSearch(Request $request){
-        $items = [
-            ['name' => 'first', 'id' => 1],
-            ['name' => 'second', 'id' => 2 ]
-        ];
-        return response()->json($items);
+        $stock = Stock::where('id', '=', $request->stock_id )->first();
+        if( !$stock ){
+            return response()->json(['error', 'stock object not found']);
+        }
+        return response()->json($stock->items);
     }
 
 }

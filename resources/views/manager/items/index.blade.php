@@ -149,7 +149,15 @@
             methods: {
                 search() {
                     this.searching = true;
-                    fetch(`/items/search/${encodeURIComponent(this.item_search)}`)
+                    var requestOptionsSearch = {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        body: JSON.stringify({ id: this.item_search })
+                    };
+                    fetch(`/items/search`, requestOptionsSearch)
                         .then(res => res.json())
                         .then(res => {
                             this.searching = false;

@@ -23,6 +23,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="selling_price">From Stock</label>
                                 <select v-on:change="fillItems" v-model="stock_id" name="stock_id" class="form-select" required id="stock_id">
+                                    <option value="">Select stock</option>
                                     @foreach (App\Models\Stock::all() as $stock)
                                         <option value="{{ $stock->id }}">{{ $stock->name }}</option>
                                     @endforeach
@@ -31,26 +32,36 @@
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
                             </div>
-                            
+                            <div class="mb-3 col-md-4">
+                                <label class="form-label" for="stock_mode">Stock out</label>
+                                <select v-model="stock_mode" class="form-select" required id="stock_mode">
+                                    <option value="">Select mode</option>
+                                    @foreach ($modes as $mode)
+                                        <option value="{{ $mode->id }}">{{ $mode->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </form>
                     <div class="row" v-if="items.length > 0">
                         <div class="col col-md-12">
                             <table class="table" id="datatables-column-search-text-inputs">
                                 <thead>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>Sn</th>
+                                    <th>Item</th>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Details</th>
+                                    <th>Action</th>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(item, index) in items" :key="'item' + index">
                                         <td>@{{index + 1}}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>@{{item.code}}</td>
+                                        <td>@{{item.desc}}</td>
+                                        <td><input type="number" min="0" placeholder="Quantity" v-model="item.out_quantity" class="form-control"></td>
+                                        <td><input type="text" placeholder="Details" v-model="item.out_quantity" class="form-control"></td>
+                                        <td><button v-on:click="addItem(index)" class="btn btn-sm btn-primary"><i class="la la-plus"></i></button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -69,6 +80,7 @@
                 return {
                     items: [],
                     stock_id: '',
+                    stock_mode: ''
                 }
             },
             methods: {

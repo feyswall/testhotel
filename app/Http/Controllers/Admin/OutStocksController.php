@@ -40,7 +40,11 @@ class OutStocksController extends Controller
      */
     public function create()
     {
-        return view('admin.outstock.createComplementary');
+        $modes = StockModes::where('name', 'expired')
+        ->orWhere('name', 'damaged')
+        ->orWhere('name', 'give')
+        ->where('operation', 0)->get();
+        return view('admin.outstock.createComplementary', compact('modes'));
     }
 
     /**
