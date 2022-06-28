@@ -320,6 +320,11 @@ class SalesController extends Controller
         return view('manager.sales.preview', compact('sale', 'customer', 'purchase', 'vat_rate', 'setting'));
     }
 
+    public function confirm_sales($id) {
+        $sale = Sale::find($id);
+        return view("manager.sales.confirm", compact('sale'));
+    }
+
 
 
 }
