@@ -176,6 +176,7 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::middleware(['auth', 'can:grob_users'])->controller(SalesController::class)->group(function(){
         Route::get('/preview_sale/{id}', 'preview');
         Route::get('/sales/{mode}', 'index');
+        Route::get('/confirm_sales/{id}', 'confirm_sales');
         Route::get('/new_sales', 'create');
         Route::get('/proforma/{id}', 'proforma');
         Route::put('/sales/make_invoice/{id}', 'make_invoice');
