@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('due_date')->nullable();
 
             $table->string('payment_method_id')->nullable();
-
+        
             $table->foreignId('customer_id')->constrained('customers');
             $table->timestamps();
         });

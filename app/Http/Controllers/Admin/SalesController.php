@@ -17,10 +17,13 @@ use App\Models\Setting;
 use App\Http\Controllers\SalesCalculationsTrait;
 use \stdClass;
 use App\Models\Tax;
+use App\Models\StockIssuing;
+use App\Http\Controllers\StockProductTrait;
 
 class SalesController extends Controller
 {
     use SalesCalculationsTrait;
+    use StockProductTrait;
     /**
      * Display a listing of the resource.
      *
@@ -52,10 +55,11 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-   
+       
         $customer_id = $request->customer_id;
         $validity = $request->validity;
         $due_date = $request->due_date;
+        $stock_id = $request->stock_id;
         // save customer id in sales table
         $items = $request->items;
 
@@ -74,6 +78,7 @@ class SalesController extends Controller
             'cash_mode' => 2,
             'vat' => $vat->rate ?? 0,
             'pi_number' => time(),
+            'stock_id' => $stock_id,
         ]);
 
         // checking if the sale object is created and return error if not
@@ -83,11 +88,11 @@ class SalesController extends Controller
 
         // finally loop throgh every item and attach to the current sale
         foreach( $items as $item ){
+
                 $sale->items()->attach($item['item_id'], [
                     'quantity' => $item['item_quantity'],
                     'due_price' => $item['due_price'],
                 ]);
-
         }
 
         return $sale->id;
@@ -227,7 +232,10 @@ class SalesController extends Controller
         return redirect()->back();
     }
 
+
+
     function confirm_invoice(Request $request, $id){
+
         $sale = Sale::find($id);
         if(!$sale){
             return redirect()->back()->with('error', 'Record not found!');
@@ -238,6 +246,23 @@ class SalesController extends Controller
         }
         $sale->invoice_number = time();
         $sale->save();
+
+        foreach( $sale->items()->where('invoice_mode', 1)->get() as $item ){
+
+            $item_sale = DB::table('item_sale')
+                ->where('item_id', $item->id)
+                ->where('sale_id', $sale->stock_id)
+                ->first();
+    
+            // createing the stock issuing
+            StockIssuing::create([
+                'sale_id' => $sale->id,
+                'item_sale_id' => $item_sale->id,
+                'quantity' => $item->pivot->quantity,
+            ]);
+        }
+
+
         $removable = $sale->items()->where('invoice_mode', 0)->get();
         if($removable->count() == 0){
             return redirect('/sales/2');
@@ -247,6 +272,8 @@ class SalesController extends Controller
         }
         return redirect('/sales/2');
     }
+
+
 
     public function set_cash(Request $request, $id){
 

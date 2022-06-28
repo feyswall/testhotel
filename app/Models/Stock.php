@@ -24,4 +24,8 @@ class Stock extends Model
     public function inStock(){
         return $this->hasMany( InStock::class );
     }
+
+    public function sales(){
+        return $this->hasMany( Sale::class );
+    }
 }

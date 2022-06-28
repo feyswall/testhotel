@@ -1,3 +1,9 @@
+@php
+    use Illuminate\Support\Facades\DB;
+    use App\Http\Controllers\Admin\SalesController;
+    use App\Models\InStock;
+@endphp
+
 @extends('pageLayouts.admin')
 
 @section('title')
@@ -75,10 +81,10 @@
                                             <td>stock name</td>
                                             <td>2, 3</td>
                                             <td>02-06-22, 03-06-22</td>
-                                            <td>
-                                                <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#issuing-modal-{{$item->id}}">Issue Items</a>
+                                            <td data-item={{ $item->id }}>
+                                                <a class="btn btn-primary" v-on:click="modelClick($event)" href="#" data-bs-toggle="modal" data-bs-target="#issuing-modal-{{$item->id}}">Issue Items</a>
                                                 <div class="modal fade" id="issuing-modal-{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
+                                                    <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title">Stock items issuing</h5>
@@ -86,9 +92,33 @@
                                                             </div>
                                                             <div class="modal-body m-3">
                                                                 quantity & stock date
+                                                                @php
+                                                                    $inStocks = InStock::
+                                                                    where('stock_id', $sale->stock_id )
+                                                                    ->where('item_id', $item->id)
+                                                                    ->get();
+                                                                @endphp
+                                                                <table class="table table-condensed">
+                                                                    <thead>
+                                                                        <th>#</th>
+                                                                        <th>date</th>
+                                                                        <th>Init: quantity</th>
+                                                                        <th>Current: Quantity</th>
+                                                                        <th>take</th>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    @foreach ($inStocks as $key=>$inStock)
+                                                                        <tr>
+                                                                            <td>{{ ++$key }}</td>
+                                                                            <td>{{ \Carbon\Carbon::parse($inStock->created_at)->format('M-d Y') }}</td>    
+                                                                            <td>{{ SalesController::initialQuantity($inStock) }}</td>
+                                                                            <td>{{ SalesController::currentQuantity($inStock) }}</td>
+                                                                            <td><input type="number" value="quantity"></td>
+                                                                        </tr>    
+                                                                    @endforeach
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
-        
-        
         
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -125,6 +155,11 @@
               cash_mode: '', payment_method: ''
             }
         }, 
+        methods: {
+            modelClick: function(event){
+                console.log( event.target.parentElement.getAttribute('data-item') );
+            }
+        }
 
     });
 </script>
