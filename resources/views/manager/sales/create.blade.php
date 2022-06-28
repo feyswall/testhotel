@@ -291,6 +291,7 @@
             },
 
             search(mode) {
+                // console.log('searching')
                 this.searching = true;
                 var endpoint = mode == 0 ? "customers" : "items";
                 var text = mode == 0 ? this.customer_search : this.item_search;

@@ -160,6 +160,24 @@ class ItemController extends Controller
         }
         
         $items = Item::where('code', 'like', '%'.$request->item.'%' )
+        ->whereIn('id', $stocks_id)
+        ->get();
+
+        return response()->json($items);
+    }
+
+
+       public function searchExcept(Request $request)
+   {
+        $stock = Stock::find( $request->id );
+
+        $stocks_id = $stock->items ?? [];
+
+        if( $stocks_id ){
+            $stocks_id = $stock->items->pluck('id');
+        }
+        
+        $items = Item::where('code', 'like', '%'.$request->item.'%' )
         ->whereNotIn('id', $stocks_id)
         ->get();
 
@@ -171,6 +189,7 @@ class ItemController extends Controller
 
        public function searchItems(Request $request)
    {
+
         $item = $request->item ?? ' ';
         $items = Item::where('code', 'like', '%'.$item.'%' )
         ->get();

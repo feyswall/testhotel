@@ -298,14 +298,12 @@
                        body: JSON.stringify({ item:this.item_search, id: stock })
                    };
 
-                   fetch('/items/search', requestOptionsSearch)
+                   fetch('/items/search/except', requestOptionsSearch)
                        .then(res => res.json())
                        .then(res => {
                            this.results = res;
-                           console.log( res )
                            if( res.length == 0){
                               this.myStatus = 'Nothing Were Found...';
-                              console.log( this.myStatus )
                            }
                        });
                }
