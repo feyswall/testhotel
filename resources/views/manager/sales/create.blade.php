@@ -18,11 +18,20 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-4">
                                     <label class="form-label" for="customer-search">Customer</label>
                                     <input :disabled="customer != null" id="customer-search" placeholder="Find customer" v-model="customer_search" name="name" type="text" class="form-control">
                                 </div>
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-4">
+                                    <label class="form-label" for="stock_id">Stock</label>
+                                    <select v-model="stock_id" name="stock_id" class="form-select" required id="stock_id">
+                                        <option value="">Select stock</option>
+                                        @foreach (App\Models\Stock::all() as $stock)
+                                            <option value="{{ $stock->id }}">{{ $stock->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-4">
                                     <label class="form-label" for="item-search">Pick Items</label>
                                     <input id="item-search" placeholder="Enter item code" v-model="item_search" name="name" type="text" class="form-control">
                                 </div>
@@ -195,7 +204,7 @@
                 item_search: '', customer_search: '', 
                 results: [], searching: false, noResults: false,
                 validity: "",
-                due_date: ""
+                due_date: "", stock_id: ""
             }
         }, 
 
@@ -292,7 +301,7 @@
                         "Content-Type": "application/json",
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    body: JSON.stringify({ item:this.item_search, id: 1 })
+                    body: JSON.stringify({ item:this.item_search, id: this.stock_id })
                 };
 
                 if( endpoint == 'items'){
