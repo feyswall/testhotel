@@ -24,6 +24,9 @@ class SalesController extends Controller
 {
     use SalesCalculationsTrait;
     use StockProductTrait;
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -37,6 +40,9 @@ class SalesController extends Controller
         ->with('mode', $mode);
     }
 
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -46,6 +52,8 @@ class SalesController extends Controller
     {
         return view('manager.sales.create');
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -98,6 +106,10 @@ class SalesController extends Controller
         return $sale->id;
     }
 
+
+
+
+
     /**
      * Display the specified resource.
      *
@@ -108,6 +120,8 @@ class SalesController extends Controller
     {
         //
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -120,6 +134,8 @@ class SalesController extends Controller
         //
     }
 
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -131,6 +147,8 @@ class SalesController extends Controller
     {
         //
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -149,6 +167,11 @@ class SalesController extends Controller
         return 1;
     }
 
+
+
+    /**
+     * 
+     */
     function proforma($id){
         $sale = Sale::where('cash_mode', 2)->where('id', $id)->first();
         if(!$sale){
@@ -191,8 +214,11 @@ class SalesController extends Controller
         ]);
     }
 
-    public function make_invoice(Request $request, $id){
 
+    /**
+     * 
+     */
+    public function make_invoice(Request $request, $id){
         // select the sale for modification
         $sale = Sale::find($id);
         // the items that user select for confirmation
@@ -210,6 +236,10 @@ class SalesController extends Controller
         return redirect()->back();
     }
 
+
+    /**
+     * 
+     */
     public function undo($id){
         $sale = Sale::find($id);
         if(!$sale){
@@ -234,6 +264,9 @@ class SalesController extends Controller
 
 
 
+    /**
+     * 
+     */
     function confirm_invoice(Request $request, $id){
 
         $sale = Sale::find($id);
@@ -246,6 +279,10 @@ class SalesController extends Controller
         }
         $sale->invoice_number = time();
         $sale->save();
+
+        if( $sale->items()->count() < 1){
+            return redirect()->back()->with('error', 'must have at leat one item in list...');
+        }
 
         foreach( $sale->items()->where('invoice_mode', 1)->get() as $item ){
 
@@ -275,6 +312,9 @@ class SalesController extends Controller
 
 
 
+    /**
+     * 
+     */
     public function set_cash(Request $request, $id){
 
         $request->validate([
