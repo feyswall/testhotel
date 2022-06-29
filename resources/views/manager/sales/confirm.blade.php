@@ -113,7 +113,11 @@
                                                                             <td>{{ \Carbon\Carbon::parse($inStock->created_at)->format('M-d Y') }}</td>    
                                                                             <td>{{ SalesController::initialQuantity($inStock) }}</td>
                                                                             <td>{{ SalesController::currentQuantity($inStock) }}</td>
-                                                                            <td><input type="number" value="quantity"></td>
+                                                                            <td>
+                                                                                <form id="" action="">
+                                                                                    <input type="number" value="quantity">
+                                                                                </form>
+                                                                            </td>
                                                                         </tr>    
                                                                     @endforeach
                                                                     </tbody>

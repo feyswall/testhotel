@@ -288,11 +288,11 @@ class SalesController extends Controller
 
             $item_sale = DB::table('item_sale')
                 ->where('item_id', $item->id)
-                ->where('sale_id', $sale->stock_id)
+                ->where('sale_id', $sale->id)
                 ->first();
     
             // createing the stock issuing
-            StockIssuing::create([
+            $stockIssue = StockIssuing::create([
                 'sale_id' => $sale->id,
                 'item_sale_id' => $item_sale->id,
                 'quantity' => $item->pivot->quantity,
