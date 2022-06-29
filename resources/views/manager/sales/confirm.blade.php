@@ -72,18 +72,18 @@
                                     @php
                                         $counter = 0;
                                     @endphp
-                                    @foreach ($sale->items as $item)
-                                        <tr>
+ 
+                                        <tr v-for="(item, key) in sale_items" :key="key">
                                             <td>{{ ++$counter }}</td>
-                                            <td>{{ $item->code }}</td>
-                                            <td>{{ $item->desc }}</td>
-                                            <td>{{ $item->pivot->quantity }}</td>
+                                            <td>@{{ item.code }}</td>
+                                            <td>@{{ item.desc }}</td>
+                                            <td>@{{ item.pivot.quantity }}</td>
                                             <td>stock name</td>
                                             <td>2, 3</td>
                                             <td>02-06-22, 03-06-22</td>
-                                            <td data-item={{ $item->id }}>
-                                                <a class="btn btn-primary" v-on:click="modelClick($event)" href="#" data-bs-toggle="modal" data-bs-target="#issuing-modal-{{$item->id}}">Issue Items</a>
-                                                <div class="modal fade" id="issuing-modal-{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <td :data-item="item.id">
+                                                <a class="btn btn-primary" v-on:click="modelClick($event)" href="#" data-bs-toggle="modal" :data-bs-target="'#issuing-modal-'+item.id">Issue Items</a>
+                                                <div class="modal fade" :id="'issuing-modal-'+item.id" tabindex="-1" role="dialog" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -92,12 +92,7 @@
                                                             </div>
                                                             <div class="modal-body m-3">
                                                                 quantity & stock date
-                                                                @php
-                                                                    $inStocks = InStock::
-                                                                    where('stock_id', $sale->stock_id )
-                                                                    ->where('item_id', $item->id)
-                                                                    ->get();
-                                                                @endphp
+                                                               
                                                                 <table class="table table-condensed">
                                                                     <thead>
                                                                         <th>#</th>
@@ -107,7 +102,7 @@
                                                                         <th>take</th>
                                                                     </thead>
                                                                     <tbody>
-                                                                    @foreach ($inStocks as $key=>$inStock)
+                                                                    {{-- @foreach ($inStocks as $key=>$inStock)
                                                                         <tr>
                                                                             <td>{{ ++$key }}</td>
                                                                             <td>{{ \Carbon\Carbon::parse($inStock->created_at)->format('M-d Y') }}</td>    
@@ -119,7 +114,7 @@
                                                                                 </form>
                                                                             </td>
                                                                         </tr>    
-                                                                    @endforeach
+                                                                    @endforeach --}}
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -137,7 +132,7 @@
                                             </td>
                                         </tr>
                                      
-                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -149,19 +144,40 @@
         </div>
     </main>
 
-
 <script>
     var app = new Vue({
         el: '#app', 
 
         data(){
             return {
-              cash_mode: '', payment_method: ''
+              cash_mode: '',
+               payment_method: '',
+              sale_items: {!! json_encode( $sale->items ) !!},
             }
         }, 
         methods: {
             modelClick: function(event){
                 console.log( event.target.parentElement.getAttribute('data-item') );
+
+                   for( var g=0; g < this.sale_items.length; g++){
+                       console.log( this.sale_items[g] );
+                       this.searchInstock( {{ $sale->stock_id }}, this.sale_items[g].id );
+                   }
+                   
+            },
+            searchInstock: function(stock, item){
+                    var requestOptions = {
+                    method: "GET",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                     },
+                };
+                fetch(`/search/in/stock/${stock}/${item}`)
+                .then(res => res.json())
+                .then(res => {
+                    console.log( res );
+                });
             }
         }
 
