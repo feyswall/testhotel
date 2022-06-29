@@ -22,7 +22,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="name">Names</label>
                                 <input type="text" value="{{ old('name') }}" name="name" class="form-control" id="name"
-                                    placeholder="">
+                                    placeholder="" required>
                                 @error('name')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -30,7 +30,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="phone">Phone</label>
                                 <input type="phone" value="{{ old('phone') }}" name="phone" class="form-control"
-                                    id="phone" placeholder="">
+                                    id="phone" placeholder="" required>
                                 @error('phone')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -38,7 +38,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="email">Email</label>
                                 <input type="email" value="{{ old('email') }}" name="email" class="form-control"
-                                    id="email" placeholder="">
+                                    id="email" placeholder="" >
                                 @error('email')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -48,7 +48,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="tin">TIN</label>
                                 <input name="tin" type="text" value="{{ old('tin') }}" class="form-control" id="tin"
-                                    placeholder="">
+                                    placeholder="" required>
                                 @error('tin')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -56,7 +56,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="vrn">VRN</label>
                                 <input type="text" value="{{ old('vrn') }}" name="vrn" class="form-control" id="vrn"
-                                    placeholder="">
+                                    placeholder="" required>
                                 @error('vrn')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -64,7 +64,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="address">Address</label>
                                 <input value="{{ old('address') }}" type="text" name="address" class="form-control"
-                                    id="address" placeholder="">
+                                    id="address" placeholder="" required>
                                 @error('address')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror

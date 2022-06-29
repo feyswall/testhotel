@@ -76,9 +76,7 @@ class EmployeesController extends Controller
     public function edit($id)
     {
         $employee = Employee::where('id', $id)->first();
-        if( !$employee ){
-            return redirect()->back()->with('error', 'employee not found..')->withInput();
-        }
+   
         return view( 'admin.employees.edit',
             [ 'employee' => $employee ]);
     }

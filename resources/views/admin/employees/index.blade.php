@@ -19,7 +19,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Register Employee</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body m-3">
                             @if ($errors->any())
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Salary</label>
-                                    <input type="Salary" name="salary" class="form-control" value="{{ old('salary') }}">
+                                    <input type="number" min="0" name="salary" class="form-control" value="{{ old('salary') }}" required>
                                 </div>
                                
                             </form>
@@ -73,7 +73,7 @@
                                         <td>{{ $employee->created_at }}</td>
                                         <td>{{ $employee->salary }}</td>
                                        <td class="table-action">
-                                            <a  href="{{ route('employees.edit', $employee->id) }}" class="btn btn-outline-primary btn-sm" form="edit-emp" ><svg xmlns="" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a>
+                                            <a  href="{{ route('employees.edit', $employee->id) }}" class="btn btn-outline-primary " form="edit-emp" ><svg xmlns="" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 align-middle"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a>
                                         </td>
                                     </tr>
                                     @endforeach                                    
