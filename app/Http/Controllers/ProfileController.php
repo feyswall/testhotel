@@ -23,8 +23,10 @@ class ProfileController extends Controller
         $update = $data->update($inputs);
 
         if ($update) {
-            return redirect()->back();
+        return redirect()->back()->with('success', 'User details updated!');
         }
+        return redirect()->back()->with('error', 'User details updated!');
+
     }
 
     function password_udpate(Request $request, $id){
@@ -32,15 +34,16 @@ class ProfileController extends Controller
             if($request->password == $request->password_confirmation){
                $change =  User::where('id', Auth::user()->id)->update(['password' => Hash::make($request->password)]);
                 if($change){
-                    return redirect()->back();
+                    return redirect()->back()->with('success', 'Password updated successful!');
                 }
             } else{
-                return response()->json(['error' => "Password do not Match"]);
+                return redirect()->back()->with('error', 'Password do not match!');
+
             }
         }
         else
         {
-            return response()->json(['error' => "Oooops..!Wrong Old Password"]);
+            return redirect()->back()->with('error', 'Wrong old password!');
          }
     }
 }

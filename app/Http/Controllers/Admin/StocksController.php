@@ -75,9 +75,9 @@ class StocksController extends Controller
         ]);
 
         if( !$stock ){
-            return redirect()->back()->with('fail', 'fail to create stock');
+            return redirect()->back()->with('fail', 'Fail to create a stock!');
         }
-        return redirect()->back()->with('success', 'Stck created Successfully..');
+        return redirect()->back()->with('success', 'Stock created Successfully..');
     }
 
 
@@ -107,9 +107,6 @@ class StocksController extends Controller
     {
         $stock = Stock::find($id);
 
-        if( !$stock ){
-            return redirect()->back()->with('error', 'unable to find stock');
-        }
         $stock_items = $stock->items()->select('*')->pluck('item_id');
 
         $items = Item::whereNotIn('id', $stock_items)->paginate(100);

@@ -34,6 +34,8 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="account" role="tabpanel">
 
+                            @include('admin._partials._success_and_errors')
+                            
                             <div class="card">
                                 <div class="card-header bg-dark">
                                     <h5 class="card-title mb-0">Account info</h5>
