@@ -15,8 +15,8 @@
                 <div class="col-md-3 col-xl-2">
 
                     <div class="card">
-                        <div class="card-header bg-dark">
-                            <h5 class="card-title mb-0">Profile Setting</h5>
+                        <div class="card-header bg-success">
+                            <h5 class="card-title mb-0 text-black">Profile Setting</h5>
                         </div>
 
                         <div class="list-group list-group-flush" role="tablist">
@@ -37,8 +37,8 @@
                             @include('admin._partials._success_and_errors')
                             
                             <div class="card">
-                                <div class="card-header bg-dark">
-                                    <h5 class="card-title mb-0">Account info</h5>
+                                <div class="card-header bg-success">
+                                    <h5 class="card-title text-black  mb-0">Account info</h5>
                                 </div>
                                 <div class="card-body">
                                     <form method="POST" action="{{route('profile_update', $user->id)}}">
@@ -78,8 +78,8 @@
                         </div>
                         <div class="tab-pane fade" id="password" role="tabpanel">
                             <div class="card">
-                                <div class="card-header bg-dark">
-                                    <h5 class="card-title mb-0">Password Setting</h5>
+                                <div class="card-header bg-success">
+                                    <h5 class="card-title  text-black  mb-0">Password Setting</h5>
                                 </div>
                                 <div class="card-body">
                                     <form method="POST" action="{{route('password_udpate', $user->id)}}">
