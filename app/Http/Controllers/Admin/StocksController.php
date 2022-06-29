@@ -176,10 +176,13 @@ class StocksController extends Controller
      */
     public function addItem(Request $request, $id){
         $rules = [
-            'item_id' => 'required|unique:item_stock,item_id',
+            'item_id' => 'required',
             'quantity' => 'required',
         ];
-        Validator::make($request->all(), $rules)->validate();
+        Validator::make($request->all(), $rules, $messages = [
+            'item_id.required' => 'item is required.',
+            'quantity.required' => 'Quantity is required',
+        ])->validate();
 
         $item = Item::find($request->item_id);
 
@@ -215,12 +218,13 @@ class StocksController extends Controller
 
         $rules = [
             'list' => 'required|array',
-            'list.*.item_id' => 'required|unique:item_stock,item_id',
+            'list.*.item_id' => 'required',
             'list.*.item_quantity' => 'required|numeric',
             'list.*.due_price' => 'required|numeric',
         ];
         $validate = Validator::make($request->all(), $rules, $messages = [
             'list.*.item_id.required' => 'The product name aready taken', 
+            'list.*.item_id.unique' => 'The item is aready present...', 
             'list.*.item_quantity.numeric' => 'only numbers allowed in quantities',
             'list.*.item_quantity.required' => 'The quantity field is required',
             'list.*.due_price.numeric' => 'Only numbers allowed in price',

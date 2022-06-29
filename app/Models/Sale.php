@@ -9,7 +9,7 @@ class Sale extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['customer_id', 'payment_method_id','cash_mode', 'discount', 'invoice_number', 'pi_number', 'validity', 'due_date', 'vat'];
+    protected $fillable = ['customer_id', 'stock_id', 'payment_method_id','cash_mode', 'discount', 'invoice_number', 'pi_number', 'validity', 'due_date', 'vat'];
 
     
     /**
@@ -33,6 +33,10 @@ class Sale extends Model
 
     public function payment_method(){
         return $this->belongsTo( PaymentMethod::class );
+    }
+
+    public function stock(){
+        return $this->belongsTo( Stock::class );
     }
 
 }

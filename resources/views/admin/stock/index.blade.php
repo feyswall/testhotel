@@ -8,6 +8,9 @@
     <main class="content p-4" id="app">
         <div class="container-fluid p-0">
 
+
+            
+
                 <a class="btn btn-primary float-end mt-n1" data-bs-toggle="modal" data-bs-target="#new-stock" href="#">New Record</a>
 
                                     <div class="modal fade" id="new-stock" tabindex="-1" role="dialog" aria-hidden="true">

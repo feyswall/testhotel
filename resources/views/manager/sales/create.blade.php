@@ -204,7 +204,8 @@
                 item_search: '', customer_search: '', 
                 results: [], searching: false, noResults: false,
                 validity: "",
-                due_date: "", stock_id: ""
+                due_date: "",
+                stock_id: ""
             }
         }, 
 
@@ -234,8 +235,11 @@
                     });  //this.proforma[i].tax
                 }
                 var dataSet = {
-                    'customer_id': this.customer.id, 'validity': this.validity, 'due_date': this.due_date,
-                    'items': items
+                    'customer_id': this.customer.id,
+                     'validity': this.validity, 
+                     'due_date': this.due_date,
+                    'items': items,
+                    'stock_id':this.stock_id,
                 }
                 var requestOptions = {
                     method: "POST",

@@ -1,9 +1,7 @@
-
-	<script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
 
 	<script src="{{ asset('assets/js/datatables.js') }}"></script>
 	<script src="{{ asset('assets/js/fontawesome.min.js') }}"></script>
-
 
 <script>
       // DataTables with Column Search by Text Inputs
