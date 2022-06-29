@@ -43,9 +43,6 @@ class SalesController extends Controller
         ->with('mode', $mode);
     }
 
-
-
-
     /**
      * Show the form for creating a new resource.
      *

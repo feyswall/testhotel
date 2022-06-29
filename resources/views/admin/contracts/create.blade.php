@@ -25,7 +25,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="name">Name</label>
                                 <input type="text" value="{{ old('name') }}" name="name" class="form-control"
-                                    id="name" placeholder="">
+                                    id="name" placeholder="" required>
                                 @error('name')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -33,7 +33,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="desc">Description</label>
                                 <input type="text" value="{{ old('desc') }}" name="desc" class="form-control"
-                                    id="desc" placeholder="">
+                                    id="desc" placeholder="" required>
                                 @error('desc')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -41,7 +41,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="party">Party</label>
                                 <input type="text" value="{{ old('party') }}" name="party" class="form-control"
-                                    id="party" placeholder="">
+                                    id="party" placeholder="" required>
                                 @error('party')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -51,7 +51,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="category->id">Category</label>
                                 <Select name="category_id" value="{{ old('category->id') }}" class="form-select" id="category->id"
-                                    placeholder="">
+                                    placeholder="" required>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
@@ -63,7 +63,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="start_date">Start Date</label>
                                 <input type="date" value="{{ old('start_date') }}" name="start_date"
-                                    class="form-control" id="start_date" placeholder="">
+                                    class="form-control" id="start_date" placeholder="" required>
                                 @error('start_date')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
@@ -71,7 +71,7 @@
                             <div class="mb-3 col-md-4">
                                 <label class="form-label" for="end_date">End Date</label>
                                 <input value="{{ old('end_date') }}" type="date" name="end_date" class="form-control"
-                                    id="end_date" placeholder="">
+                                    id="end_date" placeholder="" required>
                                 @error('end_date')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
