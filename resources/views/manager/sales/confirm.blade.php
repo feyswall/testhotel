@@ -96,10 +96,10 @@
                                                                 <table class="table table-condensed">
                                                                     <thead>
                                                                         <th>#</th>
-                                                                        <th>date</th>
-                                                                        <th>Init: quantity</th>
-                                                                        <th>Current: Quantity</th>
-                                                                        <th>take</th>
+                                                                        <th>Date</th>
+                                                                        <th>Initial QTY</th>
+                                                                        <th>Current QTY</th>
+                                                                        <th>Take</th>
                                                                     </thead>
                                                                     <tbody>
                                                                     {{-- @foreach ($inStocks as $key=>$inStock)
