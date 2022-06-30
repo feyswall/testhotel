@@ -95,7 +95,7 @@
                                 <th>Sn</th>
                                 <th>Inward Date</th>
                                 <th>Quantity</th>
-                                <th>Action</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,7 +105,7 @@
                                     <td>{{ $inStock->id }}</td>
                                     <td>{{  \Carbon\Carbon::parse($inStock->created_at)->format('d-M Y') }}</td>
                                     <td>{{ InStocksController::currentQuantity($inStock) }}</td>
-                                    <td>
+                                    <td class="text-center">
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#itemAddOrRemove-{{$inStock->id}}">
 										Edit
 									</button>
@@ -117,7 +117,7 @@
                                     <div class="modal-dialog modal-md" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body m-3">
 
