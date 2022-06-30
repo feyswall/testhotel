@@ -113,7 +113,7 @@
                                  <td>{{ number_format($item->selling_price, 2) }}</td>
                                  <td>{{ number_format($item->gross_price, 2) }}</td>
                                  <td>
-                                    <a href="{{ route('admin.stock.items.trace', [$stock->id, $item->id] ) }}">manage</a>
+                                    <a href="{{ route('admin.stock.items.trace', [$stock->id, $item->id] ) }}">Manage</a>
                                  </td>
                               </tr>
                               @endforeach
