@@ -10,6 +10,7 @@ use App\Models\InStock;
 use App\Models\Item;
 use App\Models\StockModes;
 
+
 class InStocksController extends Controller
 
 {
@@ -122,5 +123,15 @@ class InStocksController extends Controller
         }
         return redirect()->back()->with('success', 'Data inserted successfully...');
 
+    }
+
+    public function searchInStock($stock_id, $item_id){
+
+          $inStocks = InStock::
+            where('stock_id', $stock_id )
+            ->where('item_id', $item_id)
+            ->get();
+
+        return response()->json( $inStocks );
     }
 }

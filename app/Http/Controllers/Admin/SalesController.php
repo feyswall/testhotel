@@ -34,6 +34,9 @@ class SalesController extends Controller
      */
     public function index($mode)
     {
+
+        // $salesIssuing = 
+
         $sales = Sale::where('cash_mode', $mode)->get();
         return view('manager.sales.index')
         ->with('sales', $sales)
