@@ -54,6 +54,8 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
     Route::middleware(['auth', 'can:grob_users'])->controller(InStocksController::class)->group(function(){
         Route::post('/stock/item/add-new/in-existing', 'stockItemAddNewInExisting')->name('item.add.in.existing');
         Route::get('/search/in/stock/{sale}/{item}', 'searchInStock')->name('in.stock.search');
+        Route::get('in/stock/props/{instock}', 'inStockProps')->name('in.stock.props');
+        
     });
 
 
