@@ -97,8 +97,8 @@
                                                                     <thead>
                                                                         <th>#</th>
                                                                         <th>Date</th>
-                                                                        <th>Initial QTY</th>
-                                                                        <th>Current QTY</th>
+                                                                        <th>Initial Quantity</th>
+                                                                        <th>Current Quantity</th>
                                                                         <th>Take</th>
                                                                     </thead>
                                                                     <tbody>
