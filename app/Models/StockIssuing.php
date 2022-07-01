@@ -9,5 +9,5 @@ class StockIssuing extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['sale_id', 'item_sale_id', 'quantity', 'in_stock_id'];
+    protected $fillable = ['sale_id', 'item_id', 'quantity', 'in_stock_id'];
 }

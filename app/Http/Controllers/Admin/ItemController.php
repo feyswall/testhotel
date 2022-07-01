@@ -236,4 +236,9 @@ class ItemController extends Controller
         return response()->json($items);
     }
 
+    public static function itemObject($id){
+        $item = Item::where('id', $id)->first();
+        return $item;
+    }
+
 }

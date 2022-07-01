@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\Admin\InStocksController;
+use App\Http\Controllers\Admin\StocksIssuingController;
 
 
 Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\Admin')->group(function(){
@@ -43,12 +44,17 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
     });
 
+
     //Back Office Routes
     Route::middleware(['auth', 'can:grob_users'])->controller(BackofficeController::class)->group(function(){
         Route::get('/backoffice', 'index');
     });
 
 
+    // STOCK ISSUING PART
+    Route::middleware(['auth', 'can:grob_users'])->controller(StocksIssuingController::class)->group(function(){
+        Route::put('/issue/stock/update/{id}', 'updateIssuing')->name('update.issue');
+    });
 
     //Back Office Routes
     Route::middleware(['auth', 'can:grob_users'])->controller(InStocksController::class)->group(function(){

@@ -72,6 +72,9 @@
                                     @php
                                         $count = 0;
                                     @endphp
+                                    <form action="{{ route('update.issue', $issue->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
                                     @foreach ($sale->items as $item)
                                         <tr>
                                             <td>{{ ++$count }}</td>
@@ -105,6 +108,7 @@
                                                                         @php
                                                                             $count = 0;
                                                                         @endphp
+
                                                                         @foreach (InStock::where('item_id', $item->id)->get() as $inStock)
                                                                         @php
                                                                             ++$count;
@@ -117,6 +121,7 @@
                                                                             <td><input id="sel_qty-{{$count}}" type="number" class="form-control"></td>  
                                                                         </tr>    
                                                                         @endforeach
+
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -133,6 +138,8 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                        <button class="btn btn-success" type="submit">submit</button>
+                                    </form>    
                                     @endforeach
                                 </tbody>
                             </table>

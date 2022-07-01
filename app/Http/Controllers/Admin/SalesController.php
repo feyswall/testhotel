@@ -20,6 +20,7 @@ use App\Models\Tax;
 use App\Models\StockIssuing;
 use App\Http\Controllers\StockProductTrait;
 
+
 class SalesController extends Controller
 {
     use SalesCalculationsTrait;
@@ -294,7 +295,7 @@ class SalesController extends Controller
             // createing the stock issuing
             $stockIssue = StockIssuing::create([
                 'sale_id' => $sale->id,
-                'item_sale_id' => $item_sale->id,
+                'item_id' => $item->id,
                 'quantity' => $item->pivot->quantity,
             ]);
         }
@@ -389,9 +390,14 @@ class SalesController extends Controller
 
     public function confirm_sales($id) {
         $sale = Sale::find($id);
-        return view("manager.sales.confirm", compact('sale'));
+        if( !$sale ){
+            return redirect()->back()->with('error', 'sale object wasn\'t found');
+        }
+        $issue = StockIssuing::where('sale_id', $sale->id)->first();
+        return view("manager.sales.confirm", compact('sale', 'issue'));
     }
 
+    
 
 
 }
