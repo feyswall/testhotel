@@ -3,7 +3,7 @@
     use App\Http\Controllers\Admin\SalesController;
     use App\Models\InStock;
 @endphp
-
+ 
 @extends('pageLayouts.admin')
 
 @section('title')
@@ -17,7 +17,6 @@
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle"> Confirm Sales</h1>
             </div>
-
 
             <div class="row">
                 <div class="col-12">
@@ -54,7 +53,6 @@
                     <div class="card">
                         <div class="card-header border-bottom">
                             <h4 class="card-title text-muted">Stock Issuing</h4>
-                            <span class="subtitle text-muted">Inventory person should use this document</span>
                         </div>
                         <div class="card-body">
                             <table class="table table-condensed" id="issuing-table">
@@ -91,8 +89,6 @@
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body m-3">
-                                                                quantity & stock date
-                                                               
                                                                 <table class="table table-condensed">
                                                                     <thead>
                                                                         <th>#</th>
