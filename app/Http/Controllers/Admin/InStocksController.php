@@ -134,4 +134,23 @@ class InStocksController extends Controller
 
         return response()->json( $inStocks );
     }
+
+    public function inStockProps($inStock_id){
+
+        $inStock = InStock::find($inStock_id);
+
+         $created_at = \Carbon\Carbon::parse($inStock->created_at)->format('M-d Y') ;
+         $initialQuantity =  SalesController::initialQuantity( $inStock );
+         $currentQuantity = SalesController::currentQuantity( $inStock );
+
+
+         $sec = [
+             'created_at' => $created_at,
+             'initQuantity' => $initialQuantity,
+             'currentQantity' => $currentQuantity,
+             'stock_id' => $inStock_id,
+         ];
+
+         return response()->json( $sec);
+    }
 }

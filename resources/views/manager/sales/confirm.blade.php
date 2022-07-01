@@ -68,20 +68,20 @@
                                 </thead>
                                 <tbody class="panel">
                                     @php
-                                        $counter = 0;
+                                        $count = 0;
                                     @endphp
- 
-                                        <tr v-for="(item, key) in sale_items" :key="key">
-                                            <td>{{ ++$counter }}</td>
-                                            <td>@{{ item.code }}</td>
-                                            <td>@{{ item.desc }}</td>
-                                            <td>@{{ item.pivot.quantity }}</td>
+                                    @foreach ($sale->items as $item)
+                                        <tr>
+                                            <td>{{ ++$count }}</td>
+                                            <td>{{ $item->code }}</td>
+                                            <td>{{ $item->desc }}</td>
+                                            <td>{{ $item->pivot->quantity }}</td>
                                             <td>stock name</td>
-                                            <td>2, 3</td>
-                                            <td>02-06-22, 03-06-22</td>
-                                            <td :data-item="item.id">
-                                                <a class="btn btn-primary" v-on:click="modelClick($event)" href="#" data-bs-toggle="modal" :data-bs-target="'#issuing-modal-'+item.id">Issue Items</a>
-                                                <div class="modal fade" :id="'issuing-modal-'+item.id" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <td>{{ itemQuantity(<?php echo $item->id; ?>) }}</td>
+                                            <td>{{ itemIssueDates(<?php echo $item->id; ?>) }}</td>
+                                            <td>
+                                                <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#issuing-modal-{{$item->id}}">Issue Items</a>
+                                                <div class="modal fade" id="issuing-modal-{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -98,26 +98,28 @@
                                                                         <th>Take</th>
                                                                     </thead>
                                                                     <tbody>
-                                                                    {{-- @foreach ($inStocks as $key=>$inStock)
+                                                                        @php
+                                                                            $count = 0;
+                                                                        @endphp
+                                                                        @foreach (InStock::where('item_id', $item->id)->get() as $inStock)
+                                                                        @php
+                                                                            ++$count;
+                                                                        @endphp
                                                                         <tr>
-                                                                            <td>{{ ++$key }}</td>
-                                                                            <td>{{ \Carbon\Carbon::parse($inStock->created_at)->format('M-d Y') }}</td>    
-                                                                            <td>{{ SalesController::initialQuantity($inStock) }}</td>
-                                                                            <td>{{ SalesController::currentQuantity($inStock) }}</td>
-                                                                            <td>
-                                                                                <form id="" action="">
-                                                                                    <input type="number" value="quantity">
-                                                                                </form>
-                                                                            </td>
+                                                                            <td><input disabled value="{{$inStock->id}}" type="text" id="instock-{{$count}}"></td>
+                                                                            <td><input disabled type="text" value="{{$inStock->created_at}}" id="indate-{{$count}}"></td>
+                                                                            <td>{{ SalesController::initialQuantity( $inStock ) }}</td>
+                                                                            <td>{{ SalesController::currentQuantity( $inStock ) }}</td>
+                                                                            <td><input id="sel_qty-{{$count}}" type="number" class="form-control"></td>  
                                                                         </tr>    
-                                                                    @endforeach --}}
+                                                                        @endforeach
                                                                     </tbody>
                                                                 </table>
                                                             </div>
         
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                    <button form="cash-mode-form" type="submit" class="btn btn-success">Confirm Payment</button>
+                                                                    <button data-bs-dismiss="modal" form="cash-mode-form" v-on:click="addSelected('<?php echo $item->id; ?>', '<?php echo $count; ?>')" type="submit" class="btn btn-success">Confirm Payment</button>
                                                                 </div>
         
                                                             </div>
@@ -127,8 +129,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                     
-
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -138,6 +139,8 @@
               
 
         </div>
+
+    <meta name="stock_id" content="{{ $sale->stock_id }}">
     </main>
 
 <script>
@@ -148,21 +151,69 @@
             return {
               cash_mode: '',
                payment_method: '',
-              sale_items: {!! json_encode( $sale->items ) !!},
+                sale_items: {!! json_encode( $sale->items ) !!},
+                 inStocks: [],
+                 stockValues: '',
+                 selectedPacks: [], 
             }
         }, 
-        methods: {
-            modelClick: function(event){
-                console.log( event.target.parentElement.getAttribute('data-item') );
 
-                   for( var g=0; g < this.sale_items.length; g++){
-                       console.log( this.sale_items[g] );
-                       this.searchInstock( {{ $sale->stock_id }}, this.sale_items[g].id );
-                   }
-                   
+
+        computed: {
+            itemIssueDates(){
+                return id => {
+                    var target = this.selectedPacks.filter(el => el.id.toString() == id.toString());
+                    if(target != undefined){
+                        if(target.length == 0){ return ""; };
+                        var selected = [];
+                        for(var i = 0; i < target.length; i++){
+                            selected.push(target[i].date)
+                        }
+                        return selected;
+                    }
+                    return "";
+                }
             },
-            searchInstock: function(stock, item){
-                    var requestOptions = {
+
+            itemQuantity(){
+                return id => {
+                    var target = this.selectedPacks.filter(el => el.id.toString() == id.toString());
+                    if(target != undefined){
+                        if(target.length == 0){ return 0; };
+                        var selected = [];
+                        for(var i = 0; i < target.length; i++){
+                            selected.push(parseInt(target[i].qty))
+                        }
+                        return selected;
+                    }
+                    return 0;
+                }
+            }
+        },
+
+        methods: {
+            addSelected(itemId, count){
+                var targets = this.selectedPacks.filter(item => item.id == itemId);
+                if(targets != undefined){
+                    for(var i = 0; i < targets.length; i++){
+                        var index = this.selectedPacks.indexOf(targets[i]);
+                        this.selectedPacks.splice(index, 1);
+                    }
+                }
+                for(var i = 0; i < count; i++){
+                    var qty = document.querySelector(`#sel_qty-${i+1}`).value;
+                    var inStockId = document.querySelector(`#instock-${i+1}`).value;
+                    var inStockDate = document.querySelector(`#indate-${i+1}`).value;
+                    if(qty != ''){
+                        this.selectedPacks.push({
+                            id: itemId, inStockId: inStockId, qty: qty, date: inStockDate
+                        });
+                    }
+                }
+            }, 
+
+            inStockProps(id, key) {
+                var requestOptions = {
                     method: "GET",
                     headers: { 
                         "Content-Type": "application/json",
@@ -172,7 +223,41 @@
                 fetch(`/search/in/stock/${stock}/${item}`)
                 .then(res => res.json())
                 .then(res => {
-                    console.log( res );
+                    this.inStocks = res;
+                });
+            },
+
+            searchInStock: function(item){
+                var stock = $('meta[name="stock_id"]').attr('content');
+                var requestOptions = {
+                    method: "GET",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                     },
+                };
+                fetch(`/search/in/stock/${stock}/${item}`)
+                .then(res => res.json())
+                .then(res => {
+                    this.inStocks = res;
+                });
+            },
+
+            inStockFunct: function(instock){
+                var requestOptions = {
+                    method: "GET",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                     },
+                };
+                fetch(`/in/stock/props/${instock}`)
+                .then(res => res.json())
+                .then(res => {
+                    // this.inStockValue = res;
+                   this.stockValues = res;
+                   console.log( this.stockValues.created_at );
+                   return res;
                 });
             }
         }
