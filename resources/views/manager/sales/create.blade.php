@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <main class="content" id="app">
+    <main class="content p-4" id="app">
         <div class="container-fluid p-0">
             <a href="/sales/1" class="btn btn-primary float-end mt-n1">View Records</a>
             <div class="mb-3">
