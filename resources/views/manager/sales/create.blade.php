@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="mb-3 col-md-4">
                                     <label class="form-label" for="stock_id">Stock</label>
-                                    <select v-model="stock_id" name="stock_id" class="form-select" required id="stock_id">
+                                    <select :disabled="proforma.length > 0" v-model="stock_id" name="stock_id" class="form-select" required id="stock_id">
                                         <option value="">Select stock</option>
                                         @foreach (App\Models\Stock::all() as $stock)
                                             <option value="{{ $stock->id }}">{{ $stock->name }}</option>
@@ -210,6 +210,13 @@
         }, 
 
         watch: {
+            stock_id(c, o){
+                if(c != o || c == ''){
+                    this.proforma = [];
+                    this.results = [];
+                }
+            },
+
             customer_search(c, o){
                 if(c != ''){
                     this.mode = 0;
