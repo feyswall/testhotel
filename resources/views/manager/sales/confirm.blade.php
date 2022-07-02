@@ -2,6 +2,7 @@
     use Illuminate\Support\Facades\DB;
     use App\Http\Controllers\Admin\SalesController;
     use App\Models\InStock;
+    use App\Http\Controllers\Admin\ItemController;
 @endphp
  
 @extends('pageLayouts.admin')
@@ -55,7 +56,7 @@
                             <h4 class="card-title text-muted">Stock Issuing</h4>
                         </div>
                         <div class="card-body">
-                            <table class="table table-condensed" id="issuing-table">
+                              <table class="table table-condensed" id="issuing-table">
                                 <thead>
                                     <th>Sn</th>
                                     <th>Item</th>
@@ -70,9 +71,7 @@
                                     @php
                                         $count = 0;
                                     @endphp
-                                    <form action="{{ route('update.issue', $issue->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
+                                  
                                     @foreach ($sale->items as $item)
                                         <tr>
                                             <td>{{ ++$count }}</td>
@@ -133,10 +132,10 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                        </tr>
-                                        <button class="btn btn-success" type="submit">submit</button>
-                                    </form>    
+                                        </tr>      
                                     @endforeach
+
+                                        <button class="btn btn-success" type="submit" v-on:click="updateSaleIssue()">submit</button>
                                 </tbody>
                             </table>
                         </div>
@@ -156,12 +155,12 @@
 
         data(){
             return {
-              cash_mode: '',
-               payment_method: '',
+                cash_mode: '',
+                payment_method: '',
                 sale_items: {!! json_encode( $sale->items ) !!},
-                 inStocks: [],
-                 stockValues: '',
-                 selectedPacks: [], 
+                inStocks: [],
+                stockValues: '',
+                selectedPacks: [], 
             }
         }, 
 
@@ -266,9 +265,41 @@
                    console.log( this.stockValues.created_at );
                    return res;
                 });
+            },
+
+            updateSaleIssue: function(){
+                let sale_id = {{ $sale->id }};
+                let stock_id = {{ $sale->stock_id }};
+                var requestOptions = {
+                    method: "put",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                     },
+                    body: JSON.stringify({
+                         selectedPacks: this.selectedPacks,
+                          sale_id: sale_id,
+                          payment_method: this.payment_method,
+                          cash_mode: this.cash_mode,
+                         }),
+                };
+                fetch(`/issue/stock/update/${stock_id}`, requestOptions)
+                .then(res => res.json())
+                .then(res => {
+                   if(res[0] == 'error'){
+                       if( res[1] == 'exists'){
+                            location.href = 'sales/2';
+                       }else{
+                            alert( res[1] );
+                       }
+                   }else if( res[0] == 'validation'){
+                    alert( res[1][0] )
+                   }else if('success'){
+                       location.href = '/sales/2';
+                   }
+                });
             }
         }
-
     });
 </script>
 @endsection

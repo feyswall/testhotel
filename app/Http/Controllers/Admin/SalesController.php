@@ -19,6 +19,10 @@ use \stdClass;
 use App\Models\Tax;
 use App\Models\StockIssuing;
 use App\Http\Controllers\StockProductTrait;
+use App\Models\Stock;
+use App\Models\InStock;
+use App\Models\Outstock;
+use  App\Models\StockModes;
 
 
 class SalesController extends Controller
@@ -97,7 +101,6 @@ class SalesController extends Controller
 
         // finally loop throgh every item and attach to the current sale
         foreach( $items as $item ){
-
                 $sale->items()->attach($item['item_id'], [
                     'quantity' => $item['item_quantity'],
                     'due_price' => $item['due_price'],
@@ -291,13 +294,6 @@ class SalesController extends Controller
                 ->where('item_id', $item->id)
                 ->where('sale_id', $sale->id)
                 ->first();
-    
-            // createing the stock issuing
-            $stockIssue = StockIssuing::create([
-                'sale_id' => $sale->id,
-                'item_id' => $item->id,
-                'quantity' => $item->pivot->quantity,
-            ]);
         }
 
 
@@ -368,7 +364,12 @@ class SalesController extends Controller
 
     }
 
-    function preview($id){
+
+
+    /**
+     * preview function
+     */
+    public function preview($id){
         $sale = Sale::find($id);
         $customer = $sale->customer;
         $vat_rate = $sale->vat ?? 0;
@@ -388,16 +389,127 @@ class SalesController extends Controller
         return view('manager.sales.preview', compact('sale', 'customer', 'purchase', 'vat_rate', 'setting'));
     }
 
+
+
+
+
+    /**
+     * confirm sales function
+     */
     public function confirm_sales($id) {
         $sale = Sale::find($id);
         if( !$sale ){
             return redirect()->back()->with('error', 'sale object wasn\'t found');
         }
-        $issue = StockIssuing::where('sale_id', $sale->id)->first();
-        return view("manager.sales.confirm", compact('sale', 'issue'));
+        return view("manager.sales.confirm", compact('sale'));
     }
 
-    
 
+
+
+
+    /**
+     * createing the stock issuing object for a sale
+     */
+    public function updateIssuing(Request $request, $id){
+
+        $rules = [
+            'selectedPacks' => 'required|array',
+            'cash_mode' => 'required',
+            'sale_id' => 'required',
+            'payment_method' => 'required_if:cash_mode,1'
+        ];
+
+        $saleObject = Sale::find( $request->sale_id );
+
+        if( !$saleObject ){
+            return response()->json(['error', 'This sale is not found...']);
+        }
+
+        if( !$saleObject->StockIssuing->exists() ){
+            return response()->json(['error', 'exists']);
+        }
+
+        $validate = Validator::make($request->all(), $rules, $messages = [
+            'cash_mode.required' => 'Receive Payment field is requeired',
+            'payment_method.required' => 'payment method field is required',
+            'selectedPackes.required' => 'You didn\'t choose any items', 
+        ]);
+
+        if( $validate->fails() ){
+            $data = [
+                'validation',
+                $validate->errors()->all(),
+            ];
+            return response()->json($data);
+        }
+
+
+        $selectedPacks = $request->selectedPacks;
+
+        // counting the quantities of the products presented
+        $result = array();
+    
+        foreach( $selectedPacks as $selected ){
+            $itemsList[$selected['id']][] = $selected;
+        }
+        foreach( $itemsList as $key=>$items ){
+
+            $keyItem = Item::find($key);
+
+            $itemSale = DB::table('item_sale')->where('item_id', $keyItem->id)
+            ->where('sale_id', $saleObject->id )->first();
+
+            $counter = 0;
+            foreach( $items as $item ){    
+                $inStock = InStock::where('id', $item['inStockId'])->first();
+                if(self::currentQuantity($inStock) < $item['qty']){
+                        return response()->json(['error', ' Not Enough Quantity of '.$keyItem->code.' In '.Carbon::parse($item['date'])->format('d-M Y'). ' Entrence']);
+                    }
+                $counter += $item['qty'];
+            }
+            if( $counter > $itemSale->quantity ){
+                return response()->json(['error', 'You pick too many '.$keyItem->code.' than required']);
+            }elseif( $counter < $itemSale->quantity ){
+                return response()->json(['error', 'You pick less '.$keyItem->code.' than required']);
+            }
+
+        }
+
+        $stock = Stock::where('id', $id)->first();
+        if( !$stock ){
+            return response()->json(['error', 'stock is absent']);
+        }
+
+        $sold = StockModes::where('name', 'sold')->first();
+
+        foreach( $selectedPacks as $selected ){    
+            StockIssuing::create([  
+            'sale_id' => $request->sale_id,
+            'item_id' => $selected['id'],
+            'quantity' => $selected['qty'],
+            'in_stock_id' => $selected['inStockId'],
+            ]);
+
+            OutStock::create([
+                'in_stock_id' => $selected['inStockId'],
+                'quantity' => $selected['qty'],
+                'date_out'=> \Carbon\Carbon::now(),
+                'stock_mode_id' => $sold->id,
+            ]);
+
+            $saleObject->update([
+                'cash_mode' => $request->cash_mode,
+                'payment_method_id' => $request->payment_method,
+            ]);         
+        }
+        return response()->json(['success', 'successfully inserted']);;
+    }
+
+
+    public static function saleObject($id){
+        $sale = Sale::where('id', $id)->first();
+        return $sale;
+    }
 
 }

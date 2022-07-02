@@ -52,8 +52,8 @@ Route::middleware(['auth', 'can:grob_users'])->namespace('App\Http\Controllers\A
 
 
     // STOCK ISSUING PART
-    Route::middleware(['auth', 'can:grob_users'])->controller(StocksIssuingController::class)->group(function(){
-        Route::put('/issue/stock/update/{id}', 'updateIssuing')->name('update.issue');
+    Route::middleware(['auth', 'can:grob_users'])->controller(SalesController::class)->group(function(){
+        Route::put('/issue/stock/update/{id}', 'updateIssuing')->name('update.sale.issue');
     });
 
     //Back Office Routes

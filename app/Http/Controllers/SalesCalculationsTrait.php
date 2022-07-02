@@ -27,8 +27,6 @@ trait SalesCalculationsTrait
     }
 
 
-
-
     public function discounted($sale, $vat_rate){
         $discounted_income = $this->calculateSubTotal($sale->items) + (($vat_rate/100) * $this->calculateSubTotal($sale->items)) - $sale->discount;
         return $discounted_income;
@@ -43,9 +41,9 @@ trait SalesCalculationsTrait
 
 
 
-    // after creating invoice
 
     /**
+     *  After creating invoice
      *  Calculating sub-total
      */
     public static function calculateSubTotalAfter(Collection $items){

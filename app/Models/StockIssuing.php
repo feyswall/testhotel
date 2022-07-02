@@ -10,4 +10,8 @@ class StockIssuing extends Model
     use HasFactory;
 
     protected $fillable = ['sale_id', 'item_id', 'quantity', 'in_stock_id'];
+
+    public function sale(){
+        return $this->belongsTo( Sale::class );
+    }
 }
