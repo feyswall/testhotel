@@ -115,7 +115,7 @@
                                                                             <td><input class="form-control border-0 bg-white" disabled type="text" value="{{$inStock->created_at}}" id="indate-{{$count}}-{{$item->id}}"></td>
                                                                             <td>{{ SalesController::initialQuantity( $inStock ) }}</td>
                                                                             <td>{{ SalesController::currentQuantity( $inStock ) }}</td>
-                                                                            <td><input id="sel_qty-{{$count}}-{{$item->id}}" type="number" min="0" class="form-control"></td>  
+                                                                            <td><input id="sel_qty-{{$count}}-{{$item->id}}" type="number" min="1" class="form-control"></td>  
                                                                         </tr>    
                                                                         @endforeach
 
@@ -212,9 +212,11 @@
                     var inStockId = document.querySelector(`#instock-${i+1}-${itemId}`).value;
                     var inStockDate = document.querySelector(`#indate-${i+1}-${itemId}`).value;
                     if(qty != ''){
-                        this.selectedPacks.push({
-                            id: itemId, inStockId: inStockId, qty: qty, date: inStockDate
-                        });
+                        if(qty > 0){
+                            this.selectedPacks.push({
+                                id: itemId, inStockId: inStockId, qty: qty, date: inStockDate
+                            });
+                        }
                     }
                 }
             }, 

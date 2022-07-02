@@ -70,8 +70,8 @@
                                                     <td>@{{index+1}}</td>
                                                     <td>@{{item.code}}</td>
                                                     <td style="width: 30%">@{{item.desc}}</td>
-                                                    <td>[2,3]</td>
-                                                    <td>[jul 2, 2020, aug 3, 2022]</td>
+                                                    <td>0</td>
+                                                    <td>-</td>
                                                     <td><input type="text" v-model="item.details" placeholder="Details" class="form-control"></td>
                                                     <td><button v-on:click="addItem(index)" class="btn btn-primary"><i class="la la-plus"></i></button></td>
                                                 </tr>
