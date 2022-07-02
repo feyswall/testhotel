@@ -418,6 +418,7 @@ class SalesController extends Controller
 
         $rules = [
             'selectedPacks' => 'required|array',
+            'selectedPacks.*.qty' => 'required|min:1',
             'cash_mode' => 'required',
             'sale_id' => 'required',
             'payment_method' => 'required_if:cash_mode,1',
@@ -459,8 +460,14 @@ class SalesController extends Controller
             $itemsList[$selected['id']][] = $selected;
         }
 
-        $allItemSale = DB::table('item_sale')->where('item_id', $keyItem->id)
-        ->where('sale_id', $saleObject->id )->first();
+
+        $allItemSale = DB::table('item_sale')
+        ->where('sale_id', $saleObject->id )->get();
+
+
+        if( $allItemSale->count() != sizeof($itemsList) ){
+            return response()->json(['error', 'please fill all the fields...']);
+        }
 
         foreach( $itemsList as $key=>$items ){
 
@@ -470,18 +477,37 @@ class SalesController extends Controller
             ->where('sale_id', $saleObject->id )->first();
 
             $counter = 0;
+
             foreach( $items as $item ){    
                 $inStock = InStock::where('id', $item['inStockId'])->first();
+
+            /**
+             * in every iteration check if the quantity of item
+             * specified in that iteration exceed the sum quantity
+             * of that product  in selling queue (invoice)
+             */
+            if( $item['qty'] > $itemSale->quantity ){
+                return response()->json(['error', 'You pick too many '.$keyItem->code.' than required - WITH Description  '. $keyItem->desc]);
+            }elseif( $counter < $itemSale->quantity ){
+                return response()->json(['error', 'You pick less '.$keyItem->code.' than required - WITH Description  '. $keyItem->desc]);
+            }
+
                 if(self::currentQuantity($inStock) < $item['qty']){
-                        return response()->json(['error', ' Not Enough Quantity of '.$keyItem->code.' In '.Carbon::parse($item['date'])->format('d-M Y'). ' Entrence']);
+                        return response()->json(['error', 'Not Enough Quantity of '.$keyItem->code.' In '.Carbon::parse($item['date'])->format('d-M Y'). ' Entrence  - WITH Description  '. $keyItem->desc]);
                     }
                 $counter += $item['qty'];
             }
+
+            /**
+             * checking if the summation of the item in the iteration
+             * exceed that in the selling queue (invoice)
+             */
             if( $counter > $itemSale->quantity ){
-                return response()->json(['error', 'You pick too many '.$keyItem->code.' than required']);
+                return response()->json(['error', 'You pick too many '.$keyItem->code.' than required - WITH Description  '. $keyItem->desc]);
             }elseif( $counter < $itemSale->quantity ){
-                return response()->json(['error', 'You pick less '.$keyItem->code.' than required']);
+                return response()->json(['error', 'You pick less '.$keyItem->code.' than required - WITH Description  '. $keyItem->desc]);
             }
+
 
         }
 
