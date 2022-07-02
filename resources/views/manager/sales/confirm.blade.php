@@ -3,6 +3,8 @@
     use App\Http\Controllers\Admin\SalesController;
     use App\Models\InStock;
     use App\Http\Controllers\Admin\ItemController;
+    use App\Http\Controllers\Admin\StocksController;
+    use App\Http\Controllers\Admin\ItemController;
 @endphp
  
 @extends('pageLayouts.admin')

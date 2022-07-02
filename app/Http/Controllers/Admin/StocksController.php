@@ -324,4 +324,9 @@ class StocksController extends Controller
         return response()->json($stock->items);
     }
 
+    public static function stockObject($id){
+        $stock = Stock::where('id', $id)->first();
+        return $stock;
+    }
+
 }
