@@ -401,6 +401,9 @@ class SalesController extends Controller
         if( !$sale ){
             return redirect()->back()->with('error', 'sale object wasn\'t found');
         }
+        if($sale->stock_issuings->count() > 0){
+            return redirect()->back()->with('error', 'Aready Confirmed...');
+        }
         return view("manager.sales.confirm", compact('sale'));
     }
 
@@ -417,7 +420,8 @@ class SalesController extends Controller
             'selectedPacks' => 'required|array',
             'cash_mode' => 'required',
             'sale_id' => 'required',
-            'payment_method' => 'required_if:cash_mode,1'
+            'payment_method' => 'required_if:cash_mode,1',
+
         ];
 
         $saleObject = Sale::find( $request->sale_id );
@@ -426,14 +430,15 @@ class SalesController extends Controller
             return response()->json(['error', 'This sale is not found...']);
         }
 
-        if( !$saleObject->StockIssuing->exists() ){
+
+        if( $saleObject->StockIssuing ){
             return response()->json(['error', 'exists']);
         }
 
         $validate = Validator::make($request->all(), $rules, $messages = [
             'cash_mode.required' => 'Receive Payment field is requeired',
             'payment_method.required' => 'payment method field is required',
-            'selectedPackes.required' => 'You didn\'t choose any items', 
+            'selectedPacks.required' => 'You didn\'t choose any items', 
         ]);
 
         if( $validate->fails() ){
