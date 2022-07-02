@@ -458,6 +458,10 @@ class SalesController extends Controller
         foreach( $selectedPacks as $selected ){
             $itemsList[$selected['id']][] = $selected;
         }
+
+        $allItemSale = DB::table('item_sale')->where('item_id', $keyItem->id)
+        ->where('sale_id', $saleObject->id )->first();
+
         foreach( $itemsList as $key=>$items ){
 
             $keyItem = Item::find($key);

@@ -4,7 +4,6 @@
     use App\Models\InStock;
     use App\Http\Controllers\Admin\ItemController;
     use App\Http\Controllers\Admin\StocksController;
-
 @endphp
  
 @extends('pageLayouts.admin')
@@ -59,7 +58,7 @@
                                 <button class="btn btn-success" type="submit" v-on:click="updateSaleIssue()">Cofirm Sales</button>
                             </div>
                             <h5 class="card-title text-muted">Stock Issuing</h5>
-                            <h6 class="card-subtitle text-muted">Stock Name: {{ $sale->id }}</h6>
+                            <h6 class="card-subtitle text-muted">Stock Name: {{ $sale->stock->name }}</h6>
                         </div>
                         <div class="card-body">
                               <table class="table table-condensed" id="issuing-table">
@@ -91,17 +90,16 @@
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title">Stock items issuing</h5>
+                                                                <h4 class="modal-title text-muted">Issuing of {{$item->desc}}</h4>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body m-3">
                                                                 <table class="table table-condensed">
                                                                     <thead>
-                                                                        <th>#</th>
-                                                                        <th>Date</th>
-                                                                        <th>Initial Quantity</th>
-                                                                        <th>Current Quantity</th>
-                                                                        <th>Take</th>
+                                                                        <th>Date Added</th>
+                                                                        <th>Initial QTY</th>
+                                                                        <th>Balance QTY</th>
+                                                                        <th>Issuing QTY</th>
                                                                     </thead>
                                                                     <tbody>
                                                                         @php
@@ -113,11 +111,11 @@
                                                                             ++$count;
                                                                         @endphp
                                                                         <tr>
-                                                                            <td><input disabled value="{{$inStock->id}}" type="text" id="instock-{{$count}}"></td>
-                                                                            <td><input disabled type="text" value="{{$inStock->created_at}}" id="indate-{{$count}}"></td>
+                                                                            <td class="d-none"><input disabled value="{{$inStock->id}}" type="text" id="instock-{{$count}}-{{$item->id}}"></td>
+                                                                            <td><input class="form-control border-0 bg-white" disabled type="text" value="{{$inStock->created_at}}" id="indate-{{$count}}-{{$item->id}}"></td>
                                                                             <td>{{ SalesController::initialQuantity( $inStock ) }}</td>
                                                                             <td>{{ SalesController::currentQuantity( $inStock ) }}</td>
-                                                                            <td><input id="sel_qty-{{$count}}" type="number" class="form-control"></td>  
+                                                                            <td><input id="sel_qty-{{$count}}-{{$item->id}}" type="number" min="0" class="form-control"></td>  
                                                                         </tr>    
                                                                         @endforeach
 
@@ -155,7 +153,6 @@
 <script>
     var app = new Vue({
         el: '#app', 
-
         data(){
             return {
                 cash_mode: '',
@@ -166,8 +163,11 @@
                 selectedPacks: [], 
             }
         }, 
-
-
+        watch: {
+            selectedPacks(c, o){
+                // console.log(JSON.stringify(this.selectedPacks));
+            }
+        },
         computed: {
             itemIssueDates(){
                 return id => {
@@ -183,7 +183,6 @@
                     return "";
                 }
             },
-
             itemQuantity(){
                 return id => {
                     var target = this.selectedPacks.filter(el => el.id.toString() == id.toString());
@@ -199,7 +198,6 @@
                 }
             }
         },
-
         methods: {
             addSelected(itemId, count){
                 var targets = this.selectedPacks.filter(item => item.id == itemId);
@@ -210,9 +208,9 @@
                     }
                 }
                 for(var i = 0; i < count; i++){
-                    var qty = document.querySelector(`#sel_qty-${i+1}`).value;
-                    var inStockId = document.querySelector(`#instock-${i+1}`).value;
-                    var inStockDate = document.querySelector(`#indate-${i+1}`).value;
+                    var qty = document.querySelector(`#sel_qty-${i+1}-${itemId}`).value;
+                    var inStockId = document.querySelector(`#instock-${i+1}-${itemId}`).value;
+                    var inStockDate = document.querySelector(`#indate-${i+1}-${itemId}`).value;
                     if(qty != ''){
                         this.selectedPacks.push({
                             id: itemId, inStockId: inStockId, qty: qty, date: inStockDate
@@ -220,7 +218,6 @@
                     }
                 }
             }, 
-
             inStockProps(id, key) {
                 var requestOptions = {
                     method: "GET",
@@ -235,7 +232,6 @@
                     this.inStocks = res;
                 });
             },
-
             searchInStock: function(item){
                 var stock = $('meta[name="stock_id"]').attr('content');
                 var requestOptions = {
@@ -251,7 +247,6 @@
                     this.inStocks = res;
                 });
             },
-
             inStockFunct: function(instock){
                 var requestOptions = {
                     method: "GET",
@@ -269,7 +264,6 @@
                    return res;
                 });
             },
-
             updateSaleIssue: function(){
                 let sale_id = {{ $sale->id }};
                 let stock_id = {{ $sale->stock_id }};
@@ -291,7 +285,7 @@
                 .then(res => {
                    if(res[0] == 'error'){
                        if( res[1] == 'exists'){
-                            alert('Issue aready Created')
+                            location.href = 'sales/2';
                        }else{
                             alert( res[1] );
                        }
