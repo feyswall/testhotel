@@ -74,7 +74,7 @@
                                             <div class="dropdown-menu">
                                                 @if($sale->invoice_number != null && $sale->cash_mode == 2 && $sale->stock_issuings->count() < 1 )
                                                     <a class="dropdown-item" href="/preview_sale/{{$sale->id}}">Print Invoice</a>
-                                                    <a class="dropdown-item" href="/confirm_sales/{{$sale->id}}">Confirm sales coco</a>
+                                                    <a class="dropdown-item" href="/confirm_sales/{{$sale->id}}">Confirm sales</a>
                                                 @elseif($sale->invoice_number == null && $sale->cash_mode == 2)
                                                     {{-- <a class="dropdown-item" href="#">Print Proforma</a> --}}
                                                     <a class="dropdown-item" href="/proforma/{{$sale->id}}">Prepare Invoice</a>
