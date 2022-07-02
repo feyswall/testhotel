@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="mb-3 col-md-4">
                             <label class="form-label" for="selling_price">From Stock</label>
-                            <select v-model="stock_id" name="stock_id" class="form-select" required id="stock_id">
+                            <select :disabled="stock_out.length > 0" v-model="stock_id" name="stock_id" class="form-select" required id="stock_id">
                                 <option value="">Select stock</option>
                                 @foreach (App\Models\Stock::all() as $stock)
                                     <option value="{{ $stock->id }}">{{ $stock->name }}</option>
@@ -32,7 +32,7 @@
                         </div>
                         <div class="mb-3 col-md-3">
                             <label class="form-label" for="stock_mode">Recording for</label>
-                            <select :disabled="stock_id == ''" v-model="stock_mode" class="form-select" id="stock_mode">
+                            <select :disabled="stock_id == '' ||stock_out.length > 0" v-model="stock_mode" class="form-select" id="stock_mode">
                                 <option value="">Select mode</option>
                                 @foreach ($modes as $mode)
                                     <option value="{{ $mode->id }}">{{ $mode->name }}</option>
@@ -61,8 +61,8 @@
                                                     <th>Sn</th>
                                                     <th>Item</th>
                                                     <th>Description</th>
-                                                    <th>Selling Price</th>
                                                     <th>Quantity</th>
+                                                    <th>Stock Date</th>
                                                     <th>Details</th>
                                                     <th>Add Item</th>
                                                 </thead>
@@ -70,8 +70,8 @@
                                                     <td>@{{index+1}}</td>
                                                     <td>@{{item.code}}</td>
                                                     <td style="width: 30%">@{{item.desc}}</td>
-                                                    <td>@{{item.selling_price}}</td>
-                                                    <td><input type="number" min="0" v-model="item.quantity"></td>
+                                                    <td>[2,3]</td>
+                                                    <td>[jul 2, 2020, aug 3, 2022]</td>
                                                     <td><input type="text" v-model="item.details" placeholder="Details" class="form-control"></td>
                                                     <td><button v-on:click="addItem(index)" class="btn btn-primary"><i class="la la-plus"></i></button></td>
                                                 </tr>
@@ -90,6 +90,7 @@
                                 <th>Item</th>
                                 <th>Description</th>
                                 <th>Quantity</th>
+                                <th>Stock Date</th>
                                 <th>Details</th>
                                 <th>Action</th>
                             </tr>
@@ -100,6 +101,56 @@
                                 <td>@{{item.code}}</td>
                                 <td>@{{item.desc}}</td>
                                 <td>@{{item.quantity}}</td>
+                                <td>
+                                    {{-- <input disabled class="form-control" type="date" href="#" data-bs-toggle="modal" data-bs-target="#issuing-modal-{{$item->id}}" placeholder="Stock date">
+                                    <div class="modal fade" id="issuing-modal-{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title text-muted">Issuing of {{$item->desc}}</h4>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body m-3">
+                                                    <table class="table table-condensed">
+                                                        <thead>
+                                                            <th>Date Added</th>
+                                                            <th>Initial QTY</th>
+                                                            <th>Balance QTY</th>
+                                                            <th>Issuing QTY</th>
+                                                        </thead>
+                                                        <tbody>
+                                                            @php
+                                                                $count = 0;
+                                                            @endphp
+
+                                                            @foreach (InStock::where('item_id', $item->id)->get() as $inStock)
+                                                            @php
+                                                                ++$count;
+                                                            @endphp
+                                                            <tr>
+                                                                <td class="d-none"><input disabled value="{{$inStock->id}}" type="text" id="instock-{{$count}}-{{$item->id}}"></td>
+                                                                <td><input class="form-control border-0 bg-white" disabled type="text" value="{{$inStock->created_at}}" id="indate-{{$count}}-{{$item->id}}"></td>
+                                                                <td>{{ SalesController::initialQuantity( $inStock ) }}</td>
+                                                                <td>{{ SalesController::currentQuantity( $inStock ) }}</td>
+                                                                <td><input id="sel_qty-{{$count}}-{{$item->id}}" type="number" min="0" class="form-control"></td>  
+                                                            </tr>    
+                                                            @endforeach
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button data-bs-dismiss="modal" form="cash-mode-form" v-on:click="addSelected('<?php echo $item->id; ?>', '<?php echo $count; ?>')" type="submit" class="btn btn-success">Confirm Payment</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                </td>
                                 <td>@{{item.details}}</td>
                                 <td>
                                     <button v-on:click="removeItem(index)" class="btn btn-danger"><i class="la la-trash"></i></button>
@@ -156,13 +207,8 @@
                         alert("Item already added!");
                     }else{
                         var item = this.results[index];
-                        if(item.quantity == undefined){
-                            alert("Item Quantity required!");
-                        }else{
-                            this.stock_out.push(item);
-                            this.results.splice(index, 1);
-                            this.item_search = "";
-                        }
+                        this.stock_out.push(item);
+                        this.results.splice(index, 1);
                     }
                 },
 
