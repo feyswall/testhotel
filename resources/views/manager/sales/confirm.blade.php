@@ -53,7 +53,11 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header border-bottom">
-                            <h4 class="card-title text-muted">Stock Issuing</h4>
+                            <div class="card-actions float-end">
+                                <button class="btn btn-success" type="submit" v-on:click="updateSaleIssue()">Cofirm Sales</button>
+                            </div>
+                            <h5 class="card-title text-muted">Stock Issuing</h5>
+                            <h6 class="card-subtitle text-muted">Stock Name: {{ $sale->id }}</h6>
                         </div>
                         <div class="card-body">
                               <table class="table table-condensed" id="issuing-table">
@@ -62,7 +66,6 @@
                                     <th>Item</th>
                                     <th>Description</th>
                                     <th>Invoiced Qty</th>
-                                    <th>Stock</th>
                                     <th>Issued Qty</th>
                                     <th>Issued From</th>
                                     <th>Action</th>
@@ -78,7 +81,6 @@
                                             <td>{{ $item->code }}</td>
                                             <td>{{ $item->desc }}</td>
                                             <td>{{ $item->pivot->quantity }}</td>
-                                            <td>stock name</td>
                                             <td>{{ itemQuantity(<?php echo $item->id; ?>) }}</td>
                                             <td>{{ itemIssueDates(<?php echo $item->id; ?>) }}</td>
                                             <td>
@@ -135,7 +137,6 @@
                                         </tr>      
                                     @endforeach
 
-                                        <button class="btn btn-success" type="submit" v-on:click="updateSaleIssue()">submit</button>
                                 </tbody>
                             </table>
                         </div>
